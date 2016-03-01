@@ -24,8 +24,10 @@ public class Box {
 			setState(0);
 	}
 	public void green(Grid solution) {//checks solution
-		if(solution.getBox(x, y).getState() == 1)
+		if(solution.getBox(x, y).getState() == 1 && state != 2)
 			setState(1);
+		else if(state == 2)
+			setState(0);
 		else
 			setState(3);
 		canModify = false;

@@ -25,7 +25,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	public Image imgBuffer;
 	private Scanner s;
 	public Graphics() {
-		gameGrid = new Grid(5, 5);
 		frame = new FancyFrame(TITLE, SIZE);
 		frame.addKeyListener(this);
 		frame.addWindowListener(this);
@@ -40,16 +39,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		solutionGrid = new Grid(gameGrid.sizeX, gameGrid.sizeY);
+		/*
 		for(int i = 0; i < gameGrid.sizeX; i++) {
 			for(int j = 0; j < gameGrid.sizeY; j++) {
 				if(i == 0 || j == 0 || i == 4 || j == 4)
 					solutionGrid.getBox(i, j).setState(1);
 			}
 		}
+		*/
+		getSolution();
 		gameGrid.generateClues(solutionGrid);
 		currBox = null;
-		//getSolution();
+		
 	}
 	@Override
 	public void windowActivated(WindowEvent arg0) {
@@ -208,11 +209,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		int x, y;
 		x = Integer.parseInt(s.nextLine());
 		y = Integer.parseInt(s.nextLine());
+		gameGrid = new Grid(x,y);
 		solutionGrid = new Grid(x, y);
 		for(int i = 0; i < x; i++) {
 			for(int j = 0; j < y; j++) {
-				boolean b = s.nextBoolean();
-				if(b) {
+				byte b = s.nextByte();
+				if(b == 1) {
 					solutionGrid.getBox(i, j).setState(1);
 				}
 			}
