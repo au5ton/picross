@@ -169,19 +169,23 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			selX = x;
 			selY = y;
 			draw();
-			/*try {
-				Thread.sleep(50);
-			/} catch (InterruptedException e) {
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
 		}
+		
 	}
 	public void draw() {
-		Graphics2D art = (Graphics2D)frame.getGraphics();
+		Graphics2D art = (Graphics2D)imgBuffer.getGraphics();
 		art.setFont(art.getFont().deriveFont(12f));
 		for(int i = 1; i < (gameGrid.sizeX + 1); i++) {
 			for(int j = 1; j < (gameGrid.sizeY + 1); j++) {
 				gameGrid.drawGrid(i, j, art);
+				art.setColor(Color.BLACK);
+				gameGrid.drawClues(i, 0, art);
+				gameGrid.drawClues(i, 1, art);
 				if(i == selX / 100 && j == selY / 100) {
 					art.setColor(new Color(0, 0, 0, 128));
 					art.fillRect(i * 100, j * 100, 100, 100);
@@ -190,20 +194,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					art.setColor(new Color(0, 0, 0, 64));
 					art.fillRect(i * 100, j * 100, 100, 100);
 				}
-				
+				/*
 				else {
 					art.setColor(new Color(255,255,255));
 					art.fillRect(i, j, 100, 100);
 				}
+				*/
 				art.setColor(Color.BLACK);
 				art.drawRect(i * 100, j * 100, 100, 100);
 			}
 		}
-		art.setColor(Color.BLACK);
-		art.drawString("2 2", 10, 150);
 		if(solved) {
 			art.drawString("SOLVED", 50, 50);
 		}
+		art = (Graphics2D)frame.getGraphics();
+		art.drawImage(imgBuffer, 0, 0, SIZE.width, SIZE.height, 0, 0, SIZE.width, SIZE.height, null);
+		art.dispose();
 	}
 	private void getSolution() {
 		int x, y;
@@ -213,7 +219,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		solutionGrid = new Grid(x, y);
 		for(int i = 0; i < x; i++) {
 			for(int j = 0; j < y; j++) {
-				byte b = s.nextByte();
+				int b = s.nextInt();
 				if(b == 1) {
 					solutionGrid.getBox(i, j).setState(1);
 				}

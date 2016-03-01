@@ -26,17 +26,19 @@ public class Clue {
 		}
 	}
 	public void generateClue(Grid grid, int y) {
-		int temp = 0, x = 0;
-		do {
-
-			x++;
-			temp = 0;
-			while(x + 1 < (type == 0 ? grid.sizeX : grid.sizeY) && grid.getBox(type == 0 ? x : y, type == 0 ? y : x).getState() == 1) {
-				x++;
+		int temp = 0, x = 0, length = (type == 0 ? grid.sizeX : grid.sizeY);
+		while(x < length) {
+			Box currBox = grid.getBox(type == 0 ? x : y, type == 0 ? y : x);
+			if(currBox.getState() == 1)
 				temp++;
+			else if(temp > 0) {
+				values.add(temp);
+				temp = 0;
 			}
+			x++;
+		}
+		if(temp > 0)
 			values.add(temp);
-		} while(x + 1 < (type == 0 ? grid.sizeX : grid.sizeY));
 	}
 	public String toString() {
 		char c = (type == 0 ? ' ' : '\n');
@@ -44,8 +46,10 @@ public class Clue {
 		for(int i = 0; i < values.size(); i++) {
 			out += Integer.toString(values.get(i));
 			if(i + 1 < values.size())
-				out += Character.toString(c);
+				out += c;
 		}
+		if(out == "")
+			out = "0";
 		return out;
 	}
 }

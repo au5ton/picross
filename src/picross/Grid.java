@@ -46,6 +46,15 @@ public class Grid {
 			art.drawLine(x * 100 + 10, y * 100 + 90, x * 100 + 90, y * 100 + 10);
 		}
 	}
+	public void drawClues(int x, int type, Graphics2D art) {
+		String s = (type == 0 ? cluesX[x - 1].toString() : cluesY[x - 1].toString());
+		if(type == 0) {
+			art.drawString(s, 20, x * 100 + 50);
+		}
+		else {
+			art.drawString(s, x * 100 + 50, 50);
+		}
+	}
 	public Box getBox(int x, int y) {
 		return boxes[x][y];
 	}
