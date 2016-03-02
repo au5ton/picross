@@ -5,17 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Clue {
-	private int type, pos;
+	private int type;
 	private List<Integer> values = new ArrayList<Integer>();
 	public Clue(int position, int type) {
-		pos = position;
 		this.type = type;//0 is horizontal, 1 is vertical
-	}
-	public int getType() {
-		return type;
-	}
-	public int getPos() {
-		return pos;
 	}
 	public List<Integer> getValues() {
 		if(values.size() > 0) {

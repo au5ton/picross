@@ -16,6 +16,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	//basic window properties
 	public final String TITLE = "Picross";
 	public final Dimension SIZE = new Dimension(1000, 1000);
+	public static int bSize;
 	//
 	private Grid gameGrid, solutionGrid;
 	private Box currBox;
@@ -23,6 +24,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private boolean isRunning, isDone, solved;
 	public FancyFrame frame;
 	public Image imgBuffer;
+	private String currWindow;
 	private Scanner s;
 	public Graphics() {
 		frame = new FancyFrame(TITLE, SIZE);
@@ -125,6 +127,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	public void run() {
 		while(isRunning) {
 			//check for completeness
+			bSize = getBoxSize();
 			boolean temp = true;
 			for(int i = 0; i < gameGrid.sizeX; i++) {
 				for(int j = 0; j < gameGrid.sizeY; j++) {
@@ -138,10 +141,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				frame.hasClicked = false;
 			}
 			int x = frame.mouseX, y = frame.mouseY;
-			if(currBox != null && x / 100 - 1 < gameGrid.sizeX && y / 100 - 1 < gameGrid.sizeY && x > 100 && y > 100 && currBox != gameGrid.getBox(x / 100 - 1, y / 100 - 1))
+			if(currBox != null && (x - 100) / bSize < gameGrid.sizeX && (y - 100) / bSize < gameGrid.sizeY && x > 100 && y > 100 && currBox != gameGrid.getBox((x - 100) / bSize, (y - 100) / bSize))
 				currBox.canModify = true;
-			if(x / 100 - 1 < gameGrid.sizeX && y / 100 - 1 < gameGrid.sizeY && x > 100 && y > 100) {
-				currBox = gameGrid.getBox(x / 100 - 1, y / 100 - 1);
+			if((x - 100) / bSize < gameGrid.sizeX && (y - 100) / bSize < gameGrid.sizeY && x > 100 && y > 100) {
+				currBox = gameGrid.getBox((x - 100) / bSize, (y - 100) / bSize);
 			}
 			else {
 				currBox = null;
@@ -179,20 +182,20 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	public void draw() {
 		Graphics2D art = (Graphics2D)imgBuffer.getGraphics();
-		art.setFont(art.getFont().deriveFont(12f));
-		for(int i = 1; i < (gameGrid.sizeX + 1); i++) {
-			for(int j = 1; j < (gameGrid.sizeY + 1); j++) {
+		art.setFont(art.getFont().deriveFont(12f));//12x7 pixels
+		for(int i = 0; i < (gameGrid.sizeX); i++) {
+			for(int j = 0; j < (gameGrid.sizeY); j++) {
 				gameGrid.drawGrid(i, j, art);
 				art.setColor(Color.BLACK);
 				gameGrid.drawClues(i, 0, art);
 				gameGrid.drawClues(i, 1, art);
-				if(i == selX / 100 && j == selY / 100) {
+				if(i == (selX - 100) / bSize && j == (selY - 100) / bSize) {
 					art.setColor(new Color(0, 0, 0, 128));
-					art.fillRect(i * 100, j * 100, 100, 100);
+					art.fillRect(100 + i * bSize, 100 + j * bSize, bSize, bSize);
 				}
-				else if(i == selX / 100 || j == selY / 100) {
+				else if(i == (selX - 100) / bSize || j == (selY - 100) / bSize) {
 					art.setColor(new Color(0, 0, 0, 64));
-					art.fillRect(i * 100, j * 100, 100, 100);
+					art.fillRect(100 + i * bSize, 100 + j * bSize, bSize, bSize);
 				}
 				/*
 				else {
@@ -201,7 +204,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 				*/
 				art.setColor(Color.BLACK);
-				art.drawRect(i * 100, j * 100, 100, 100);
+				art.drawRect(100 + i * bSize, 100 + j * bSize, bSize, bSize);
 			}
 		}
 		if(solved) {
@@ -224,6 +227,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					solutionGrid.getBox(i, j).setState(1);
 				}
 			}
+		}
+	}
+	private int getBoxSize() {
+		if(gameGrid.sizeX >= gameGrid.sizeY) {
+			return (int) ((frame.getSize().getWidth() - 200) / gameGrid.sizeX);
+		}
+		else {
+			return (int)((frame.getSize().getHeight() - 200) / gameGrid.sizeY);
 		}
 	}
 }
