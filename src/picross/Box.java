@@ -23,14 +23,24 @@ public class Box {
 		else if(state == 2)
 			setState(0);
 	}
-	public void green(Grid solution) {//checks solution
-		if(solution.getBox(x, y).getState() == 1 && state != 2)
+	public boolean green(Grid solution) {//checks solution
+		if(solution.getBox(x, y).getState() == 1 && state != 2) {
 			setState(1);
-		else if(state == 2)
+			canModify = false;
+			return true;
+		} else if(state == 2) {
 			setState(0);
-		else
+			canModify = false;
+			return true;
+		} 
+		else if(state == 3) {
+			return true;
+		}else {
 			setState(3);
-		canModify = false;
+			canModify = false;
+			return false;
+		}
+		
 		//else
 		//state = 3;
 	}

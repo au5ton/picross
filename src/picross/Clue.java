@@ -45,4 +45,21 @@ public class Clue {
 			out = "0";
 		return out;
 	}
+	public String toString(boolean override) {
+		char c;
+		if(override) {
+			c = ' ';
+		} else {
+			c = (type == 0 ? ' ' : '\n');
+		}
+		String out = "";
+		for(int i = 0; i < values.size(); i++) {
+			out += Integer.toString(values.get(i));
+			if(i + 1 < values.size())
+				out += c;
+		}
+		if(out == "")
+			out = "0";
+		return out;
+	}
 }

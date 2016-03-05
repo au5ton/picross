@@ -1,0 +1,19 @@
+This Programm, which is solving Japan Croswords.
+author: Syromolotov Evgeniy.
+email: zhesyr@sampo.ru.
+License: GPL2.
+
+this program is run from cmd
+
+Usage:
+jsolver.exe [options] <file>
+Options:
+-h print help page;
+-a Find all solutions;
+-x save solution to xpm file;
+-n <number>: Find <number> solutions (default 1);
+-m <number>: Use <number>-th method of searching (0 or 1. default 0). 
+
+
+For examples:
+jsolver.exe -n 2 japex/poezd.txt;
