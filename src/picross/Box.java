@@ -24,7 +24,7 @@ public class Box {
 			setState(0);
 	}
 	public boolean green(Grid solution) {//checks solution
-		if(solution.getBox(x, y).getState() == 1 && state != 2) {
+		if(solution.getBox(x, y).getState() == 1 && state == 0) {//TODO fix bug
 			setState(1);
 			canModify = false;
 			return true;
@@ -35,14 +35,13 @@ public class Box {
 		} 
 		else if(state == 3) {
 			return true;
-		}else {
+		}else if (state == 0){
 			setState(3);
-			canModify = false;
-			return false;
+			return !canModify;//ONLY returns false if the box can be modified, i.e is deliberately clicked on
 		}
+		canModify = false;
+		return true;
 		
-		//else
-		//state = 3;
 	}
 	public int[] getPos() {
 		int[] pos = {x, y};
