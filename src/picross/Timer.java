@@ -6,7 +6,7 @@ public class Timer implements Runnable{
 	private Duration startTime;
 	private boolean running;
 	public Timer() {
-		running = true;
+		running = false;
 		startTime = Duration.ZERO;
 	}
 	@Override
@@ -23,8 +23,14 @@ public class Timer implements Runnable{
 			}
 		}
 	}
-	public int getTime() {
+	public int getHours() {
+		return (int) (startTime.getSeconds() / 3600.0);
+	}
+	public int getSeconds() {
 		return (int) startTime.getSeconds();
+	}
+	public int getMS() {
+		return (int) startTime.toMillis();
 	}
 	public String toString(boolean zeroes) {
 		int ms = (int)startTime.toMillis();
@@ -64,13 +70,15 @@ public class Timer implements Runnable{
 			return out;
 		}
 		else
-			return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms % 100 < 10 ? '0' : "") + (ms % 100));
+			return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + (ms / 10 % 100));
 	}
 	public String toString() {
 		int ms = (int)startTime.toMillis();
-		int seconds = ms / 1000 % 60;
-		int minutes = seconds / 60 % 60;
+		int seconds = ms / 1000;
+		int minutes = seconds / 60;
 		int hours = minutes / 60;
+		seconds %= 60;
+		minutes %= 60;
 		ms /= 10;
 		ms %= 100;
 		return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms < 10 ? '0' : "") + (ms));
@@ -88,5 +96,8 @@ public class Timer implements Runnable{
 	public void begin() {
 		startTime = Duration.ZERO;
 		running = true;
+	}
+	public boolean isRunning() {
+		return running;
 	}
 }

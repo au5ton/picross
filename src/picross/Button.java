@@ -8,8 +8,8 @@ import java.awt.Graphics2D;
 public class Button {
 	public int x1, y1, sizeX, sizeY;
 	private int maxFontSize;
-	private boolean mouseHovering, clicking, isVisible, canClick;
-	private Color baseColor, coverColor;
+	private boolean clicking, isVisible, canClick;
+	private Color baseColor, coverColor, borderColor = Color.BLACK;
 	private String text;
 	private float textSize;
 	private Font font;
@@ -20,7 +20,6 @@ public class Button {
 		sizeX = size_x;
 		sizeY = size_y;
 		this.text = text;
-		mouseHovering = false;
 		clicking = false;
 		baseColor = Color.WHITE;
 		coverColor = new Color(0, 0, 0, 0);
@@ -33,7 +32,6 @@ public class Button {
 		sizeX = size_x;
 		sizeY = size_y;
 		this.text = text;
-		mouseHovering = false;
 		clicking = false;
 		baseColor = Color.WHITE;
 		coverColor = new Color(0, 0, 0, 0);
@@ -47,7 +45,6 @@ public class Button {
 		sizeX = size_x;
 		sizeY = size_y;
 		this.text = text;
-		mouseHovering = false;
 		clicking = false;
 		baseColor = bColor;
 		coverColor = new Color(0, 0, 0, 0);
@@ -60,7 +57,6 @@ public class Button {
 		sizeX = size_x;
 		sizeY = size_y;
 		this.text = text;
-		mouseHovering = false;
 		clicking = false;
 		baseColor = bColor;
 		coverColor = new Color(0, 0, 0, 0);
@@ -70,7 +66,6 @@ public class Button {
 	}
 	public void hover() {
 		if(isVisible) {
-			mouseHovering = true;
 			coverColor = new Color(0, 0, 0, 32);
 		}
 	}
@@ -89,7 +84,6 @@ public class Button {
 	}
 	public void unHover() {
 		if(isVisible) {
-			mouseHovering = false;
 			coverColor = new Color(0, 0, 0, 0);
 		}
 	}
@@ -97,8 +91,14 @@ public class Button {
 		isVisible = b;
 	}
 	public void draw(int x, int y, Graphics2D art) {
-		if(clicking) {
-			Main.mainWindow.doClickAction(this);
+		if(clicking && !Main.mainWindow.frame.clicking) {
+			if(isInBounds(x, y)) {
+				Main.mainWindow.doClickAction(this);
+				unClick();
+			}
+			else {
+				unClick();
+			}
 		}
 		if(isInBounds(x, y))
 			hover();
@@ -125,7 +125,7 @@ public class Button {
 			art.fillRect(x1, y1, sizeX, sizeY);
 			art.setColor(coverColor);
 			art.fillRect(x1, y1, sizeX, sizeY);
-			art.setColor(Color.BLACK);
+			art.setColor(borderColor);
 			art.drawRect(x1, y1, sizeX, sizeY);
 			art.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text)/ 2), y1 + (sizeY / 2 + textSize / 3));
 			art.setFont(art.getFont().deriveFont(12f));
@@ -157,5 +157,11 @@ public class Button {
 	}
 	public void setText(String s) {
 		text = s;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setBorderColor(Color c) {
+		borderColor = c;
 	}
 }
