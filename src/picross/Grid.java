@@ -2,6 +2,7 @@ package picross;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.List;
 
 public class Grid {
@@ -48,15 +49,19 @@ public class Grid {
 		}
 	}
 	public void drawClues(int x, int type, Graphics2D art) {
+		art.setFont(art.getFont().deriveFont(12f));
 		if(type == 0) {
 			String s = cluesX[x].toString();
-			art.drawString(s, 20, Graphics.clueLen[1] + x * Graphics.bSize + Graphics.bSize / 2);
+			Main.mainWindow.drawRightText(art.getFont(), s, Graphics.clueLen[0], Graphics.clueLen[1] + x * Graphics.bSize + Graphics.bSize / 2 + 6, art);
+			//art.drawString(s, 20, Graphics.clueLen[1] + x * Graphics.bSize + Graphics.bSize / 2);
 		}
 		else {
 			List<Integer> values = cluesY[x].getValues();
+			int begin = (Graphics.clueLen[1] - values.size() * 12);
 			for(int i = 0; i < values.size(); i++) {
 				String s = Integer.toString(values.get(i));
-				art.drawString(s, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize/ 2, 50 + (12 * i));
+				Main.mainWindow.drawCenteredText(art.getFont(), s, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 2, begin + (12 * i), art);
+				//art.drawString(s, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize/ 2, 50 + (12 * i));
 			}//TODO set variable for y-oriented border to make clue rendering more effective, must replace lots of 100s isn't it fun lolololololol :'(
 		}
 	}

@@ -29,27 +29,29 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	//basic window properties
 	public final String TITLE = "Picross";
 	public final Dimension SIZE = new Dimension(1000, 1000);
-	public static int bSize;
+	public static int bSize, numFrames = 0;
 	//base components
 	private Grid gameGrid, solutionGrid;
 	private Box currBox;
-	private int x, y, numMistakes, currDifficulty;
-	private int sizeX = 10, sizeY = 10;
+	private int x, y, numMistakes, numFadeFrames = 0, fadeAlpha;
+	private int sizeX = 10, sizeY = 10, fps = 0;
 	private Scanner s;
 	private String currWindow, status;
 	public List<String> output;
 	//flags
-	private boolean isRunning, isDone, playable, generating, faded = false;
+	private boolean isRunning, isDone, playable, generating, faded = false, modifier = false, debugging = false;
 	//graphics
 	public FancyFrame frame;
 	public Image imgBuffer;
 	public static int[] clueLen;
-	private Button bPause, bResume, bNewPuzzle, bXUp, bXDown, bYUp, bYDown, bBack, bStart, bMainMenu, bQuitGame, bBegin, bRegenPuzzle;
+	private Button bPause, bResume, bNewPuzzle, bXUp, bXDown, bYUp, bYDown, bBack, bStart, bMainMenu, bMainMenu2, bQuitGame, bBegin, bRegenPuzzle;
 	public Graphics() {
+		Main.FPSCounter.begin();
 		//initialize frame & basic flags
 		frame = new FancyFrame("Loading...", SIZE);
 		frame.addKeyListener(this);
 		frame.addWindowListener(this);
+		frame.setResizable(false);//TODO make frame properly resizable -- HIGH PRIORITY
 		isRunning = true;
 		isDone = false;
 		frame.setVisible(true);
@@ -63,7 +65,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		try {
 			s = new Scanner(new File("solution.dat"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//currently random
@@ -77,10 +78,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bYUp = new Button(600, 400, 100, 50, "Λ", 30);
 		bYDown = new Button(600, 510, 100, 50, "V", 30);
 		bBack = new Button(50, 50, 50, 50, "<", Color.RED, 30);
-		bStart = new Button(SIZE.width / 2 - 50, SIZE.height - 100, 100, 75, "BEGIN", Color.GREEN, 30);
+		bStart = new Button(SIZE.width / 2 - 50, SIZE.height - 100, 100, 75, "GENERATE", Color.GREEN, 30);
 		bPause = new Button(20, 50, 60, 60, "Pause", Color.YELLOW, 17);
-		bResume = new Button(SIZE.width / 2 - 100, SIZE.height / 2 + 7, 200, 43, "Resume", Color.GREEN, 17);
+		bResume = new Button(SIZE.width / 2 - 100, SIZE.height / 2 + 7, 100, 43, "Resume", Color.GREEN, 17);
 		bMainMenu = new Button(SIZE.width / 2 - 100, SIZE.height / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
+		bMainMenu2 = new Button(SIZE.width / 2, SIZE.height / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
 		bRegenPuzzle = new Button(SIZE.width / 2, SIZE.height / 2 + 7, 100, 43, "New Puzzle", Color.GREEN, 17);
 		bQuitGame = new Button(SIZE.width / 2 - 100, 450, 200, 100, "Quit Game", Color.RED, 20);
 		bQuitGame.setVisible(true);
@@ -88,7 +90,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -115,43 +116,48 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		//doClickAction(bPause);
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		int key = arg0.getKeyCode();
+		if(key == KeyEvent.VK_SHIFT) {
+			modifier = true;
+		}
+		else if(key == KeyEvent.VK_D) {
+			debugging = true;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		int key = arg0.getKeyCode();
+		if(key == KeyEvent.VK_SHIFT) {
+			modifier = false;
+		}
+		else if(key == KeyEvent.VK_D) {
+			debugging = false;
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -159,7 +165,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	public void run() {
 		while(isRunning) {
 			if(currWindow.equals("game")) {
-				bPause.setVisible(true);
+				if(playable)
+					bPause.setVisible(true);
 				//get size of each box for optimal display size, takes into account clueLen and mistakes box
 				bSize = getBoxSize();
 				//check for completeness
@@ -171,7 +178,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					}
 				}
 				if(temp) {
-					status = "solved";//TODO set game state to a string
+					status = "solved";
 					playable = false;
 					if(Main.timer != null)
 						Main.timer.pause();
@@ -202,6 +209,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				bYDown.setVisible(true);
 				bBack.setVisible(true);
 				bStart.setVisible(true);
+				if(sizeX > 25) {
+					sizeX = 25;
+				}
+				if(sizeX < 1) {
+					sizeX = 1;
+				}
+				if(sizeY > 25) {
+					sizeY = 25;
+				}
+				if(sizeY < 1) {
+					sizeY = 1;
+				}
 			}
 			x = frame.mouseX;
 			y = frame.mouseY;
@@ -209,6 +228,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			draw();
 			try {
 				Thread.sleep(10);
+				numFrames++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -217,10 +237,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	public void draw() {
 		Graphics2D art = (Graphics2D)imgBuffer.getGraphics();
-		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		art.setRenderingHints(rh);
+		art.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		art.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		if(currWindow.equals("menu")) {
-			frame.setTitle("Main Menu");
+			frame.setTitle("Main Menu | Picross");
 			art.setColor(new Color(128, 128, 255));
 			art.fillRect(0, 0, frame.getHeight(),frame.getWidth());
 			art.setColor(Color.BLACK);
@@ -232,21 +252,21 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			bQuitGame.draw(x, y, art);
 		}
 		else if(currWindow.equals("size picker")) {
-			frame.setTitle("Size Picker");
-			if(sizeX == 25) {
+			frame.setTitle("Size Picker | Picross");
+			if(sizeX == 25 || (modifier && sizeX + 5 > 25)) {
 				bXUp.setVisible(false);
 			}
-			else if (sizeX == 1) {
+			else if (sizeX == 1 || (modifier && sizeX - 5 < 1)) {
 				bXDown.setVisible(false);
 			}
 			else {
 				bXUp.setVisible(true);
 				bXDown.setVisible(true);
 			}
-			if(sizeY == 25) {
+			if(sizeY == 25 || (modifier && sizeY + 5 > 25)) {
 				bYUp.setVisible(false);
 			}
-			else if(sizeY == 1) {
+			else if(sizeY == 1 || (modifier && sizeY - 5 < 1)) {
 				bYDown.setVisible(false);
 			}
 			else {
@@ -270,24 +290,24 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			bStart.draw(x, y, art);
 		}
 		else if(currWindow.equals("game")) {
-			frame.setTitle(TITLE);
-			art.setColor(Color.WHITE);
+			frame.setTitle("" + Main.timer.toString(true) + " | Picross");
+			art.setColor(new Color(128, 128, 255));
 			art.fillRect(0, 0, SIZE.width, SIZE.height);
+			if(playable) {
+				art.setColor(fadeOff(64, 100));
+				art.fillRect(0, 0, SIZE.width, SIZE.height);
+			}
 			art.setFont(art.getFont().deriveFont(12f));//12x7 pixels
-			bPause.draw(x, y, art);
+			art.setColor(Color.BLACK);
 			for(int i = 0; i < (gameGrid.sizeX); i++) {
 				for(int j = 0; j < (gameGrid.sizeY); j++) {
 					gameGrid.drawGrid(i, j, art);
 					art.setColor(Color.BLACK);
-					if(!status.equals("paused") && !status.equals("get ready")) {
-						gameGrid.drawClues(j, 0, art);
-						gameGrid.drawClues(i, 1, art);
-					}
-					if(playable && i == (x - clueLen[0]) / bSize && j == (y - clueLen[1]) / bSize) {
+					if(playable && i == (x - clueLen[0]) / bSize && j == (y - clueLen[1]) / bSize && x > clueLen[0] && y > clueLen[1]) {
 						art.setColor(new Color(0, 0, 0, 64));
 						art.fillRect(clueLen[0] + i * bSize, clueLen[1] + j * bSize, bSize, bSize);
 					}
-					else if(playable && (i == (x - clueLen[0]) / bSize || j == (y - clueLen[1]) / bSize)) {
+					else if(playable && ((i == (x - clueLen[0]) / bSize && x > clueLen[0]) || (j == (y - clueLen[1]) / bSize && y > clueLen[1]))) {
 						art.setColor(new Color(0, 0, 0, 32));
 						art.fillRect(clueLen[0] + i * bSize, clueLen[1] + j * bSize, bSize, bSize);
 					}
@@ -295,44 +315,56 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					art.drawRect(clueLen[0] + i * bSize, clueLen[1] + j * bSize, bSize, bSize);
 				}
 			}
+			if(!status.equals("paused") && !status.equals("get ready")) {
+				for(int i = 0; i < gameGrid.sizeX; i++) {
+					gameGrid.drawClues(i, 1, art);
+				}
+				for(int j = 0; j < gameGrid.sizeY; j++) {
+					gameGrid.drawClues(j, 0, art);
+				}
+			}
+			bPause.draw(x, y, art);
 			for(int i = 5; i < gameGrid.sizeX; i += 5) {
 				art.drawLine(clueLen[0] + i * bSize + 1, clueLen[1], clueLen[0] + i * bSize + 1, clueLen[1] + gameGrid.sizeY * bSize);
 			}
 			for(int i = 5; i < gameGrid.sizeY; i += 5) {
 				art.drawLine(clueLen[0], clueLen[1] + i * bSize + 1, clueLen[0] + gameGrid.sizeX * bSize, clueLen[1] + i * bSize + 1);
 			}
-			if(!playable) {
-				/*Color fadeColor;
-				int fadeAmt = 64;
-				if(!Main.fader.isRunning() && !faded) {
-					Main.fader.begin();
-				} else if(Main.fader.getMS() > 100) {
-					Main.fader.reset();
-					faded = true;
-				}
-				fadeColor = new Color(0, 0, 0, fadeAmt * Main.fader.getMS() / 100);
-				art.setColor(fadeColor);
-				art.fillRect(0, 0, SIZE.width, SIZE.height);*/
+			art.setFont(art.getFont().deriveFont(20f));
+			art.drawString("MISTAKES: ", 10, SIZE.height - 15);
+			int xRendered = 0, mistakesTemp = numMistakes;
+			art.drawRect(120, SIZE.height - 35, 125, 25);
+			art.setColor(Color.RED);
+			while(mistakesTemp > 0 && xRendered < 5) {
+				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
+				mistakesTemp--;
+				xRendered++;
+			}
+			while(xRendered < 5) {
 				art.setColor(new Color(0, 0, 0, 64));
+				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
+				xRendered++;
+			}
+			if(!playable) {
+				bPause.setVisible(false);
+				art.setColor(fadeOn(64, 100));
 				art.fillRect(0, 0, SIZE.width, SIZE.height);
 				art.setColor(Color.WHITE);
-				art.fillRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
+				art.fillRect(SIZE.width / 2 - 100, SIZE.height / 2 - 50, 200, 100);
 				art.setColor(Color.BLACK);
-				art.drawRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
+				art.drawRect(SIZE.width / 2 - 100, SIZE.height / 2 - 50, 200, 100);
 				String showText = "";
 
 				art.setFont(art.getFont().deriveFont(30f));
 				if(status.equals("solved")) {
 					art.setColor(Color.GREEN);
 					showText = "SOLVED";
-					bPause.setVisible(false);
 					bMainMenu.setVisible(true);
 					bRegenPuzzle.setVisible(true);
 				} else if(status.equals("failed")) {
 					art.setColor(Color.RED);
 					showText = "FAILED";
 					bMainMenu.setVisible(true);
-					bPause.setVisible(false);
 					bRegenPuzzle.setVisible(true);
 				} else if(status.equals("paused")) {
 					if(Main.animator.getMS() % 1000 <= 500) {
@@ -346,26 +378,23 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			}
 			//render mistakes/timer
 			art.setFont(art.getFont().deriveFont(20f));
+			art.setColor(Color.BLACK);
 			drawRightText(art.getFont(), "TIME: " + Main.timer.toString(false), SIZE.height - 15, art);
-			art.drawString("MISTAKES: ", 10, SIZE.height - 15);
-			int xRendered = 0, mistakesTemp = numMistakes;
-			art.drawRect(120, SIZE.height - 35, 125, 25);
-			art.setColor(Color.RED);
-			while(mistakesTemp > 0 && xRendered < 5) {
-				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
-				mistakesTemp--;
-				xRendered++;
-			}
 			bBegin.draw(x, y, art);
 			bResume.draw(x, y, art);
+			bMainMenu2.draw(x, y, art);
 			bMainMenu.draw(x, y, art);
 			bRegenPuzzle.draw(x, y, art);
-			art.setFont(art.getFont().deriveFont(20f));
-			while(xRendered < 5) {
-				art.setColor(new Color(192,192,192));
-				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
-				xRendered++;
-			}
+		}
+		if(Main.FPSCounter.getMS() > 1000) {
+			Main.FPSCounter.begin();
+			fps = numFrames;
+			numFrames = 0;
+		}
+		art.setColor(Color.black);
+		art.setFont(art.getFont().deriveFont(12f));
+		if(debugging) {
+			art.drawString("" + fps + " FPS", 20, 50);
 		}
 		art = (Graphics2D)frame.getGraphics();
 		if(art != null) {
@@ -415,7 +444,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			}
 			strings.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -467,7 +495,25 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		else if(currWindow.equals("menu")) {
 		}
 		else if(currWindow.equals("size picker")) {
-			
+			if(frame.scrollAmt != 0) {
+				if(isInBounds(300, 450, 400, 510)) {
+					if(modifier) {
+						sizeX -= sizeX - (5 * frame.scrollAmt) > 0 && sizeX - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
+					}
+					else {
+						sizeX -= sizeX - frame.scrollAmt > 0 && sizeX - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
+					}
+				}
+				else if(isInBounds(600, 450, 700, 510)) {
+					if(modifier) {
+						sizeY -= sizeY - (5 * frame.scrollAmt) > 0 && sizeY - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
+					}
+					else {
+						sizeY -= sizeY - frame.scrollAmt > 0 && sizeY - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
+					}
+				}
+				frame.scrollAmt = 0;
+			}
 		}
 	}
 	private void generatePuzzle() {
@@ -481,22 +527,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.output = LogStreamReader.output;
 			if(output.size() > 1) {
 				int solutionsLine = Strings.findLineWith(output, "Solutions : ", true);
 				numSolutions = Integer.parseInt(output.get(solutionsLine).substring(output.get(solutionsLine).length() - 1, output.get(solutionsLine).length()));
-				String difficulty = "";
-				int diffLine = Strings.findLineWith(output, "Decisions : ", true);
-				/*for(int i = output.get(diffLine).length() - 1; i > 0; i--) {
-					if(!Character.isDigit(output.get(diffLine).charAt(i))) {
-						difficulty = output.get(diffLine).substring(i + 1, output.get(diffLine).length());
-					}
-				}*/
-				difficulty = output.get(diffLine).substring(12, output.get(diffLine).length());
-				currDifficulty = Integer.parseInt(difficulty);
+				//String difficulty = "";
+				//int diffLine = Strings.findLineWith(output, "Decisions : ", true);
+				//difficulty = output.get(diffLine).substring(12, output.get(diffLine).length());
+				//Integer.parseInt(difficulty);
 			}
 		} while(numSolutions > 1 || output.size() < 2);
 		//find maximum size of clues on left & top
@@ -524,7 +564,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		try {
 			Files.deleteIfExists(FileSystems.getDefault().getPath("clues.nin"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -552,30 +591,54 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		else if(b == bResume) {
 			status = "";
 			bResume.setVisible(false);
+			bMainMenu2.setVisible(false);
 			bPause.setVisible(true);
 			Main.timer.resume();
 			playable = true;
+			faded = false;
 		}
 		else if(b == bPause) {
 			if (status.equals("")) {
 				status = "paused";
 				bPause.setVisible(false);
 				bResume.setVisible(true);
+				bMainMenu2.setVisible(true);
 				Main.timer.pause();
+				playable = false;
+				faded = false;
 			}
-			playable = false;
 		}
 		else if(b == bXUp) {
-			sizeX++;
+			if(modifier) {
+				sizeX += 5;
+			}
+			else {
+				sizeX++;
+			}
 		}
 		else if(b == bXDown) {
-			sizeX--;
+			if(modifier) {
+				sizeX -= 5;
+			}
+			else {
+				sizeX--;
+			}
 		}
 		else if(b == bYUp) {
-			sizeY++;
+			if(modifier) {
+				sizeY += 5;
+			}
+			else {
+				sizeY++;
+			}
 		}
 		else if(b == bYDown) {
-			sizeY--;
+			if(modifier) {
+				sizeY -= 5;
+			}
+			else {
+				sizeY--;
+			}
 		}
 		else if(b == bBack) {
 			currWindow = "menu";
@@ -609,15 +672,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			bMainMenu.setVisible(false);
 			playable = false;
 			generatePuzzle();
-			Main.timer.begin();
-			Main.timer.pause();
+			Main.timer.reset();
 		}
-		else if(b == bMainMenu) {
-			frame.setTitle("Main Menu");
+		else if(b == bMainMenu || b == bMainMenu2) {
+			frame.setTitle("Main Menu | Picross");
 			currWindow = "menu";
 			status = "menu";
 			numMistakes = 0;
 			bMainMenu.setVisible(false);
+			bMainMenu2.setVisible(false);
+			bResume.setVisible(false);
 			bRegenPuzzle.setVisible(false);
 			bNewPuzzle.setVisible(true);
 			playable = false;
@@ -635,6 +699,38 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			status = "";
 			Main.timer.begin();
 			playable = true;
+			faded = false;
 		}
+	}
+	public Color fadeOn(int amt, int duration) {
+		duration /= 10;
+		if(numFadeFrames == duration) {
+			numFadeFrames = 0;
+			fadeAlpha = 0;
+			faded = true;
+		}
+			fadeAlpha = numFadeFrames * amt / duration;
+		Color out = faded ? new Color(0, 0, 0, (int)amt) : new Color(0, 0, 0, fadeAlpha);
+		if(!faded) {
+			numFadeFrames++;
+		}
+		return out;
+	}
+	public Color fadeOff(int amtInit, int duration) {
+		duration /= 10;
+		if(numFadeFrames > duration) {
+			numFadeFrames = 0;
+			fadeAlpha = 0;
+			faded = true;
+		}
+		fadeAlpha = amtInit - (numFadeFrames * amtInit / duration);
+		Color out = faded ? new Color(0, 0, 0, 0) : new Color(0, 0, 0, fadeAlpha);
+		if(!faded){
+			numFadeFrames++;
+		}
+		return out;
+	}
+	public boolean isInBounds(int x1, int y1, int x2, int y2) {
+		return x > x1 && x < x2 && y > y1 && y < y2;
 	}
 }

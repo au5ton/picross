@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-	public static Timer timer;
+	public static Timer timer, FPSCounter;
 	public static Timer animator, fader;
 	public static Graphics mainWindow;
 	public static void main(String[] args) {
+		FPSCounter = new Timer();
+		new Thread(FPSCounter).start();
 		mainWindow = new Graphics();
 		new Thread(mainWindow).start();
 		timer = new Timer();

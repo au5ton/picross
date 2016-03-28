@@ -5,19 +5,22 @@ import java.awt.Frame;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
-public class FancyFrame extends Frame implements MouseMotionListener, MouseListener{
+public class FancyFrame extends Frame implements MouseMotionListener, MouseListener, MouseWheelListener{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 169736940888001290L;
-	public int mouseX, mouseY, mouseButton;
+	public int mouseX, mouseY, mouseButton, scrollAmt;
 	public boolean hasClicked, clicking;
 	public FancyFrame(String title, Dimension size) {
 		setTitle(title);
 		setSize(size);
 		addMouseMotionListener(this);
 		addMouseListener(this);
+		addMouseWheelListener(this);
 	}
 	@Override
 	public void mouseDragged(MouseEvent me) {
@@ -57,6 +60,11 @@ public class FancyFrame extends Frame implements MouseMotionListener, MouseListe
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		clicking = false;
+	}
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		// TODO Auto-generated method stub
+		scrollAmt = arg0.getWheelRotation();
 	}
 	
 }

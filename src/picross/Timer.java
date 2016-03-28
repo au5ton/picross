@@ -5,18 +5,25 @@ import java.time.*;
 public class Timer implements Runnable{
 	private Duration startTime;
 	private boolean running;
+	private int delay;
 	public Timer() {
 		running = false;
 		startTime = Duration.ZERO;
+		delay = 10;
+	}
+	public Timer(int delay) {
+		running = false;
+		startTime = Duration.ZERO;
+		this.delay = delay;
 	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true) {
 			if(running)
-				startTime = startTime.plusMillis(10);
+				startTime = startTime.plusMillis(delay);
 			try {
-				Thread.sleep(10);
+				Thread.sleep(delay);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
