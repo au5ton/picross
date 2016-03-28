@@ -116,7 +116,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		//doClickAction(bPause);
+		doClickAction(bPause);
 	}
 
 	@Override
