@@ -3,7 +3,7 @@ package picross;
 public class Box {
 	public boolean canModify;
 	private int x, y, state;//x is left->right, y is down->up
-	/*state:
+	/**state:
 	 * 0 = empty
 	 * 1 = solved
 	 * 2 = flagged

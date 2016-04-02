@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	public final String TITLE = "Picross";
 	public final Dimension SIZE = new Dimension(1000, 1000);
 	public static int bSize, numFrames = 0;
+	private final int MIN_BSIZE = 10;
 	//base components
 	private Grid gameGrid, solutionGrid;
 	private Box currBox;
@@ -51,12 +53,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		frame = new FancyFrame("Loading...", SIZE);
 		frame.addKeyListener(this);
 		frame.addWindowListener(this);
-		frame.setResizable(false);//TODO make frame properly resizable -- HIGH PRIORITY
+		//frame.setResizable(false);//TODO make frame properly resizable -- IN PROGRESS
 		isRunning = true;
 		isDone = false;
 		frame.setVisible(true);
 		//makes graphics look like not trash
-		imgBuffer = frame.createImage(SIZE.width, SIZE.height);
+		imgBuffer = frame.createImage(frame.getWidth(), frame.getHeight());
 		//determines if a game is in progress
 		playable = false;
 		status = "menu";
@@ -71,28 +73,27 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 		currBox = null;
 		//graphics elements
-		bNewPuzzle = new Button(SIZE.width / 2 - 100, 250, 200, 100, "Start Game", Color.GREEN, 20);
+		bNewPuzzle = new Button(frame.getWidth() / 2 - 100, 250, 200, 100, "Start Game", Color.GREEN, 20);
 		bNewPuzzle.setVisible(true);
-		bXUp = new Button(300, 400, 100, 50, "Λ", 30);
+		bXUp = new Button(300, 400, 100, 50, "Λ", 30);//TODO move buttons when window is resized - b.setPos(x, y)
 		bXDown = new Button(300, 510, 100, 50, "V", 30);
 		bYUp = new Button(600, 400, 100, 50, "Λ", 30);
 		bYDown = new Button(600, 510, 100, 50, "V", 30);
 		bBack = new Button(50, 50, 50, 50, "<", Color.RED, 30);
-		bStart = new Button(SIZE.width / 2 - 50, SIZE.height - 100, 100, 75, "GENERATE", Color.GREEN, 30);
+		bStart = new Button(frame.getWidth() / 2 - 50, frame.getHeight() - 100, 100, 75, "GENERATE", Color.GREEN, 30);
 		bPause = new Button(20, 50, 60, 60, "Pause", Color.YELLOW, 17);
-		bResume = new Button(SIZE.width / 2 - 100, SIZE.height / 2 + 7, 100, 43, "Resume", Color.GREEN, 17);
-		bMainMenu = new Button(SIZE.width / 2 - 100, SIZE.height / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
-		bMainMenu2 = new Button(SIZE.width / 2, SIZE.height / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
-		bRegenPuzzle = new Button(SIZE.width / 2, SIZE.height / 2 + 7, 100, 43, "New Puzzle", Color.GREEN, 17);
-		bQuitGame = new Button(SIZE.width / 2 - 100, 450, 200, 100, "Quit Game", Color.RED, 20);
+		bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", Color.GREEN, 17);
+		bMainMenu = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
+		bMainMenu2 = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
+		bRegenPuzzle = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "New Puzzle", Color.GREEN, 17);
+		bQuitGame = new Button(frame.getWidth() / 2 - 100, 450, 200, 100, "Quit Game", Color.RED, 20);
 		bQuitGame.setVisible(true);
-		bBegin = new Button(SIZE.width / 2 - 100, SIZE.height / 2 - 50, 200, 100, "BEGIN", Color.GREEN, 20);
+		bBegin = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100, "BEGIN", Color.GREEN, 20);
 	}
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		
 	}
-
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		while(true) {
@@ -105,7 +106,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			}
 		}
 	}
-
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		frame.setVisible(false);
@@ -113,27 +113,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		frame.dispose();
 		isDone = true;
 	}
-
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		doClickAction(bPause);
 	}
-
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
 		
 	}
-
 	@Override
 	public void windowIconified(WindowEvent arg0) {
 		
 	}
-
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 		
 	}
-
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
@@ -144,7 +139,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			debugging = true;
 		}
 	}
-
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int key = arg0.getKeyCode();
@@ -155,12 +149,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			debugging = false;
 		}
 	}
-
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		
 	}
-
 	@Override
 	public void run() {
 		while(isRunning) {
@@ -239,7 +231,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		Graphics2D art = (Graphics2D)imgBuffer.getGraphics();
 		art.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		art.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		if(currWindow.equals("menu")) {
+		if(currWindow.equals("menu")) {//TODO fix background not rendering properly when resized, doesn't refresh, also applies to size picker
 			frame.setTitle("Main Menu | Picross");
 			art.setColor(new Color(128, 128, 255));
 			art.fillRect(0, 0, frame.getHeight(),frame.getWidth());
@@ -247,7 +239,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			art.setFont(art.getFont().deriveFont(50f));
 			drawCenteredText(art.getFont(), "MAIN MENU", 100, art);
 			art.setFont(art.getFont().deriveFont(30f));
-			art.drawString("Loading...", SIZE.width / 2 - 65, 315);
+			art.drawString("Loading...", frame.getWidth() / 2 - 65, 315);
 			bNewPuzzle.draw(x, y, art);
 			bQuitGame.draw(x, y, art);
 		}
@@ -292,16 +284,23 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		else if(currWindow.equals("game")) {
 			frame.setTitle("" + Main.timer.toString(true) + " | Picross");
 			art.setColor(new Color(128, 128, 255));
-			art.fillRect(0, 0, SIZE.width, SIZE.height);
+			art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 			if(playable) {
 				art.setColor(fadeOff(64, 100));
-				art.fillRect(0, 0, SIZE.width, SIZE.height);
+				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 			}
 			art.setFont(art.getFont().deriveFont(12f));//12x7 pixels
 			art.setColor(Color.BLACK);
+			int cWidth;//TODO properly implement centering of gameGrid
+			if(gameGrid.sizeX % 2 == 0) {
+				cWidth = frame.getWidth() / 2 - (gameGrid.sizeX * bSize / 2);
+			}
+			else {
+				cWidth = frame.getWidth() / 2 - gameGrid.sizeX * bSize / 2;
+			}
 			for(int i = 0; i < (gameGrid.sizeX); i++) {
 				for(int j = 0; j < (gameGrid.sizeY); j++) {
-					gameGrid.drawGrid(i, j, art);
+					gameGrid.drawGrid(i, j, art, cWidth);
 					art.setColor(Color.BLACK);
 					if(playable && i == (x - clueLen[0]) / bSize && j == (y - clueLen[1]) / bSize && x > clueLen[0] && y > clueLen[1]) {
 						art.setColor(new Color(0, 0, 0, 64));
@@ -331,28 +330,28 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art.drawLine(clueLen[0], clueLen[1] + i * bSize + 1, clueLen[0] + gameGrid.sizeX * bSize, clueLen[1] + i * bSize + 1);
 			}
 			art.setFont(art.getFont().deriveFont(20f));
-			art.drawString("MISTAKES: ", 10, SIZE.height - 15);
+			art.drawString("MISTAKES: ", 10, frame.getHeight() - 15);
 			int xRendered = 0, mistakesTemp = numMistakes;
-			art.drawRect(120, SIZE.height - 35, 125, 25);
+			art.drawRect(120, frame.getHeight() - 35, 125, 25);
 			art.setColor(Color.RED);
 			while(mistakesTemp > 0 && xRendered < 5) {
-				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
+				art.drawString("X", xRendered * 25 + 125, frame.getHeight() - 15);
 				mistakesTemp--;
 				xRendered++;
 			}
 			while(xRendered < 5) {
 				art.setColor(new Color(0, 0, 0, 64));
-				art.drawString("X", xRendered * 25 + 125, SIZE.height - 15);
+				art.drawString("X", xRendered * 25 + 125, frame.getHeight() - 15);
 				xRendered++;
 			}
 			if(!playable) {
 				bPause.setVisible(false);
 				art.setColor(fadeOn(64, 100));
-				art.fillRect(0, 0, SIZE.width, SIZE.height);
+				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(Color.WHITE);
-				art.fillRect(SIZE.width / 2 - 100, SIZE.height / 2 - 50, 200, 100);
+				art.fillRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
 				art.setColor(Color.BLACK);
-				art.drawRect(SIZE.width / 2 - 100, SIZE.height / 2 - 50, 200, 100);
+				art.drawRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
 				String showText = "";
 
 				art.setFont(art.getFont().deriveFont(30f));
@@ -368,10 +367,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					bRegenPuzzle.setVisible(true);
 				} else if(status.equals("paused")) {
 					if(Main.animator.getMS() % 1000 <= 500) {
-						drawCenteredText(art.getFont(), "PAUSED", SIZE.height / 2 - 10, art);
+						drawCenteredText(art.getFont(), "PAUSED", frame.getHeight() / 2 - 10, art);
 					}
 				}
-				drawCenteredText(art.getFont(), showText, SIZE.height / 2 - 10, art);
+				drawCenteredText(art.getFont(), showText, frame.getHeight() / 2 - 10, art);
 				art.setColor(Color.BLACK);
 				//if(!status.equals("get ready") && !status.equals("paused"))
 					//art.drawString("TIME:" + Main.timer.toString(), frame.getWidth() / 2 - 45, frame.getHeight() / 2 - 12);
@@ -379,7 +378,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			//render mistakes/timer
 			art.setFont(art.getFont().deriveFont(20f));
 			art.setColor(Color.BLACK);
-			drawRightText(art.getFont(), "TIME: " + Main.timer.toString(false), SIZE.height - 15, art);
+			drawRightText(art.getFont(), "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
 			bBegin.draw(x, y, art);
 			bResume.draw(x, y, art);
 			bMainMenu2.draw(x, y, art);
@@ -398,6 +397,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		}
 		art = (Graphics2D)frame.getGraphics();
 		if(art != null) {
+			imgBuffer = Resizer.PROGRESSIVE_BILINEAR.resize((BufferedImage)imgBuffer, frame.getWidth(), frame.getHeight());
 			art.drawImage(imgBuffer, 0, 0, frame.getWidth(), frame.getHeight(), 0, 0, frame.getWidth(), frame.getHeight(), null);
 			art.dispose();
 		}
@@ -420,10 +420,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	private int getBoxSize() {
 		if(gameGrid.sizeX >= gameGrid.sizeY) {
-			return ((int)SIZE.width - (clueLen[0] > clueLen[1] ? clueLen[0] : clueLen[1])) / (gameGrid.sizeX + 1);
+			int temp = ((int)frame.getWidth() - (clueLen[0] > clueLen[1] ? clueLen[0] : clueLen[1])) / (gameGrid.sizeX + 1);
+			if(temp * gameGrid.sizeY + clueLen[1] + 50 > frame.getHeight()) {
+				return (frame.getHeight() - 50 - clueLen[1]) / gameGrid.sizeY > MIN_BSIZE ? (frame.getHeight() - 50 - clueLen[1]) / gameGrid.sizeY : MIN_BSIZE;
+			}
+			else {
+				return temp > MIN_BSIZE ? temp : MIN_BSIZE;
+			}
 		}
-		else {
-			return (int)((frame.getSize().getHeight() - (clueLen[0] + clueLen[1])) / (gameGrid.sizeY + 1));
+		else {//TODO fix if y > x, never changes size
+			int temp = (int)((frame.getHeight() - (clueLen[0] + clueLen[1])) / (gameGrid.sizeY + 1));
+			if(temp * gameGrid.sizeY + clueLen[1] + 50 > frame.getHeight()) {
+				return (frame.getHeight() - 50 - clueLen[1]) / gameGrid.sizeY;
+			}
+			else {
+				return temp;
+			}
 		}
 	}
 	private void writeClues() {
@@ -569,7 +581,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	public void drawCenteredText(Font f, String s, int y, Graphics2D art) {
 		int len = art.getFontMetrics(f).stringWidth(s);
-		art.drawString(s, SIZE.width / 2 - len / 2, y);
+		art.drawString(s, frame.getWidth() / 2 - len / 2, y);
 	}
 	public void drawCenteredText(Font f, String s, int x, int y, Graphics2D art) {
 		int len = art.getFontMetrics(f).stringWidth(s);
@@ -577,7 +589,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 	public void drawRightText(Font f, String s, int y, Graphics2D art) {
 		int len = art.getFontMetrics(f).stringWidth(s);
-		art.drawString(s, SIZE.width - len - 10, y);
+		art.drawString(s, frame.getWidth() - len - 10, y);
 	}
 	public void drawRightText(Font f, String s, int x, int y, Graphics2D art) {
 		int len = art.getFontMetrics(f).stringWidth(s);
@@ -652,10 +664,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				art.setRenderingHints(rh);
 				art.setColor(new Color(128, 128, 255));
-				art.fillRect(0, 0, SIZE.width, SIZE.height);
+				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(Color.black);
 				art.setFont(art.getFont().deriveFont(50f));
-				art.drawString("Generating random puzzle...", SIZE.width / 2 - 300, 525);
+				art.drawString("Generating random puzzle...", frame.getWidth() / 2 - 300, 525);
 				art = (Graphics2D)frame.getGraphics();
 				if(art != null) {
 					art.drawImage(imgBuffer, 0, 0, frame.getWidth(), frame.getHeight(), 0, 0, frame.getWidth(), frame.getHeight(), null);

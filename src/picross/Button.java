@@ -164,4 +164,8 @@ public class Button {
 	public void setBorderColor(Color c) {
 		borderColor = c;
 	}
+	public void setPos(int x, int y) {
+		x1 = x;
+		y1 = y;
+	}
 }

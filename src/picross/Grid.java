@@ -23,29 +23,53 @@ public class Grid {
 			}
 		}
 	}
-	public void drawGrid(int x, int y, Graphics2D art) {
+	public void drawGrid(int x, int y, Graphics2D art, int cWidth) {
 		switch(boxes[x][y].getState()) {
 		case 0:
 			art.setColor(Color.WHITE);
-			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize, Graphics.clueLen[1] + y * Graphics.bSize, Graphics.bSize, Graphics.bSize);
+			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize + cWidth,//draw white background 
+					Graphics.clueLen[1] + y * Graphics.bSize, 
+					Graphics.bSize, 
+					Graphics.bSize);
 			break;
 		case 1:
 			art.setColor(Color.GREEN);
-			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize, Graphics.clueLen[1] + y * Graphics.bSize, Graphics.bSize, Graphics.bSize);
+			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize + cWidth, //draw green background
+					Graphics.clueLen[1] + y * Graphics.bSize, 
+					Graphics.bSize, 
+					Graphics.bSize);
 			break;
 		case 2:
 			art.setColor(Color.WHITE);
-			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize, Graphics.clueLen[1] + y * Graphics.bSize, Graphics.bSize, Graphics.bSize);
+			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize + cWidth, //draw white background
+					Graphics.clueLen[1] + y * Graphics.bSize, 
+					Graphics.bSize, 
+					Graphics.bSize);
 			art.setColor(Color.BLACK);
-			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10);
-			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10);
+			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10 + cWidth, //draw x
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10, 
+					Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10);
+			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10, 
+					Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10);
 			break;
 		case 3:
 			art.setColor(Color.RED);
-			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize, Graphics.clueLen[1] + y * Graphics.bSize, Graphics.bSize, Graphics.bSize);
+			art.fillRect(Graphics.clueLen[0] + x * Graphics.bSize + cWidth, //draw red background
+					Graphics.clueLen[1] + y * Graphics.bSize, 
+					Graphics.bSize, 
+					Graphics.bSize);
 			art.setColor(Color.BLACK);
-			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10);
-			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10, Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10);
+			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10 + cWidth, //draw x
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10, 
+					Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10);
+			art.drawLine(Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize * 9 / 10, 
+					Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize * 9 / 10 + cWidth, 
+					Graphics.clueLen[1] + y * Graphics.bSize + Graphics.bSize / 10);
 		}
 	}
 	public void drawClues(int x, int type, Graphics2D art) {
