@@ -9,8 +9,7 @@ public class Strings {
 				if(array.get(i).contains(search)) {
 					return i;
 				}
-			}
-			else if(array.get(i).toLowerCase().contains(search.toLowerCase())) {
+			} else if(array.get(i).toLowerCase().contains(search.toLowerCase())) {
 				return i;
 			}
 		}

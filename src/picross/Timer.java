@@ -1,21 +1,26 @@
 package picross;
 
-import java.time.*;
+import java.time.Duration;
 
-public class Timer implements Runnable{
+import static java.time.Duration.ZERO;
+
+public class Timer implements Runnable {
 	private Duration startTime;
 	private boolean running;
 	private int delay;
+
 	public Timer() {
 		running = false;
-		startTime = Duration.ZERO;
+		startTime = ZERO;
 		delay = 10;
 	}
+
 	public Timer(int delay) {
 		running = false;
-		startTime = Duration.ZERO;
+		startTime = ZERO;
 		this.delay = delay;
 	}
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -24,23 +29,27 @@ public class Timer implements Runnable{
 				startTime = startTime.plusMillis(delay);
 			try {
 				Thread.sleep(delay);
-			} catch (InterruptedException e) {
+			} catch(InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
+
 	public int getHours() {
 		return (int) (startTime.getSeconds() / 3600.0);
 	}
+
 	public int getSeconds() {
 		return (int) startTime.getSeconds();
 	}
+
 	public int getMS() {
 		return (int) startTime.toMillis();
 	}
+
 	public String toString(boolean zeroes) {
-		int ms = (int)startTime.toMillis();
+		int ms = (int) startTime.toMillis();
 		int seconds = ms / 1000;
 		int minutes = seconds / 60;
 		int hours = minutes / 60;
@@ -51,36 +60,33 @@ public class Timer implements Runnable{
 		if(!zeroes) {
 			if(hours > 0) {
 				numSeparators = 4;
-			}
-			else if (minutes > 0) {
+			} else if(minutes > 0) {
 				numSeparators = 3;
-			}
-			else if (seconds > 0){
+			} else if(seconds > 0) {
 				numSeparators = 2;
-			}
-			else {
+			} else {
 				numSeparators = 1;
 			}
 			switch(numSeparators) {
-			case 4:
-				out = "" + hours + ":" + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100;
-				break;
-			case 3:
-				out = "" + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100;
-				break;
-			case 2:
-				out = "" + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100 + " s";
-				break;
-			case 1:
-				out = "" + ms % 1000 + " ms";
+				case 4:
+					out = "" + hours + ":" + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100;
+					break;
+				case 3:
+					out = "" + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100;
+					break;
+				case 2:
+					out = "" + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + ms / 10 % 100 + " s";
+					break;
+				case 1:
+					out = "" + ms % 1000 + " ms";
 			}
 			return out;
-		}
-		else
+		} else
 			return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms / 10 % 100 < 10 ? '0' : "") + (ms / 10 % 100));
 	}
+
 	public String toString() {
-		int ms = (int)startTime.toMillis();
+		int ms = (int) startTime.toMillis();
 		int seconds = ms / 1000;
 		int minutes = seconds / 60;
 		int hours = minutes / 60;
@@ -90,20 +96,25 @@ public class Timer implements Runnable{
 		ms %= 100;
 		return ("" + hours + ':' + (minutes < 10 ? '0' : "") + minutes + ':' + (seconds < 10 ? '0' : "") + seconds + '.' + (ms < 10 ? '0' : "") + (ms));
 	}
+
 	public void pause() {
 		running = false;
 	}
+
 	public void resume() {
 		running = true;
 	}
+
 	public void reset() {
-		startTime = Duration.ZERO;
+		startTime = ZERO;
 		running = false;
 	}
+
 	public void begin() {
-		startTime = Duration.ZERO;
+		startTime = ZERO;
 		running = true;
 	}
+
 	public boolean isRunning() {
 		return running;
 	}

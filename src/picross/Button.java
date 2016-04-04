@@ -1,12 +1,11 @@
 package picross;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
+import java.awt.*;
+
+import static picross.Main.mainWindow;
 
 public class Button {
-	public int x1, y1, sizeX, sizeY;
+	private int x1, y1, sizeX, sizeY;
 	private int maxFontSize;
 	private boolean clicking, isVisible, canClick;
 	private Color baseColor, coverColor, borderColor = Color.BLACK;
@@ -14,6 +13,7 @@ public class Button {
 	private float textSize;
 	private Font font;
 	private FontMetrics fontInfo;
+
 	public Button(int x, int y, int size_x, int size_y, String text) {
 		x1 = x;
 		y1 = y;
@@ -26,6 +26,7 @@ public class Button {
 		isVisible = false;
 		canClick = true;
 	}
+
 	public Button(int x, int y, int size_x, int size_y, String text, int maxFontSize) {
 		x1 = x;
 		y1 = y;
@@ -39,6 +40,7 @@ public class Button {
 		canClick = true;
 		this.maxFontSize = maxFontSize;
 	}
+
 	public Button(int x, int y, int size_x, int size_y, String text, Color bColor) {
 		x1 = x;
 		y1 = y;
@@ -51,6 +53,17 @@ public class Button {
 		isVisible = false;
 		canClick = true;
 	}
+
+	/**
+	 * Creates a new Button.
+	 * @param x           x-coordinate of top-left corner, in pixels.
+	 * @param y           y-coordinate of top-left corner, in pixels.
+	 * @param size_x      Size of the button in the x direction.
+	 * @param size_y      Size of the button in the y direction.
+	 * @param text        Text to display on the button.
+	 * @param bColor      Color of the button (optional, default is white)
+	 * @param maxFontSize Maximum size of text (optional but can improve readability of the button)
+	 */
 	public Button(int x, int y, int size_x, int size_y, String text, Color bColor, int maxFontSize) {
 		x1 = x;
 		y1 = y;
@@ -64,39 +77,50 @@ public class Button {
 		canClick = true;
 		this.maxFontSize = maxFontSize;
 	}
-	public void hover() {
+
+	private void hover() {
 		if(isVisible) {
 			coverColor = new Color(0, 0, 0, 32);
 		}
 	}
-	public void click() {
+
+	private void click() {
 		if(isVisible && canClick) {
 			clicking = true;
 			coverColor = new Color(0, 0, 0, 128);
 		}
 	}
-	public void unClick() {
+
+	private void unClick() {
 		clicking = false;
 		canClick = false;
 		if(isVisible) {
 			coverColor = new Color(0, 0, 0, 32);
 		}
 	}
-	public void unHover() {
+
+	private void unHover() {
 		if(isVisible) {
 			coverColor = new Color(0, 0, 0, 0);
 		}
 	}
+
 	public void setVisible(boolean b) {
 		isVisible = b;
 	}
+
+	/**
+	 * Renders the button onto graphics.
+	 * @param x   x-coordinate of mouse
+	 * @param y   y-coordinate of mouse
+	 * @param art Graphics to draw on
+	 */
 	public void draw(int x, int y, Graphics2D art) {
-		if(clicking && !Main.mainWindow.frame.clicking) {
+		if(clicking && !mainWindow.getFrame().isClicking()) {
 			if(isInBounds(x, y)) {
-				Main.mainWindow.doClickAction(this);
+				mainWindow.doClickAction(this);
 				unClick();
-			}
-			else {
+			} else {
 				unClick();
 			}
 		}
@@ -104,14 +128,13 @@ public class Button {
 			hover();
 		else
 			unHover();
-		if(Main.mainWindow.frame.clicking) {
-			if(Main.mainWindow.frame.mouseButton == 1) {
+		if(mainWindow.getFrame().isClicking()) {
+			if(mainWindow.getFrame().getMouseButton() == 1) {
 				if(isInBounds(x, y)) {
 					click();
 				}
 			}
-		}
-		else {
+		} else {
 			canClick = true;
 		}
 		font = art.getFont().deriveFont(sizeY);
@@ -127,10 +150,15 @@ public class Button {
 			art.fillRect(x1, y1, sizeX, sizeY);
 			art.setColor(borderColor);
 			art.drawRect(x1, y1, sizeX, sizeY);
-			art.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text)/ 2), y1 + (sizeY / 2 + textSize / 3));
+			art.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text) / 2), y1 + (sizeY / 2 + textSize / 3));
 			art.setFont(art.getFont().deriveFont(12f));
 		}
 	}
+
+	/**
+	 * @param art Graphics from which to derive a font
+	 * @return    Returns the optimal size for button text, from 0 to maxFontSize.
+	 */
 	private float getTextSize(Graphics2D art) {
 		float width = fontInfo.stringWidth(text) * text.length(), height = sizeY;
 		while(width > sizeX) {
@@ -143,29 +171,47 @@ public class Button {
 			height = maxFontSize;
 		return height;
 	}
-	public boolean isInBounds(int x, int y) {
-		if(x > x1 && y > y1 && x < (x1 + sizeX) && y < (y1 + sizeY))
-			return true;
-		else
-			return false;
+
+	/**
+	 * @param x x-coordinate to test
+	 * @param y y-coordinate to test
+	 * @return Returns whether the given coordinates are within the Button's bounds.
+	 */
+	private boolean isInBounds(int x, int y) {
+		return x > x1 && y > y1 && x < (x1 + sizeX) && y < (y1 + sizeY);
 	}
+
 	public boolean isClicking() {
 		return clicking;
 	}
+
 	public boolean isVisible() {
 		return isVisible;
 	}
+
 	public void setText(String s) {
 		text = s;
 	}
+
 	public String getText() {
 		return text;
 	}
+
 	public void setBorderColor(Color c) {
 		borderColor = c;
 	}
+
 	public void setPos(int x, int y) {
 		x1 = x;
 		y1 = y;
+	}
+	public int getX() {
+		return x1;
+	}
+	public int getY() {
+		return y1;
+	}
+	public Dimension getSize() {
+		return new Dimension(sizeX, sizeY);
 	}
 }
