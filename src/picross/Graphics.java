@@ -338,10 +338,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					for(int j = 0; j < (gameGrid.sizeY); j++) {
 						gameGrid.drawGrid(i, j, art, cWidth);
 						art.setColor(BLACK);
-						if(playable && i == (x - clueLen[0] - cWidth) / bSize && j == (y - clueLen[1]) / bSize && x > clueLen[0] && y > clueLen[1]) {
+						if(playable && i == (x - clueLen[0] - cWidth) / bSize && j == (y - clueLen[1]) / bSize && x > clueLen[0] + cWidth && y > clueLen[1]) {
 							art.setColor(new Color(0, 0, 0, 64));
 							art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
-						} else if(playable && ((i == (x - clueLen[0] - cWidth) / bSize && x > clueLen[0]) || (j == (y - clueLen[1]) / bSize && y > clueLen[1]))) {
+						} else if(playable && ((i == (x - clueLen[0] - cWidth) / bSize && x > clueLen[0] + cWidth) || (j == (y - clueLen[1]) / bSize && y > clueLen[1]))) {
 							art.setColor(new Color(0, 0, 0, 32));
 							art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
 						}
@@ -517,28 +517,26 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		switch(currWindow) {
 			case "game":
 				//bound checking to prevent instant toggling of a flag
-				if(currBox != null && (x - clueLen[0]) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] && y > clueLen[1] && currBox != gameGrid.getBox((x - clueLen[0]) / bSize, (y - clueLen[1]) / bSize)) {
+				if(currBox != null && (x - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] + cWidth && y > clueLen[1] && currBox != gameGrid.getBox((x - clueLen[0] - cWidth) / bSize, (y - clueLen[1]) / bSize)) {
 					currBox.setCanModify(true);
 				}
 				//get box only if mouse is within game grid, otherwise it is null
-				if((x - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] && y > clueLen[1]) {
+				if((x - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] + cWidth && y > clueLen[1]) {
 					currBox = gameGrid.getBox((x - clueLen[0] - cWidth) / bSize, (y - clueLen[1]) / bSize);
 				} else {
 					currBox = null;
 				}
-				if(frame.isClicking()) {
-					//only disables boxes as the player attempts to modify them
-					if(!playable && currBox != null)
-						currBox.setCanModify(false);
-					//left click = reveal
-					if(frame.getMouseButton() == 3) {
-						if(currBox != null) {
+				if(currBox != null) {
+					if(frame.isClicking()) {
+						//only disables boxes as the player attempts to modify them
+						if(!playable && currBox != null)
+							currBox.setCanModify(false);
+						//left click = reveal
+						if(frame.getMouseButton() == 3) {
 							currBox.impossibru();
 							currBox.setCanModify(false);
-						}
-					} else if(frame.getMouseButton() == 1) {
-						//click buttons
-						if(currBox != null) {
+						} else if(frame.getMouseButton() == 1) {
+							//click buttons
 							//if the box is not part of the solution, you made a mistake
 							if(!currBox.green(solutionGrid)) {
 								numMistakes++;
@@ -546,12 +544,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							}
 							currBox.setCanModify(false);
 						}
-					}
-					//right click = flag, is not checked with the solution to prevent cheating
+						//right click = flag, is not checked with the solution to prevent cheating
 
-				} else {
-					if(currBox != null)
+					} else {
 						currBox.setCanModify(true);
+					}
 				}
 				break;
 			case "menu":
