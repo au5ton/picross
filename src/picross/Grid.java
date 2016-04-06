@@ -104,10 +104,10 @@ public class Grid {
 
 	public void generateClues(Grid g) {
 		for(int i = 0; i < sizeY; i++) {
-			cluesX[i].generateClue(g, i);
+			cluesX[i].generateClue(g);
 		}
 		for(int i = 0; i < sizeX; i++) {
-			cluesY[i].generateClue(g, i);
+			cluesY[i].generateClue(g);
 		}
 	}
 }

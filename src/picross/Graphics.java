@@ -351,9 +351,31 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 				if(!status.equals("paused") && !status.equals("get ready")) {
 					for(int i = 0; i < gameGrid.sizeX; i++) {
+						Clue cTemp = new Clue(i, 1);
+						cTemp.generateClue(gameGrid);
+						if(cTemp.getValues().equals(gameGrid.cluesY[i].getValues())) {
+							art.setColor(new Color(0, 0, 0, 128));
+							for(int box = 0; box < gameGrid.sizeY; box++) {
+								Box b = gameGrid.getBox(i, box);
+								if(b.getState() == 0)
+									b.impossibru();
+							}
+						} else
+							art.setColor(BLACK);
 						gameGrid.drawClues(i, 1, art, cWidth);
 					}
 					for(int j = 0; j < gameGrid.sizeY; j++) {
+						Clue cTemp = new Clue(j, 0);
+						cTemp.generateClue(gameGrid);
+						if(cTemp.getValues().equals(gameGrid.cluesX[j].getValues())) {
+							art.setColor(new Color(0, 0, 0, 128));
+							for(int box = 0; box < gameGrid.sizeX; box++) {
+								Box b = gameGrid.getBox(box, j);
+								if(b.getState() == 0)
+									b.impossibru();
+							}
+						} else
+							art.setColor(BLACK);
 						gameGrid.drawClues(j, 0, art, cWidth);
 					}
 				}

@@ -56,6 +56,7 @@ public class Button {
 
 	/**
 	 * Creates a new Button.
+	 *
 	 * @param x           x-coordinate of top-left corner, in pixels.
 	 * @param y           y-coordinate of top-left corner, in pixels.
 	 * @param size_x      Size of the button in the x direction.
@@ -111,6 +112,7 @@ public class Button {
 
 	/**
 	 * Renders the button onto graphics.
+	 *
 	 * @param x   x-coordinate of mouse
 	 * @param y   y-coordinate of mouse
 	 * @param art Graphics to draw on
@@ -157,7 +159,7 @@ public class Button {
 
 	/**
 	 * @param art Graphics from which to derive a font
-	 * @return    Returns the optimal size for button text, from 0 to maxFontSize.
+	 * @return Returns the optimal size for button text, from 0 to maxFontSize.
 	 */
 	private float getTextSize(Graphics2D art) {
 		float width = fontInfo.stringWidth(text) * text.length(), height = sizeY;
@@ -205,12 +207,15 @@ public class Button {
 		x1 = x;
 		y1 = y;
 	}
+
 	public int getX() {
 		return x1;
 	}
+
 	public int getY() {
 		return y1;
 	}
+
 	public Dimension getSize() {
 		return new Dimension(sizeX, sizeY);
 	}

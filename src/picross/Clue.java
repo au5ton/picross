@@ -8,10 +8,11 @@ public class Clue {
 	/**
 	 * Type of clue. 0 denotes a clue for a row, 1 for a column.
 	 */
-	private int type;
+	private int type, position;
 	private List<Integer> values = new ArrayList<>();
 
 	public Clue(int position, int type) {
+		this.position = position;
 		this.type = type;
 	}
 
@@ -26,8 +27,8 @@ public class Clue {
 		}
 	}
 
-	public void generateClue(Grid grid, int y) {
-		int temp = 0, x = 0, length = (type == 0 ? grid.sizeX : grid.sizeY);
+	public void generateClue(Grid grid) {
+		int temp = 0, x = 0, length = (type == 0 ? grid.sizeX : grid.sizeY), y = position;
 		while(x < length) {
 			Box currBox = grid.getBox(type == 0 ? x : y, type == 0 ? y : x);
 			if(currBox.getState() == 1)
@@ -57,7 +58,7 @@ public class Clue {
 
 	/**
 	 * @param override If true, will return an easily readable clue. Otherwise returns a string ready for printing in game.
-	 * @return         Returns the clue represented as a string.
+	 * @return Returns the clue represented as a string.
 	 */
 	public String toString(boolean override) {
 		char c;

@@ -23,7 +23,6 @@ public class AudioPlayer {
 			}
 		}
 	}
-
 	void stop() {
 		if(play) {
 			try {
@@ -33,7 +32,6 @@ public class AudioPlayer {
 			}
 		}
 	}
-
 	void start(int loops) {
 		if(play) {
 			try {
