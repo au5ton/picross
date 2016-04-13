@@ -2,7 +2,6 @@
 Release 1.0 of my Picross project. Includes main menus and random puzzles of variable sizes; ALL puzzles are 100% solvable!
 
 COMING SOON:
-- Resizable window
 - Custom puzzles - these puzzles MUST be solvable! If they are not, the game will not allow it to be saved.
 - Save states? (may not happen since it is prone to cheating)
 - Scoring system
