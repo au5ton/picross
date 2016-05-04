@@ -4,13 +4,13 @@ import java.awt.*;
 
 import static picross.Main.mainWindow;
 
-public class Button {
+@SuppressWarnings ("CanBeFinal")
+class Button {
 	private int x1, y1, sizeX, sizeY;
 	private int maxFontSize;
-	private boolean clicking, isVisible, canClick;
+	private boolean clicking, isVisible, canClick, isToggled;
 	private Color baseColor, coverColor, borderColor = Color.BLACK;
 	private String text;
-	private float textSize;
 	private Font font;
 	private FontMetrics fontInfo;
 
@@ -27,6 +27,7 @@ public class Button {
 		canClick = true;
 	}
 
+	@SuppressWarnings ("SameParameterValue")
 	public Button(int x, int y, int size_x, int size_y, String text, int maxFontSize) {
 		x1 = x;
 		y1 = y;
@@ -141,7 +142,7 @@ public class Button {
 		}
 		font = art.getFont().deriveFont(sizeY);
 		fontInfo = art.getFontMetrics(font);
-		textSize = getTextSize(art);
+		float textSize = getTextSize(art);
 		font = art.getFont().deriveFont(textSize);
 		fontInfo = art.getFontMetrics(font);
 		if(isVisible) {
@@ -218,5 +219,21 @@ public class Button {
 
 	public Dimension getSize() {
 		return new Dimension(sizeX, sizeY);
+	}
+	public void setToggled(boolean toggled) {
+		isToggled = toggled;
+	}
+	public boolean isToggled() {
+		return isToggled;
+	}
+	public void toggle() {
+		isToggled = !isToggled;
+	}
+	public Color getBaseColor() {
+		return baseColor;
+	}
+
+	public void setBaseColor(Color baseColor) {
+		this.baseColor = baseColor;
 	}
 }

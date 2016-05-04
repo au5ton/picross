@@ -1,9 +1,11 @@
 package picross;
 
+@SuppressWarnings ("WeakerAccess")
 public class Box {
 	private boolean canModify;
-	private int x, y,
-	/**
+	private final int x;
+	private final int y;
+	private int /**
 	 * 0 = empty
 	 * 1 = solved
 	 * 2 = flagged

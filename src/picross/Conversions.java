@@ -1,6 +1,6 @@
 package picross;
 
-public class Conversions {
+class Conversions {
 	public static int ctoi(char c) {//directly converts one character into a single-digit integer
 		if((int) c >= 48 && (int) c <= 57)
 			return (int) c - 48;

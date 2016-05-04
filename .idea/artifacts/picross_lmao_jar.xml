@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="picross lmao:jar">
+  <artifact type="jar" name="picross lmao:jar">
     <output-path>$USER_HOME$/Desktop</output-path>
     <root id="archive" name="picross.jar">
       <element id="module-output" name="picross lmao" />

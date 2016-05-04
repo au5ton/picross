@@ -4,10 +4,11 @@ import java.time.Duration;
 
 import static java.time.Duration.ZERO;
 
+@SuppressWarnings ("InfiniteLoopStatement")
 public class Timer implements Runnable {
 	private Duration startTime;
 	private boolean running;
-	private int delay;
+	private final int delay;
 
 	public Timer() {
 		running = false;
@@ -23,14 +24,12 @@ public class Timer implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while(true) {
 			if(running)
 				startTime = startTime.plusMillis(delay);
 			try {
 				Thread.sleep(delay);
 			} catch(InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

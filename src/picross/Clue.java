@@ -8,7 +8,9 @@ public class Clue {
 	/**
 	 * Type of clue. 0 denotes a clue for a row, 1 for a column.
 	 */
-	private int type, position;
+	private final int type;
+	private final int position;
+	@SuppressWarnings ("CanBeFinal")
 	private List<Integer> values = new ArrayList<>();
 
 	public Clue(int position, int type) {
@@ -60,6 +62,7 @@ public class Clue {
 	 * @param override If true, will return an easily readable clue. Otherwise returns a string ready for printing in game.
 	 * @return Returns the clue represented as a string.
 	 */
+	@SuppressWarnings ("SameParameterValue")
 	public String toString(boolean override) {
 		char c;
 		if(override) {

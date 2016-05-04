@@ -7,14 +7,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogStreamReader implements Runnable {
+class LogStreamReader implements Runnable {
 
-	private BufferedReader reader;
+	private final BufferedReader reader;
 	public static List<String> output;
 
 	public LogStreamReader(InputStream is) {
 		this.reader = new BufferedReader(new InputStreamReader(is));
-		output = new ArrayList<String>();
+		output = new ArrayList<>();
 	}
 
 	public void run() {

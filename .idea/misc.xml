@@ -39,7 +39,10 @@
     </properties>
   </component>
   <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+    <entry_points version="2.0">
+      <entry_point TYPE="method" FQNAME="picross.Box int[] getPos()" />
+      <entry_point TYPE="method" FQNAME="picross.Button Button(int x, int y, int size_x, int size_y, java.lang.String text)" />
+    </entry_points>
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop" />

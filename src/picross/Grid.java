@@ -8,10 +8,12 @@ import static picross.Graphics.bSize;
 import static picross.Graphics.clueLen;
 import static picross.Main.mainWindow;
 
-public class Grid {
-	public int sizeX, sizeY;
-	private Box[][] boxes;
-	public Clue[] cluesX, cluesY;
+class Grid {
+	public final int sizeX;
+	public final int sizeY;
+	private final Box[][] boxes;
+	public final Clue[] cluesX;
+	public final Clue[] cluesY;
 
 	public Grid(int size_x, int size_y) {
 		boxes = new Box[size_x][size_y];
@@ -91,7 +93,7 @@ public class Grid {
 				String s = Integer.toString(values.get(i));
 				mainWindow.drawCenteredText(art.getFont(), s, clueLen[0] + x * bSize + bSize / 2 + cWidth, begin + (12 * i), art);
 				//art.drawString(s, Graphics.clueLen[0] + x * Graphics.bSize + Graphics.bSize/ 2, 50 + (12 * i));
-			}//TODO set variable for y-oriented border to make clue rendering more effective, must replace lots of 100s isn't it fun lolololololol :'(
+			}
 		}
 	}
 

@@ -29,12 +29,12 @@
     <favorites_list name="picross" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="255">
+              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -43,63 +43,99 @@
       <file leaf-file-name="Box.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+            <state relative-caret-position="901">
+              <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AudioPlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/picross/AudioPlayer.java">
+      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Grid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+            <state relative-caret-position="-51">
+              <caret line="1185" column="17" selection-start-line="1185" selection-start-column="17" selection-end-line="1185" selection-end-column="17" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+                <element signature="class#5152:5293" expanded="false" />
+                <element signature="method#windowClosing#0;class#5152:5293" expanded="false" />
+                <element signature="class#5628:6231" expanded="false" />
+                <element signature="method#keyTyped#0;class#5628:6231" expanded="false" />
+                <element signature="method#keyPressed#0;class#5628:6231" expanded="false" />
+                <element signature="method#keyReleased#0;class#5628:6231" expanded="false" />
+                <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
+                <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
+                <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
+                <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
+                <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+                <element signature="method#run#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+                <element signature="e#19872#19933#0" expanded="false" />
+                <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+                <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+                <element signature="e#22005#22042#0" expanded="false" />
+                <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+                <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+                <element signature="e#24937#24952#0" expanded="false" />
+                <element signature="e#26968#26993#0" expanded="false" />
+                <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+                <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+                <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+                <element signature="class#33530:34155" expanded="false" />
+                <element signature="method#keyTyped#0;class#33530:34155" expanded="false" />
+                <element signature="method#keyPressed#0;class#33530:34155" expanded="false" />
+                <element signature="method#keyReleased#0;class#33530:34155" expanded="false" />
+                <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
+                <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
+                <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
+                <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
+                <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+                <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+                <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
+                <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+                <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+                <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+                <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+                <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+                <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogStreamReader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
+      <file leaf-file-name="Strings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/Strings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="272">
+              <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Conversions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/picross/Conversions.java">
+      <file leaf-file-name="TextDocument.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/TextDocument.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="629">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Clue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <file leaf-file-name="CheckBox.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/CheckBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="85">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,39 +143,51 @@
       <file leaf-file-name="Button.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="219" column="43" selection-start-line="219" selection-start-column="43" selection-end-line="219" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="136">
+              <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <file leaf-file-name="FancyFrame.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/FancyFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6497696">
-              <caret line="367" column="52" selection-start-line="367" selection-start-column="52" selection-end-line="367" selection-end-column="52" />
-              <folding>
-                <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
-                <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
-                <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
-                <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
-                <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
-                <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
-                <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
-                <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
-                <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
-                <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
-                <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
-                <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="136">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ButtonList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Slider.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/Slider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -152,18 +200,26 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/picross/FancyFrame.java" />
-        <option value="$PROJECT_DIR$/src/picross/Timer.java" />
         <option value="$PROJECT_DIR$/src/picross/Strings.java" />
         <option value="$PROJECT_DIR$/src/picross/Resizer.java" />
-        <option value="$PROJECT_DIR$/src/picross/Box.java" />
-        <option value="$PROJECT_DIR$/src/picross/Conversions.java" />
-        <option value="$PROJECT_DIR$/src/picross/Main.java" />
-        <option value="$PROJECT_DIR$/src/picross/Button.java" />
         <option value="$PROJECT_DIR$/src/picross/AudioPlayer.java" />
+        <option value="$PROJECT_DIR$/src/picross/Conversions.java" />
+        <option value="$PROJECT_DIR$/src/picross/FancyFrame.java" />
         <option value="$PROJECT_DIR$/src/picross/Clue.java" />
+        <option value="$PROJECT_DIR$/src/picross/Box.java" />
         <option value="$PROJECT_DIR$/src/picross/Grid.java" />
+        <option value="$PROJECT_DIR$/src/picross/Timer.java" />
+        <option value="$PROJECT_DIR$/src/picross/LogStreamReader.java" />
+        <option value="$APPLICATION_HOME_DIR$/lib/annotations.jar!/org/jetbrains/annotations/Contract.class" />
+        <option value="$PROJECT_DIR$/src/picross/Checkbox.java" />
+        <option value="$PROJECT_DIR$/src/picross/Slider.java" />
+        <option value="$PROJECT_DIR$/src/picross/ButtonList.java" />
+        <option value="$PROJECT_DIR$/src/picross/CheckBox.java" />
+        <option value="$PROJECT_DIR$/src/picross/ScrollBox.java" />
+        <option value="$PROJECT_DIR$/src/picross/TextDocument.java" />
+        <option value="$PROJECT_DIR$/src/picross/Main.java" />
         <option value="$PROJECT_DIR$/src/picross/Graphics.java" />
+        <option value="$PROJECT_DIR$/src/picross/Button.java" />
       </list>
     </option>
   </component>
@@ -198,9 +254,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -253,15 +306,24 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="C:/Program Files/Git/git-cmd.exe" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mario\OneDrive\Documents\IntelliJ" />
+      <recent name="C:\Users\mario\OneDrive\Documents\GitHub" />
+    </key>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -292,31 +354,21 @@
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -326,27 +378,15 @@
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
-      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
-      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -464,6 +504,18 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -537,7 +589,9 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -546,36 +600,48 @@
       <changelist id="91323142-1033-49b4-8887-90dfb04e13f5" name="Default" comment="" />
       <created>1459666058550</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1459666058550</updated>
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32532752" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29366812" sideWeight="0.50238097" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3995633" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28224102" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33044422" sideWeight="0.49761903" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12916666" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1609808" sideWeight="0.49415693" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37737843" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17237164" sideWeight="0.50584304" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3748622" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3266385" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -615,151 +681,616 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="23" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/picross/Graphics.java</url>
+          <line>907</line>
+          <properties />
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="67" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="ctrlDown" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/picross/Timer.java">
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#767#768#0" expanded="false" />
-            <element signature="e#809#810#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Strings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Resizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="95" column="1" selection-start-line="95" selection-start-column="1" selection-end-line="95" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/FancyFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="80" column="30" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Conversions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Font.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="566" column="11" selection-start-line="566" selection-start-column="11" selection-end-line="566" selection-end-column="11" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="219" column="43" selection-start-line="219" selection-start-column="43" selection-end-line="219" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        <state relative-caret-position="0">
+          <caret line="181" column="4" selection-start-line="181" selection-start-column="4" selection-end-line="183" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/AudioPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6497696">
-          <caret line="367" column="52" selection-start-line="367" selection-start-column="52" selection-end-line="367" selection-end-column="52" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+            <element signature="class#5152:5293" expanded="false" />
+            <element signature="method#windowClosing#0;class#5152:5293" expanded="false" />
+            <element signature="class#5628:6231" expanded="false" />
+            <element signature="method#keyTyped#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyPressed#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyReleased#0;class#5628:6231" expanded="false" />
             <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
             <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
             <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
             <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
             <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+            <element signature="method#run#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+            <element signature="e#19872#19933#0" expanded="false" />
+            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="e#22005#22042#0" expanded="false" />
+            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="e#24937#24952#0" expanded="false" />
+            <element signature="e#26968#26993#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+            <element signature="class#33530:34155" expanded="false" />
+            <element signature="method#keyTyped#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyPressed#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyReleased#0;class#33530:34155" expanded="false" />
+            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
             <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
             <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
             <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
             <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Slider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/FancyFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="80" column="30" selection-start-line="80" selection-start-column="30" selection-end-line="80" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="181" column="4" selection-start-line="181" selection-start-column="4" selection-end-line="183" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="228" column="31" selection-start-line="228" selection-start-column="31" selection-end-line="228" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+            <element signature="class#5152:5293" expanded="false" />
+            <element signature="method#windowClosing#0;class#5152:5293" expanded="false" />
+            <element signature="class#5628:6231" expanded="false" />
+            <element signature="method#keyTyped#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyPressed#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyReleased#0;class#5628:6231" expanded="false" />
+            <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+            <element signature="method#run#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+            <element signature="e#19872#19933#0" expanded="false" />
+            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="e#22005#22042#0" expanded="false" />
+            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="e#24937#24952#0" expanded="false" />
+            <element signature="e#26968#26993#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+            <element signature="class#33530:34155" expanded="false" />
+            <element signature="method#keyTyped#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyPressed#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyReleased#0;class#33530:34155" expanded="false" />
+            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="13" column="36" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="228" column="31" selection-start-line="228" selection-start-column="31" selection-end-line="228" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="62" column="5" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Conversions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="219" column="43" selection-start-line="219" selection-start-column="43" selection-end-line="219" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+            <element signature="class#5152:5293" expanded="false" />
+            <element signature="method#windowClosing#0;class#5152:5293" expanded="false" />
+            <element signature="class#5628:6231" expanded="false" />
+            <element signature="method#keyTyped#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyPressed#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyReleased#0;class#5628:6231" expanded="false" />
+            <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+            <element signature="method#run#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+            <element signature="e#19872#19933#0" expanded="false" />
+            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="e#22005#22042#0" expanded="false" />
+            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="e#24937#24952#0" expanded="false" />
+            <element signature="e#26968#26993#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+            <element signature="class#33530:34155" expanded="false" />
+            <element signature="method#keyTyped#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyPressed#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyReleased#0;class#33530:34155" expanded="false" />
+            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Resizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="95" column="1" selection-start-line="95" selection-start-column="1" selection-end-line="95" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/Font.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="566" column="11" selection-start-line="566" selection-start-column="11" selection-end-line="566" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/DefaultKeyboardFocusManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="875" column="62" selection-start-line="875" selection-start-column="62" selection-end-line="875" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/scene/media/Media.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="390" column="61" selection-start-line="390" selection-start-column="61" selection-end-line="390" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/com/sun/media/jfxmedia/locator/Locator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="209" column="29" selection-start-line="209" selection-start-column="29" selection-end-line="209" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Conversions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Clue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Grid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/annotations.jar!/org/jetbrains/annotations/Contract.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/javafx-src.zip!/javafx/scene/media/MediaPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="149" column="19" selection-start-line="149" selection-start-column="19" selection-end-line="149" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Slider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="901">
+          <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/FancyFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/ScrollBox.java" />
+    <entry file="file://$PROJECT_DIR$/src/picross/CheckBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/TextDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="1185" column="17" selection-start-line="1185" selection-start-column="17" selection-end-line="1185" selection-end-column="17" />
+          <folding>
+            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+            <element signature="class#5152:5293" expanded="false" />
+            <element signature="method#windowClosing#0;class#5152:5293" expanded="false" />
+            <element signature="class#5628:6231" expanded="false" />
+            <element signature="method#keyTyped#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyPressed#0;class#5628:6231" expanded="false" />
+            <element signature="method#keyReleased#0;class#5628:6231" expanded="false" />
+            <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+            <element signature="method#run#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+            <element signature="e#19872#19933#0" expanded="false" />
+            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="e#22005#22042#0" expanded="false" />
+            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="e#24937#24952#0" expanded="false" />
+            <element signature="e#26968#26993#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+            <element signature="class#33530:34155" expanded="false" />
+            <element signature="method#keyTyped#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyPressed#0;class#33530:34155" expanded="false" />
+            <element signature="method#keyReleased#0;class#33530:34155" expanded="false" />
+            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Button.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Strings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
