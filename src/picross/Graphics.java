@@ -1,11 +1,11 @@
 package picross;//TODO create interactive tutorial
-//TODO begin work on solution creator jar
+//TODO redesign main menu, similar to original but new color scheme
 
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
+//import org.jetbrains.annotations.Contract;
+//import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -903,7 +903,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 */
 	void doClickAction(Button b) {
 		if(b == bNewPuzzle) {
-			b.setVisible(false);
+			bNewPuzzle.setVisible(false);
 			currWindow = "size picker";
 			//get size from settings file
 			String size = prefs.get("size");
@@ -1112,7 +1112,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 * @param y2 y-coordinate of right bound of rectangle
 	 * @return Returns whether the mouse's current positions falls within the defined bounds.
 	 */
-	@Contract (pure = true)
+	//@Contract (pure = true)
 	private boolean isInBounds(int x1, int y1, int x2, int y2) {
 		return (x > x1) && (x < x2) && (y > y1) && (y < y2);
 	}
@@ -1132,7 +1132,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	FancyFrame getFrame() {
 		return frame;
 	}
-	@Nullable
+	//@Nullable
 	private String getRandomSong() {
 		if(hasMusic) {
 			/*Random r = new Random();

@@ -52,13 +52,18 @@ class CheckBox {
 			BufferedImage checkMark = null;
 			try {
 				URL url = this.getClass().getClassLoader().getResource("resources/check.png");
-				assert url != null;
-				checkMark = ImageIO.read(url);
+				if(url != null)
+                                    checkMark = ImageIO.read(url);
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
 			if(checkMark != null)
 				art.drawImage(checkMark, posX, posY, size, size, (img, infoflags, x, y, width, height) -> false);
+                        else {
+                            int border = size / 6;
+                            art.setColor(BLACK);
+                            art.fillRect(posX + border, posY + border, size - 2 * border + 1, size - 2 * border + 1);
+                        }
 		}
 	}
 	@SuppressWarnings ("WeakerAccess")
