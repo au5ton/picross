@@ -630,8 +630,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							if(Main.animator.getMS() % 1000 <= 500) {
 								drawCenteredText(f, "PAUSED", frame.getHeight() / 2 - 10, art);
 							}
+							bResume.draw(x, y, art);
+							bMainMenu.draw(x, y, art);
 							break;
 					}
+					if(status.equals("get ready"))
+						bBegin.draw(x, y, art);
 					drawCenteredText(f, showText, frame.getHeight() / 2 - 10, art);
 					art.setColor(BLACK);
 					//if(!status.equals("get ready") && !status.equals("paused"))
@@ -664,6 +668,13 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				for(int i = 0 ; i < text.size(); i++) {
 						art.drawString(text.get(i), 130, 180 + i * 35);
 				}
+				break;
+			case "load":
+				art.setColor(new Color(128, 128, 255));
+				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+				art.setColor(BLACK);
+				art = setFont(50f, art);
+				drawCenteredText(f, "LOAD A PUZZLE", 100, art);
 				break;
 		}
 		allButtons.drawButtons(x, y, art);
@@ -1269,12 +1280,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		mainMenuButtons.addButtons(new Button[] {bNewPuzzle, bQuitGame, bOptions, bControlsMenu, bCreator});
 
 		gameChoiceButtons = new ButtonList("gamemode");
+		bBack = new Button(10, 55, 50, 50, "<", RED, 30);
 		bRandomPuzzle = new Button(frame.getWidth() / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20);
 		bLoadPuzzle = new Button(frame.getWidth() / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20);
-		gameChoiceButtons.addButtons(new Button[] {bRandomPuzzle, bLoadPuzzle});
+		gameChoiceButtons.addButtons(new Button[] {bRandomPuzzle, bLoadPuzzle, bBack});
 
 		loadMenuButtons = new ButtonList("load");
-
 		loadMenuButtons.addButtons(new Button[] {bBack});
 
 		sizePickerButtons = new ButtonList("size picker");
@@ -1282,7 +1293,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bXDown = new Button(300, 510, 100, 50, "V", 30);
 		bYUp = new Button(600, 400, 100, 50, "Λ", 30);
 		bYDown = new Button(600, 510, 100, 50, "V", 30);
-		bBack = new Button(10, 55, 50, 50, "<", RED, 30);
 		bStart = new Button(frame.getWidth() / 2 - 50, frame.getHeight() - 100, 100, 75, "GENERATE", GREEN, 30);
 		sizePickerButtons.addButtons(new Button[] {bXUp, bXDown, bYUp, bYDown, bBack, bStart});
 
@@ -1308,6 +1318,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		controlsMenuButtons.addButtons(new Button[]{bBack});
 
 		allButtons.addButtonLists(new ButtonList[] {mainMenuButtons, gameChoiceButtons, loadMenuButtons, sizePickerButtons, optionsMenuButtons, gameButtons, pauseMenuButtons, controlsMenuButtons});
+		allButtons.setWindow("menu");
 	}
 	private void writePrefs() {
 		prefs.put("size", "" + sizeX + ',' + sizeY);

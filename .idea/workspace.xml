@@ -10,7 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91323142-1033-49b4-8887-90dfb04e13f5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/CryptoException.class" afterPath="$PROJECT_DIR$/bin/picross/CryptoException.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics$3.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Main.class" afterPath="$PROJECT_DIR$/bin/picross/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="664" column="71" selection-start-line="664" selection-start-column="71" selection-end-line="664" selection-end-column="71" />
+            <state relative-caret-position="401">
+              <caret line="633" column="52" selection-start-line="633" selection-start-column="52" selection-end-line="633" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
@@ -64,19 +69,19 @@
                 <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
                 <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
-                <element signature="e#20252#20313#0" expanded="false" />
+                <element signature="e#20384#20445#0" expanded="false" />
                 <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
                 <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
-                <element signature="e#22337#22374#0" expanded="false" />
+                <element signature="e#22707#22744#0" expanded="false" />
                 <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
                 <element signature="method#getBoxSize#0;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
                 <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
                 <element signature="method#mouseActions#0;class#Graphics#0" expanded="false" />
-                <element signature="e#25269#25284#0" expanded="false" />
+                <element signature="e#25639#25654#0" expanded="false" />
                 <element signature="method#generatePuzzle#0;class#Graphics#0" expanded="false" />
-                <element signature="e#27300#27325#0" expanded="false" />
+                <element signature="e#27670#27695#0" expanded="false" />
                 <element signature="method#loadPuzzle#0;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
                 <element signature="method#drawCenteredText#0;class#Graphics#0" expanded="false" />
@@ -87,10 +92,10 @@
                 <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
                 <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
-                <element signature="class#35288:35913" expanded="false" />
-                <element signature="method#keyTyped#0;class#35288:35913" expanded="false" />
-                <element signature="method#keyPressed#0;class#35288:35913" expanded="false" />
-                <element signature="method#keyReleased#0;class#35288:35913" expanded="false" />
+                <element signature="class#35658:36283" expanded="false" />
+                <element signature="method#keyTyped#0;class#35658:36283" expanded="false" />
+                <element signature="method#keyPressed#0;class#35658:36283" expanded="false" />
+                <element signature="method#keyReleased#0;class#35658:36283" expanded="false" />
                 <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
                 <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
                 <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
@@ -114,7 +119,7 @@
       <file leaf-file-name="AllButtons.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/picross/AllButtons.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="562">
+            <state relative-caret-position="415">
               <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -133,7 +138,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CryptoException.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CryptoException.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/picross/CryptoException.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
@@ -148,22 +153,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
               <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SequencedEvent.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/SequencedEvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1818">
-              <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#7329#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -183,8 +173,8 @@
       <file leaf-file-name="ButtonList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+            <state relative-caret-position="445">
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -241,9 +231,9 @@
         <option value="$PROJECT_DIR$/src/picross/CryptoUtils.java" />
         <option value="$PROJECT_DIR$/src/picross/ButtonList.java" />
         <option value="$PROJECT_DIR$/src/picross/AllButtons.java" />
-        <option value="$PROJECT_DIR$/src/picross/Graphics.java" />
         <option value="$PROJECT_DIR$/src/picross/Main.java" />
         <option value="$PROJECT_DIR$/src/picross/CryptoException.java" />
+        <option value="$PROJECT_DIR$/src/picross/Graphics.java" />
       </list>
     </option>
   </component>
@@ -667,9 +657,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29339305" sideWeight="0.50238097" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3217768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32502708" sideWeight="0.49761903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.122068234" sideWeight="0.49415693" order="3" side_tool="false" content_ui="combo" />
@@ -731,12 +721,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/picross/Graphics.java</url>
-          <line>875</line>
+          <line>886</line>
           <properties />
           <option name="timeStamp" value="70" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/picross/ButtonList.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="72" />
+      <option name="time" value="73" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -850,19 +846,19 @@
             <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
             <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
-            <element signature="e#20252#20313#0" expanded="false" />
+            <element signature="e#20384#20445#0" expanded="false" />
             <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
             <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
-            <element signature="e#22337#22374#0" expanded="false" />
+            <element signature="e#22707#22744#0" expanded="false" />
             <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
             <element signature="method#getBoxSize#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
             <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
             <element signature="method#mouseActions#0;class#Graphics#0" expanded="false" />
-            <element signature="e#25269#25284#0" expanded="false" />
+            <element signature="e#25639#25654#0" expanded="false" />
             <element signature="method#generatePuzzle#0;class#Graphics#0" expanded="false" />
-            <element signature="e#27300#27325#0" expanded="false" />
+            <element signature="e#27670#27695#0" expanded="false" />
             <element signature="method#loadPuzzle#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
             <element signature="method#drawCenteredText#0;class#Graphics#0" expanded="false" />
@@ -873,10 +869,10 @@
             <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
             <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
-            <element signature="class#35288:35913" expanded="false" />
-            <element signature="method#keyTyped#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyPressed#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyReleased#0;class#35288:35913" expanded="false" />
+            <element signature="class#35658:36283" expanded="false" />
+            <element signature="method#keyTyped#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyPressed#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyReleased#0;class#35658:36283" expanded="false" />
             <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
             <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
@@ -1018,19 +1014,19 @@
             <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
             <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
-            <element signature="e#20252#20313#0" expanded="false" />
+            <element signature="e#20384#20445#0" expanded="false" />
             <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
             <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
-            <element signature="e#22337#22374#0" expanded="false" />
+            <element signature="e#22707#22744#0" expanded="false" />
             <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
             <element signature="method#getBoxSize#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
             <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
             <element signature="method#mouseActions#0;class#Graphics#0" expanded="false" />
-            <element signature="e#25269#25284#0" expanded="false" />
+            <element signature="e#25639#25654#0" expanded="false" />
             <element signature="method#generatePuzzle#0;class#Graphics#0" expanded="false" />
-            <element signature="e#27300#27325#0" expanded="false" />
+            <element signature="e#27670#27695#0" expanded="false" />
             <element signature="method#loadPuzzle#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
             <element signature="method#drawCenteredText#0;class#Graphics#0" expanded="false" />
@@ -1041,10 +1037,10 @@
             <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
             <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
-            <element signature="class#35288:35913" expanded="false" />
-            <element signature="method#keyTyped#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyPressed#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyReleased#0;class#35288:35913" expanded="false" />
+            <element signature="class#35658:36283" expanded="false" />
+            <element signature="method#keyTyped#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyPressed#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyReleased#0;class#35658:36283" expanded="false" />
             <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
             <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
             <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
@@ -1215,110 +1211,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/SequencedEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1818">
-          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#7329#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/AllButtons.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="664" column="71" selection-start-line="664" selection-start-column="71" selection-end-line="664" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
-            <element signature="class#5336:5477" expanded="false" />
-            <element signature="method#windowClosing#0;class#5336:5477" expanded="false" />
-            <element signature="class#5812:6415" expanded="false" />
-            <element signature="method#keyTyped#0;class#5812:6415" expanded="false" />
-            <element signature="method#keyPressed#0;class#5812:6415" expanded="false" />
-            <element signature="method#keyReleased#0;class#5812:6415" expanded="false" />
-            <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
-            <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
-            <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
-            <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
-            <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
-            <element signature="e#20252#20313#0" expanded="false" />
-            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
-            <element signature="e#22337#22374#0" expanded="false" />
-            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getBoxSize#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
-            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
-            <element signature="method#mouseActions#0;class#Graphics#0" expanded="false" />
-            <element signature="e#25269#25284#0" expanded="false" />
-            <element signature="method#generatePuzzle#0;class#Graphics#0" expanded="false" />
-            <element signature="e#27300#27325#0" expanded="false" />
-            <element signature="method#loadPuzzle#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
-            <element signature="method#drawCenteredText#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
-            <element signature="method#drawCenteredText#1;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#drawRightText#0;class#Graphics#0" expanded="false" />
-            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
-            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
-            <element signature="class#35288:35913" expanded="false" />
-            <element signature="method#keyTyped#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyPressed#0;class#35288:35913" expanded="false" />
-            <element signature="method#keyReleased#0;class#35288:35913" expanded="false" />
-            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
-            <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
-            <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
-            <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
-            <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
-            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
-            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
-            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
-            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
-            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -1342,6 +1234,105 @@
         <state relative-caret-position="126">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/awt/SequencedEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/LogStreamReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/AllButtons.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="633" column="52" selection-start-line="633" selection-start-column="52" selection-end-line="633" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Graphics#0;class#Graphics#0" expanded="false" />
+            <element signature="class#5336:5477" expanded="false" />
+            <element signature="method#windowClosing#0;class#5336:5477" expanded="false" />
+            <element signature="class#5812:6415" expanded="false" />
+            <element signature="method#keyTyped#0;class#5812:6415" expanded="false" />
+            <element signature="method#keyPressed#0;class#5812:6415" expanded="false" />
+            <element signature="method#keyReleased#0;class#5812:6415" expanded="false" />
+            <element signature="method#windowClosed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
+            <element signature="method#windowDeactivated#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyPressed#0;class#Graphics#0" expanded="false" />
+            <element signature="method#keyReleased#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#draw#0;class#Graphics#0" expanded="false" />
+            <element signature="e#20384#20445#0" expanded="false" />
+            <element signature="docComment;method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getSolution#0;class#Graphics#0" expanded="false" />
+            <element signature="e#22707#22744#0" expanded="false" />
+            <element signature="docComment;method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getBoxSize#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writeClues#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="method#mouseActions#0;class#Graphics#0" expanded="false" />
+            <element signature="e#25639#25654#0" expanded="false" />
+            <element signature="method#generatePuzzle#0;class#Graphics#0" expanded="false" />
+            <element signature="e#27670#27695#0" expanded="false" />
+            <element signature="method#loadPuzzle#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="method#drawCenteredText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawCenteredText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="method#drawRightText#1;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#doClickAction#0;class#Graphics#0" expanded="false" />
+            <element signature="class#35658:36283" expanded="false" />
+            <element signature="method#keyTyped#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyPressed#0;class#35658:36283" expanded="false" />
+            <element signature="method#keyReleased#0;class#35658:36283" expanded="false" />
+            <element signature="method#doSlideAction#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOn#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="method#fadeOff#0;class#Graphics#0" expanded="false" />
+            <element signature="docComment;method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#isInBounds#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getMaxStrLen#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getFrame#0;class#Graphics#0" expanded="false" />
+            <element signature="method#getRandomSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#playNextSong#0;class#Graphics#0" expanded="false" />
+            <element signature="method#checkMusicLocation#0;class#Graphics#0" expanded="false" />
+            <element signature="method#setFont#0;class#Graphics#0" expanded="false" />
+            <element signature="method#writePrefs#0;class#Graphics#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
