@@ -14,7 +14,7 @@ public class Box {
 	 * game is not complete until # of solved tiles = number in solution
 	 * //x is left->right, y is down->up
 	 */
-	state;
+			state;
 
 
 	public Box(int x_, int y_) {

@@ -2,7 +2,8 @@ package picross;
 
 import java.awt.*;
 
-import static java.awt.Color.*;
+import static java.awt.Color.BLACK;
+import static java.awt.Color.WHITE;
 
 /**
  * Created on 4/7/2016 at 11:47 PM.
@@ -16,6 +17,7 @@ class Slider {
 	private double position; //Between 0 and 1
 	private Color coverColor = TRANSPARENT;
 	private boolean isVisible, hovering, clicking;
+
 	@SuppressWarnings ("SameParameterValue")
 	public Slider(int x1, int y1, int size_x) {
 		x = x1;
@@ -25,6 +27,7 @@ class Slider {
 		knobRadius = 10;
 		thickness = 7;
 	}
+
 	public Slider(int x1, int y1, int size_x, double pos) {
 		x = x1;
 		y = y1;
@@ -34,6 +37,7 @@ class Slider {
 		knobRadius = 10;
 		thickness = 7;
 	}
+
 	public void draw(int mouseX, int mouseY, Graphics2D art) {
 		if(isVisible) {
 			int knobPos = x + (int) ((double) sizeX * position);
@@ -68,24 +72,28 @@ class Slider {
 			art.fillOval(knobPos - knobRadius, y - knobRadius, knobRadius * 2, knobRadius * 2);
 		}
 	}
+
 	private void hover() {
 		if(isVisible) {
 			hovering = true;
 			coverColor = HOVERING;
 		}
 	}
+
 	private void click() {
 		if(isVisible) {
 			clicking = true;
 			coverColor = CLICKING;
 		}
 	}
+
 	private void unHover() {
 		if(isVisible) {
 			hovering = false;
 			coverColor = TRANSPARENT;
 		}
 	}
+
 	private void unClick() {
 		if(isVisible) {
 			clicking = false;
@@ -96,23 +104,28 @@ class Slider {
 			}
 		}
 	}
+
 	@SuppressWarnings ("SameParameterValue")
 	public void setVisible(boolean v) {
 		isVisible = v;
 	}
+
 	public void setScreenPos(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
+
 	public double getPos() {
 		return position;
 	}
+
 	public Dimension getPosition() {
 		return new Dimension(x, y);
 	}
+
 	private void moveKnob(int mouseX) {
 		if(clicking) {
-			position = ((double)mouseX - (double)x) / (double)sizeX;
+			position = ((double) mouseX - (double) x) / (double) sizeX;
 			if(position < 0.0)
 				position = 0.0;
 			if(position > 1.0)

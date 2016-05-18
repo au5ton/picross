@@ -1,8 +1,7 @@
-package puzzleCreator;
+package picross;
 
 import java.io.FileInputStream;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created on 5/15/2016 at 10:21 AM.

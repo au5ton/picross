@@ -46,6 +46,7 @@ class Main {
 			e.printStackTrace();
 		}
 	}
+
 	public static void runCreator() {
 		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "puzzleCreator.jar");
 		pb.directory(new File("."));
@@ -58,6 +59,7 @@ class Main {
 			e.printStackTrace();
 		}
 	}
+
 	public static int getNumPuzzles() {
 		int i = 0;
 		File savesFolder = new File(".\\saves");
@@ -71,6 +73,7 @@ class Main {
 		}
 		return i;
 	}
+
 	public static List<String> getPuzzleNames() {
 		List<String> out = new ArrayList<>();
 		File savesFolder = new File(".\\saves");
@@ -84,6 +87,7 @@ class Main {
 		}
 		return out;
 	}
+
 	public static List<TextDocument> getPuzzles() throws IOException {
 		List<String> puzzleTitles = getPuzzleNames();
 		List<TextDocument> out = new ArrayList<>();

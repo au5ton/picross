@@ -220,15 +220,19 @@ class Button {
 	public Dimension getSize() {
 		return new Dimension(sizeX, sizeY);
 	}
+
 	public void setToggled(boolean toggled) {
 		isToggled = toggled;
 	}
+
 	public boolean isToggled() {
 		return isToggled;
 	}
+
 	public void toggle() {
 		isToggled = !isToggled;
 	}
+
 	public Color getBaseColor() {
 		return baseColor;
 	}

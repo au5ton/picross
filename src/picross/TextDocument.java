@@ -1,9 +1,11 @@
 package picross;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created on 4/12/2016 at 9:44 PM.
@@ -33,9 +35,11 @@ class TextDocument {
 
 	TextDocument() {
 	}
+
 	public String get(int pos) throws NullPointerException {
 		return contents.get(pos);
 	}
+
 	public boolean has(int pos) {
 		return contents.size() > pos;
 	}
