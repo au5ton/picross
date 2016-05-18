@@ -1,8 +1,5 @@
 package picross;
 
-import com.intellij.compiler.options.CompilerOptionsFilter;
-import com.intellij.util.xmlb.annotations.Text;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

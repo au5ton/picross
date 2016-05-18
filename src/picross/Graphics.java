@@ -61,9 +61,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Image imgBuffer;
 	static int[] clueLen;
 	private Font f;
+	//all buttons
+	private AllButtons allButtons;
 	//button categories
 	private ButtonList mainMenuButtons;
 	private ButtonList gameChoiceButtons;
+	private ButtonList loadMenuButtons;
 	private ButtonList sizePickerButtons;
 	private ButtonList gameButtons;
 	private ButtonList pauseMenuButtons;
@@ -443,7 +446,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				drawCenteredText(f, "MAIN MENU", 100, art);
 				art = setFont(23f, art);
 				art.drawString("Loading...", frame.getWidth() / 2 - 125, bNewPuzzle.getY() + 65);
-				mainMenuButtons.drawAll(x, y, art);
 				art = setFont(20f, art);
 				if(showMusic) {
 					if(hasMusic)
@@ -464,7 +466,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				percent = Math.round(percent * 10);
 				percent /= 10;
 				drawCenteredText(f, "" + percent + "%", volumeSlider.getPosition().height + 50, art);
-				optionsMenuButtons.drawAll(x, y, art);
 				volumeSlider.draw(x, y, art);
 				art = setFont(20f, art);
 				art.setColor(BLACK);
@@ -479,7 +480,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "CHOOSE GAMEMODE", 100, art);
-				gameChoiceButtons.drawAll(x, y, art);
 				break;
 			case "size picker":
 				frame.setTitle("Size Picker | Picross");
@@ -516,7 +516,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					else
 						drawRightText(f, "No music!", frame.getHeight() - 20, art);
 				}
-				sizePickerButtons.drawAll(x, y, art);
 				tutorialBox.draw(x, y, art);
 				break;
 			case "game":
@@ -579,7 +578,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						gameGrid.drawClues(j, 0, art, cWidth);
 					}
 				}
-				gameButtons.drawAll(x, y, art);
 				for(int i = 5; i < gameGrid.sizeX; i += 5) {
 					art.drawLine(clueLen[0] + i * bSize + 1 + cWidth, clueLen[1], clueLen[0] + i * bSize + 1 + cWidth, clueLen[1] + gameGrid.sizeY * bSize);
 				}
@@ -643,7 +641,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art = setFont(20f, art);
 				art.setColor(BLACK);
 				drawRightText(f, "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
-				pauseMenuButtons.drawAll(x, y, art);
 				break;
 			case "controls":
 				art.setColor(new Color(128, 128, 255));
@@ -667,9 +664,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				for(int i = 0 ; i < text.size(); i++) {
 						art.drawString(text.get(i), 130, 180 + i * 35);
 				}
-				controlsMenuButtons.drawAll(x, y, art);
 				break;
 		}
+		allButtons.drawButtons(x, y, art);
 		if(Main.FPSCounter.getMS() > 1000) {
 			Main.FPSCounter.begin();
 			fps = numFrames;
@@ -962,15 +959,15 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 */
 	void doClickAction(Button b) {
 		if(b == bNewPuzzle) {
-			mainMenuButtons.setVisible(false);
+			prevWindow = currWindow;
 			currWindow = "gamemode";
-			gameChoiceButtons.setVisible(true);
+			allButtons.setWindow(currWindow);
 			//get size from settings file
 
 		} else if(b == bRandomPuzzle) {
-			gameChoiceButtons.setVisible(false);
-			sizePickerButtons.setVisible(true);
+			prevWindow = currWindow;
 			currWindow = "size picker";
+			allButtons.setWindow(currWindow);
 			String size = prefs.get("size");
 			sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 			sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
@@ -979,9 +976,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			if(sizeY == 0)
 				sizeY = 10;
 		} else if(b == bOptions) {
-			b.setVisible(false);
-			optionsMenuButtons.setVisible(true);
+			prevWindow = currWindow;
 			currWindow = "options";
+			allButtons.setWindow(currWindow);
 		} else if(b == bResume) {
 			status = "";
 			bResume.setVisible(false);
@@ -1025,8 +1022,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				sizeY--;
 			}
 		} else if(b == bBack) {
-			currWindow = "menu";
-			mainMenuButtons.setVisible(true);
+			currWindow = prevWindow;
+			allButtons.setWindow(prevWindow);
 		} else if(b == bStart || b == bRegenPuzzle) {
 			frame.setTitle("GENERATING...");
 			{
@@ -1045,7 +1042,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 			}
 			b.setVisible(false);
+			prevWindow = currWindow;
 			currWindow = "game";
+			allButtons.setWindow(currWindow);
 			status = "get ready";
 			bBegin.setVisible(true);
 			bPause.setVisible(false);
@@ -1057,14 +1056,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			Main.timer.reset();
 		} else if(b == bMainMenu || b == bMainMenu2) {
 			frame.setTitle("Main Menu | Picross");
+			prevWindow = currWindow;
 			currWindow = "menu";
+			allButtons.setWindow(currWindow);
 			status = "menu";
 			numMistakes = 0;
-			bMainMenu.setVisible(false);
-			bMainMenu2.setVisible(false);
-			bResume.setVisible(false);
-			bRegenPuzzle.setVisible(false);
-			bNewPuzzle.setVisible(true);
 			playable = false;
 		} else if(b == bQuitGame) {
 			frame.setTitle("Quitting...");
@@ -1082,9 +1078,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			playable = true;
 			faded = false;
 		} else if(b == bControlsMenu) {
+			prevWindow = currWindow;
 			currWindow = "controls";
-			mainMenuButtons.setVisible(false);
-			controlsMenuButtons.setVisible(true);
+			allButtons.setWindow(currWindow);
 		} else if(b == bOpenMusicLocator) {
 			mLocator.setVisible(true);
 			Panel textPanel = new Panel();
@@ -1121,6 +1117,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			mLocator.add("Center", textPanel);
 		} else if(b == bCreator) {
 			runCreator();
+		} else if(b == bLoadPuzzle) {
+			prevWindow = currWindow;
+			currWindow = "load";
+			allButtons.setWindow(currWindow);
 		}
 	}
 	void doSlideAction(Slider s) {
@@ -1253,7 +1253,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		return art;
 	}
 	private void initButtons() {
-		mainMenuButtons = new ButtonList();
+		allButtons = new AllButtons();
+
+		mainMenuButtons = new ButtonList("menu");
 		bNewPuzzle = new Button(frame.getWidth() / 2 - 125, 125, 100, 100, "Start Game", GREEN, 20);
 		bNewPuzzle.setVisible(true);
 		bOptions = new Button(frame.getWidth() / 2 + 25, 125, 100, 100, "Options", YELLOW, 20);
@@ -1266,12 +1268,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bCreator.setVisible(true);
 		mainMenuButtons.addButtons(new Button[] {bNewPuzzle, bQuitGame, bOptions, bControlsMenu, bCreator});
 
-		gameChoiceButtons = new ButtonList();
+		gameChoiceButtons = new ButtonList("gamemode");
 		bRandomPuzzle = new Button(frame.getWidth() / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20);
 		bLoadPuzzle = new Button(frame.getWidth() / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20);
 		gameChoiceButtons.addButtons(new Button[] {bRandomPuzzle, bLoadPuzzle});
 
-		sizePickerButtons = new ButtonList();
+		loadMenuButtons = new ButtonList("load");
+
+		loadMenuButtons.addButtons(new Button[] {bBack});
+
+		sizePickerButtons = new ButtonList("size picker");
 		bXUp = new Button(300, 400, 100, 50, "Λ", 30);
 		bXDown = new Button(300, 510, 100, 50, "V", 30);
 		bYUp = new Button(600, 400, 100, 50, "Λ", 30);
@@ -1280,17 +1286,17 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bStart = new Button(frame.getWidth() / 2 - 50, frame.getHeight() - 100, 100, 75, "GENERATE", GREEN, 30);
 		sizePickerButtons.addButtons(new Button[] {bXUp, bXDown, bYUp, bYDown, bBack, bStart});
 
-		optionsMenuButtons = new ButtonList();
+		optionsMenuButtons = new ButtonList("options");
 		volumeSlider = new Slider(frame.getWidth() / 2 - 100, 300, 200, Double.parseDouble(prefs.get("volume")));
 		bOpenMusicLocator = new Button(10, frame.getHeight() - 60, 150, 50, "Choose music location", YELLOW, 30);
 		tutorialBox = new CheckBox(50, frame.getHeight() - 100, 50, true);
 		optionsMenuButtons.addButtons(new Button[]{bBack, bOpenMusicLocator});
 
-		gameButtons = new ButtonList();
+		gameButtons = new ButtonList("game");
 		bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
 		gameButtons.addButtons(new Button[] {bPause});
 
-		pauseMenuButtons = new ButtonList();
+		pauseMenuButtons = new ButtonList("pause");
 		bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", GREEN, 17);
 		bMainMenu = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
 		bMainMenu2 = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
@@ -1298,8 +1304,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bBegin = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100, "BEGIN", GREEN, 20);
 		pauseMenuButtons.addButtons(new Button[] {bResume, bMainMenu, bMainMenu2, bRegenPuzzle, bBegin});
 
-		controlsMenuButtons = new ButtonList();
+		controlsMenuButtons = new ButtonList("controls");
 		controlsMenuButtons.addButtons(new Button[]{bBack});
+
+		allButtons.addButtonLists(new ButtonList[] {mainMenuButtons, gameChoiceButtons, loadMenuButtons, sizePickerButtons, optionsMenuButtons, gameButtons, pauseMenuButtons, controlsMenuButtons});
 	}
 	private void writePrefs() {
 		prefs.put("size", "" + sizeX + ',' + sizeY);

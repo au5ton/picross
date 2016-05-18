@@ -11,13 +11,17 @@ import java.util.List;
 class ButtonList {
 	@SuppressWarnings ("CanBeFinal")
 	private List<Button> buttons;
-	public ButtonList() {
+	private String name;
+	public ButtonList(String name) {
+		this.name = name;
 		buttons = new ArrayList<>();
 	}
-	public ButtonList(Button b) {
+	public ButtonList(String name, Button b) {
+		this.name = name;
 		buttons = new ArrayList<>(Collections.singletonList(b));
 	}
-	public ButtonList(List<Button> b) {
+	public ButtonList(String name, List<Button> b) {
+		this.name = name;
 		buttons = b;
 	}
 	public List<Button> getButtons() {
@@ -41,5 +45,8 @@ class ButtonList {
 		for(Button button : buttons) {
 			button.setVisible(visible);
 		}
+	}
+	public String getName() {
+		return name;
 	}
 }
