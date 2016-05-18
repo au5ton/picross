@@ -49,6 +49,18 @@ class Main {
 			e.printStackTrace();
 		}
 	}
+	public static void runCreator() {
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "puzzleCreator.jar");
+		pb.directory(new File("."));
+		try {
+			Process p = pb.start();
+			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
+			Thread thread = new Thread(lsr, "PuzzleCreatorStream");
+			thread.start();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public static int getNumPuzzles() {
 		int i = 0;
 		File savesFolder = new File(".\\saves");

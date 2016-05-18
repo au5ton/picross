@@ -19,9 +19,7 @@ import java.util.*;
 import java.util.List;
 
 import static java.awt.Color.*;
-import static picross.Main.FPSCounter;
-import static picross.Main.prefs;
-import static picross.Main.runSolver;
+import static picross.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
 	static int bSize;
@@ -41,8 +39,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private int sizeY;
 	private int fps = 0;
 	private double volume;
-	//private Scanner s;
+	private Scanner s;
 	private String currWindow;
+	private String prevWindow;
 	private String status;
 	private String currMusic;
 	private String musicLocation = "Music";
@@ -64,6 +63,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Font f;
 	//button categories
 	private ButtonList mainMenuButtons;
+	private ButtonList gameChoiceButtons;
 	private ButtonList sizePickerButtons;
 	private ButtonList gameButtons;
 	private ButtonList pauseMenuButtons;
@@ -87,6 +87,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Button bOptions;
 	private Button bControlsMenu;
 	private Button bOpenMusicLocator;
+	private Button bCreator;
+	private Button bRandomPuzzle;
+	private Button bLoadPuzzle;
 	//sliders
 	private Slider volumeSlider;
 	//boxes
@@ -355,6 +358,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						Main.animator.reset();
 					}
 					break;
+				case "gamemode":
+					gameChoiceButtons.setVisible(true);
+					break;
 				case "size picker":
 					frame.setMinimumSize(new Dimension(
 							getStrLen("SIZE PICKER", 50f) + bBack.getSize().width * 2 + 25,
@@ -386,6 +392,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					}
 					break;
 				case "menu":
+					mainMenuButtons.setVisible(true);
 					if(f != null) {
 						frame.setMinimumSize(new Dimension(getStrLen("MAIN MENU", 50f) + 25, 550));
 					}
@@ -465,6 +472,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					drawRightText(f, "Now Playing: " + currMusic, frame.getHeight() - 20, art);
 				else
 					drawRightText(f, "No music! Find some through Options.", frame.getHeight() - 20, art);
+				break;
+			case "gamemode":
+				art.setColor(new Color(128, 128, 255));
+				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+				art.setColor(BLACK);
+				art = setFont(50f, art);
+				drawCenteredText(f, "CHOOSE GAMEMODE", 100, art);
+				gameChoiceButtons.drawAll(x, y, art);
 				break;
 			case "size picker":
 				frame.setTitle("Size Picker | Picross");
@@ -846,6 +861,50 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			e.printStackTrace();
 		}
 	}
+	private void loadPuzzle(String name) {
+		List<String> output;
+		do {
+			output = LogStreamReader.output;
+			try {
+				Thread.sleep(100);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		} while(output.size() < 1);
+		String key = output.get(0);
+		System.out.println(key);
+		File puzzleFile = new File(".\\saves\\" + name + ".p.e");
+		File decryptedPuzzle = new File(".\\saves\\" + name + ".p");
+		try {
+			CryptoUtils.decrypt(key, puzzleFile, decryptedPuzzle);
+		} catch(CryptoException e) {
+			e.printStackTrace();
+		}
+		List<String> puzzle = new ArrayList<>();
+		try {
+			s = new Scanner(decryptedPuzzle);
+			while(s.hasNext()) {
+				puzzle.add(s.next());
+			}
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		sizeX = Integer.parseInt(puzzle.get(0).substring(0, puzzle.get(0).indexOf(' ')));
+		sizeY = Integer.parseInt(puzzle.get(0).substring(puzzle.get(0).indexOf(' ') + 1));
+		puzzle.remove(0);
+		gameGrid = new Grid(sizeX, sizeY);
+		for(int i = 0; i < sizeX; i++) {
+			System.out.println(puzzle.get(i));
+			for(int j = 0; j < sizeY; j++) {
+				gameGrid.getBox(i, j).setState(Integer.parseInt(puzzle.get(i).substring(j, j + 1)));
+			}
+		}
+		try {
+			Files.delete(decryptedPuzzle.toPath());
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Prints a string in the center of the frame.
 	 *
@@ -903,14 +962,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 */
 	void doClickAction(Button b) {
 		if(b == bNewPuzzle) {
-			bNewPuzzle.setVisible(false);
-			currWindow = "size picker";
+			mainMenuButtons.setVisible(false);
+			currWindow = "gamemode";
+			gameChoiceButtons.setVisible(true);
 			//get size from settings file
+
+		} else if(b == bRandomPuzzle) {
+			gameChoiceButtons.setVisible(false);
+			sizePickerButtons.setVisible(true);
+			currWindow = "size picker";
 			String size = prefs.get("size");
 			sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 			sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
-			if(sizeX == 0) sizeX = 10;
-			if(sizeY == 0) sizeY = 10;
+			if(sizeX == 0)
+				sizeX = 10;
+			if(sizeY == 0)
+				sizeY = 10;
 		} else if(b == bOptions) {
 			b.setVisible(false);
 			optionsMenuButtons.setVisible(true);
@@ -1052,6 +1119,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 			});
 			mLocator.add("Center", textPanel);
+		} else if(b == bCreator) {
+			runCreator();
 		}
 	}
 	void doSlideAction(Slider s) {
@@ -1193,7 +1262,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		bQuitGame.setVisible(true);
 		bControlsMenu = new Button(frame.getWidth() / 2 - 125, 275, 100, 100, "Controls", BLUE, 20);
 		bControlsMenu.setVisible(true);
-		mainMenuButtons.addButtons(new Button[] {bNewPuzzle, bQuitGame, bOptions, bControlsMenu});
+		bCreator = new Button(frame.getWidth() / 2 - 100, 400, 200, 100, "Creator", YELLOW, 20);
+		bCreator.setVisible(true);
+		mainMenuButtons.addButtons(new Button[] {bNewPuzzle, bQuitGame, bOptions, bControlsMenu, bCreator});
+
+		gameChoiceButtons = new ButtonList();
+		bRandomPuzzle = new Button(frame.getWidth() / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20);
+		bLoadPuzzle = new Button(frame.getWidth() / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20);
+		gameChoiceButtons.addButtons(new Button[] {bRandomPuzzle, bLoadPuzzle});
 
 		sizePickerButtons = new ButtonList();
 		bXUp = new Button(300, 400, 100, 50, "Λ", 30);
