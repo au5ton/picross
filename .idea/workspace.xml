@@ -10,19 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91323142-1033-49b4-8887-90dfb04e13f5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/picross/AllButtons.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/picross/CheckSum.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/picross/CryptoException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/picross/CryptoUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/ButtonList.class" afterPath="$PROJECT_DIR$/bin/picross/ButtonList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics$1.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics$2.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics$3.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/picross/Graphics.class" afterPath="$PROJECT_DIR$/bin/picross/Graphics.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/ButtonList.java" afterPath="$PROJECT_DIR$/src/picross/ButtonList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Main.java" afterPath="$PROJECT_DIR$/src/picross/Main.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -649,7 +637,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463586018182</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changed how buttons are rendered">
+      <created>1463588337241</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463588337241</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -672,9 +667,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29339305" sideWeight="0.50238097" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3217768" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32502708" sideWeight="0.49761903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.122068234" sideWeight="0.49415693" order="3" side_tool="false" content_ui="combo" />
@@ -728,7 +723,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="In process of adding loading of user-generated puzzles" />
-    <option name="LAST_COMMIT_MESSAGE" value="In process of adding loading of user-generated puzzles" />
+    <MESSAGE value="Changed how buttons are rendered" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed how buttons are rendered" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
