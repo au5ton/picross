@@ -50,6 +50,14 @@ class ButtonList {
 		buttons.addAll(bs);
 	}
 
+	public Button get(int index) {
+		return buttons.get(index);
+	}
+
+	public int size() {
+		return buttons.size();
+	}
+
 	public void setVisible(boolean visible) {
 		for(Button button : buttons) {
 			button.setVisible(visible);

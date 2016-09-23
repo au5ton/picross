@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/picross lmao.iml" filepath="$PROJECT_DIR$/picross lmao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/picross.iml" filepath="$PROJECT_DIR$/picross.iml" />
     </modules>
   </component>
 </project>

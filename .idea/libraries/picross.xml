@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="picross">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/puzzleCreator.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bgusolver.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

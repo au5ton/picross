@@ -1,10 +1,6 @@
 package picross;//TODO create interactive tutorial
 //TODO redesign main menu, similar to original but new color scheme
 
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -19,10 +15,9 @@ import java.util.List;
 import static java.awt.Color.*;
 import static picross.Main.*;
 
-//import org.jetbrains.annotations.Contract;
-//import org.jetbrains.annotations.Nullable;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
+	public static final String VERSION = "v1.3.0.2";
 	static int bSize;
 	private static int numFrames = 0;
 	private final int MIN_BSIZE = 14;
@@ -39,14 +34,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private int sizeX;
 	private int sizeY;
 	private int fps = 0;
-	private double volume;
+	private int scrollIndex = 0;
 	private Scanner s;
 	private String currWindow;
-	private String prevWindow;
+	private Stack<String> windows;
 	private String status;
-	private String currMusic;
-	private String musicLocation = "Music";
-	private List<String> musicList;
 	//flags
 	private boolean isRunning;
 	private boolean isDone;
@@ -54,12 +46,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private boolean faded = false;
 	private boolean modifier = false;
 	private boolean debugging = false;
-	private boolean showMusic = false;
-	private boolean hasMusic;
 	//graphics
 	@SuppressWarnings ("CanBeFinal")
 	private FancyFrame frame;
 	private Image imgBuffer;
+	private Color bgColor = new Color(128, 128, 255);
 	static int[] clueLen;
 	private Font f;
 	//all buttons
@@ -73,6 +64,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private ButtonList pauseMenuButtons;
 	private ButtonList optionsMenuButtons;
 	private ButtonList controlsMenuButtons;
+	private ButtonList gameEndButtons;
+	private ButtonList puzzleButtons;//load screen entries (puzzles to choose from)
 	//buttons
 	private Button bPause;
 	private Button bResume;
@@ -90,19 +83,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Button bRegenPuzzle;
 	private Button bOptions;
 	private Button bControlsMenu;
-	private Button bOpenMusicLocator;
 	private Button bCreator;
 	private Button bRandomPuzzle;
 	private Button bLoadPuzzle;
-	//sliders
-	private Slider volumeSlider;
-	//boxes
-	private CheckBox tutorialBox;
-	//audio
-	private MediaPlayer music;
-	private Dialog mLocator;
-	private int currSong = 0;
-	private ButtonList gameEndButtons;
 
 	public Graphics() {
 		FPSCounter.begin();
@@ -121,6 +104,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		playable = false;
 		status = "menu";
 		currWindow = "menu";
+		windows = new Stack<String>();
+		windows.push(currWindow);
 		//grab size from file
 		if(prefs.get("size").equals("0,0")) {
 			prefs.put("size", "10,10");
@@ -128,112 +113,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		String size = prefs.get("size");
 		sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 		sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
-		//grabs musicLocation from file
-		if(!prefs.has("music folder")) {
-			prefs.put("music folder", "Music");
-		}
-		musicLocation = prefs.get("music folder");
-		//grab song names from musicLocation
-		musicList = new ArrayList<>();
-		File mCrawler = new File(musicLocation);
-		if(!mCrawler.exists()) {
-			hasMusic = false;
-		} else {
-			File[] songs = mCrawler.listFiles();
-			assert songs != null;
-			for(File f : songs) {
-				if(f.getName().substring(f.getName().length() - 4, f.getName().length()).equals(".mp3"))
-					musicList.add(f.getName().substring(0, f.getName().length()));
-			}
-			if(musicList.size() == 0) {
-				hasMusic = false;
-			} else {
-				hasMusic = true;
-				currMusic = getRandomSong();
-				if(currMusic != null) {
-					currMusic = currMusic.substring(0, currMusic.length() - 4);
-				}
-			}
-		}
 		//initializes currBox so the game doesn't freak out
 		currBox = null;
 		//buttons, sliders, and checkboxes
+		displayStatus("Creating buttons...");
 		initButtons();
-		//audio
-		if(hasMusic) {
-			//noinspection UnusedAssignment
-			new JFXPanel();//starts javafx things/environment so that music can load
-			Media m;
-			Path path = Paths.get(musicLocation + "/" + getRandomSong());
-			m = new Media(path.toUri().toString());
-			music = new MediaPlayer(m);
-			music.setVolume(0.5);
-			volume = 0.5;
-			music.play();
-			music.setVolume(Double.parseDouble(prefs.get("volume")));
-		}
-		volume = Double.parseDouble(prefs.get("volume"));
-		//extra windows
-		mLocator = new Dialog(frame, "Choose music location", true);
-		mLocator.setSize(new Dimension(400, 200));
-		mLocator.setLayout(new BorderLayout());
-		mLocator.setResizable(false);
-		mLocator.setBackground(new Color(128, 128, 255));
-		mLocator.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				mLocator.setVisible(false);
-				mLocator.dispose();
-			}
-		});
-		Panel headPanel = new Panel();
-		Label header = new Label("Enter the path where music should be found.");
-		headPanel.add(header);
-		mLocator.add("North", headPanel);
-		Panel textPanel = new Panel();
-		TextField textBox = new TextField(40);
-		textBox.setText(musicLocation);
-		textPanel.add(textBox);
-		textBox.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					musicLocation = textBox.getText().equals("") ? musicLocation : textBox.getText();
-					checkMusicLocation();
-					if(hasMusic)
-						prefs.put("music folder", musicLocation);
-					music.stop();
-					mLocator.setVisible(false);
-				}
-				if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-					mLocator.setVisible(false);
-					textBox.setText(musicLocation);
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-
-			}
-		});
-		mLocator.add("Center", textPanel);
-		Panel bPanel = new Panel();
-		java.awt.Button confirm = new java.awt.Button("Confirm");
-		confirm.addActionListener(e -> {
-			musicLocation = textBox.getText().equals("") ? musicLocation : textBox.getText();
-			checkMusicLocation();
-			if(hasMusic)
-				prefs.put("music folder", musicLocation);
-			music.stop();
-			mLocator.setVisible(false);
-		});
-		bPanel.add(confirm);
-		mLocator.add("South", bPanel);
+		displayStatus("Setting up graphics...");
 	}
 
 	@Override
@@ -255,8 +140,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		if(music != null)
-			music.stop();
 		writePrefs();
 		frame.setVisible(false);
 		isRunning = false;
@@ -291,12 +174,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		if(keyChar == 'd') {
 			debugging = true;
 		}
-		if(keyChar == 'n') {
-			playNextSong();
-		}
-		if(keyChar == 'm') {
-			showMusic = true;
-		}
 	}
 
 	@Override
@@ -308,9 +185,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		if(key == KeyEvent.VK_D) {
 			debugging = false;
 		}
-		if(key == KeyEvent.VK_M) {
-			showMusic = false;
-		}
 	}
 
 	@Override
@@ -320,9 +194,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@Override
 	public void run() {
 		while(isRunning) {
-			if(music != null && music.getStopTime().toSeconds() <= music.getCurrentTime().toSeconds()) {
-				playNextSong();
-			}
 			switch(currWindow) {
 				case "game":
 					if(playable)
@@ -333,6 +204,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						bMainMenu.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7);
 						bMainMenu2.setPos(frame.getWidth() / 2, frame.getHeight() / 2 + 7);
 						bRegenPuzzle.setPos(frame.getWidth() / 2, frame.getHeight() / 2 + 7);
+						bCreator.setPos(frame.getWidth() / 2 - 100, 400);
 					}
 					//get size of each box for optimal display size, takes into account clueLen and mistakes box
 					bSize = getBoxSize();
@@ -379,6 +251,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					break;
 				case "gamemode":
 					gameChoiceButtons.setVisible(true);
+					bRandomPuzzle.setPos(frame.getWidth() / 2 - 100, bRandomPuzzle.getY());
+					bLoadPuzzle.setPos(frame.getWidth() / 2 - 100, bLoadPuzzle.getY());
 					break;
 				case "size picker":
 					frame.setMinimumSize(new Dimension(
@@ -419,15 +293,26 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					bOptions.setPos(frame.getWidth() / 2 + 25, bOptions.getY());
 					bQuitGame.setPos(frame.getWidth() / 2 + 25, bQuitGame.getY());
 					bControlsMenu.setPos(frame.getWidth() / 2 - 125, bControlsMenu.getY());
+					bCreator.setPos(frame.getWidth() / 2 - 100, bCreator.getY());
 					break;
 				case "options":
 					bBack.setVisible(true);
-					volumeSlider.setVisible(true);
-					volumeSlider.setScreenPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 7);
-					bOpenMusicLocator.setPos(20, frame.getHeight() - 70);
 					break;
 				case "controls":
 
+					break;
+				case "load":
+					puzzleButtons.setVisible(false);
+					for(int i = scrollIndex; i < scrollIndex + (puzzleButtons.size() >= 5 ? 5 : puzzleButtons.size()); i++) {
+						Button b = puzzleButtons.get(i);
+						b.setX(50);
+						int workingHeight = frame.getHeight() - 150;
+						int topBuffer = 100;
+						b.setY(workingHeight * i / 5 + 125);
+						b.setSizeX(frame.getWidth() - 100);
+						b.setSizeY(workingHeight / 5 - 25);
+						b.setVisible(true);
+					}
 					break;
 			}
 			x = frame.mouseX;
@@ -455,44 +340,24 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		switch(currWindow) {
 			case "menu":
 				frame.setTitle("Main Menu | Picross");
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				//art.setColor(getRandomColor());
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "MAIN MENU", 100, art);
-				art = setFont(23f, art);
-				art.drawString("Loading...", frame.getWidth() / 2 - 125, bNewPuzzle.getY() + 65);
 				art = setFont(20f, art);
-				if(showMusic) {
-					if(hasMusic)
-						drawRightText(f, "Now Playing: " + currMusic, frame.getHeight() - 20, art);
-					else
-						drawRightText(f, "No music!", frame.getHeight() - 20, art);
-				}
+				art.drawString(VERSION, 15, frame.getHeight() - 15);
 				break;
 			case "options":
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "OPTIONS", 100, art);
-				art = setFont(30f, art);
-				drawCenteredText(f, "VOLUME", volumeSlider.getPosition().height - 20, art);
-				double percent = music.getVolume() * 100;
-				percent = Math.round(percent * 10);
-				percent /= 10;
-				drawCenteredText(f, "" + percent + "%", volumeSlider.getPosition().height + 50, art);
-				volumeSlider.draw(x, y, art);
-				art = setFont(20f, art);
-				art.setColor(BLACK);
-				if(hasMusic)
-					drawRightText(f, "Now Playing: " + currMusic, frame.getHeight() - 20, art);
-				else
-					drawRightText(f, "No music! Find some through Options.", frame.getHeight() - 20, art);
 				break;
 			case "gamemode":
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(BLACK);
 				art = setFont(50f, art);
@@ -517,7 +382,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					bYDown.setVisible(true);
 				}
 
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(BLACK);
 				art = setFont(50f, art);
@@ -527,17 +392,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				drawCenteredText(f, Integer.toString(sizeX), bXUp.getX() + bXUp.getSize().width / 2, bXDown.getY() - 10, art);
 				drawCenteredText(f, Integer.toString(sizeY), bYUp.getX() + bYUp.getSize().width / 2, bYDown.getY() - 10, art);
 				art = setFont(20f, art);
-				if(showMusic) {
-					if(hasMusic)
-						drawRightText(f, "Now Playing: " + currMusic, frame.getHeight() - 20, art);
-					else
-						drawRightText(f, "No music!", frame.getHeight() - 20, art);
-				}
-				tutorialBox.draw(x, y, art);
 				break;
 			case "game":
 				frame.setTitle("" + Main.timer.toString(true) + " | Picross");
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				if(playable) {
 					art.setColor(fadeOff(64, 100));
@@ -664,7 +522,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				drawRightText(f, "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
 				break;
 			case "controls":
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(black);
 				art = setFont(50f, art);
@@ -687,11 +545,13 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 				break;
 			case "load":
-				art.setColor(new Color(128, 128, 255));
+				art.setColor(bgColor);
 				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "LOAD A PUZZLE", 100, art);
+				loadMenuButtons.drawAll(x, y, art);
+				puzzleButtons.drawAll(x, y, art);
 				break;
 		}
 		allButtons.drawButtons(x, y, art);
@@ -847,7 +707,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			getSolution();
 			gameGrid.generateClues(solutionGrid);
 			writeClues();
-			runSolver();
+			runSolver("clues.nin");
 			do {
 				output = LogStreamReader.output;
 				try {
@@ -896,35 +756,35 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 
 	private void loadPuzzle(String name) {
-		List<String> output;
+		List<String> output = new ArrayList<>();
+		File puzzleFile = new File("." + slashCharacter + "saves" + slashCharacter + name + ".nin");
+		try {
+			s = new Scanner(puzzleFile);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		if(s.hasNext()) {
+			String size = s.next();
+			sizeX = Integer.parseInt(size.substring(0, size.indexOf(' ')));
+			sizeY = Integer.parseInt(size.substring(size.indexOf(' ') + 1, size.length()));
+			gameGrid = new Grid(sizeX, sizeY);
+		}
+
+		runSolver("." + slashCharacter + "saves" + slashCharacter + name + ".nin");
+		List<String> prevOutput = new ArrayList<>();
 		do {
+			prevOutput = output;
 			output = LogStreamReader.output;
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-		} while(output.size() < 1);
-		String key = output.get(0);
-		System.out.println(key);
-		File puzzleFile = new File(".\\saves\\" + name + ".p.e");
-		File decryptedPuzzle = new File(".\\saves\\" + name + ".p");
-		try {
-			CryptoUtils.decrypt(key, puzzleFile, decryptedPuzzle);
-		} catch(CryptoException e) {
-			e.printStackTrace();
-		}
+		} while(!output.equals(prevOutput));
 		List<String> puzzle = new ArrayList<>();
-		try {
-			s = new Scanner(decryptedPuzzle);
-			while(s.hasNext()) {
-				puzzle.add(s.next());
-			}
-		} catch(FileNotFoundException e) {
-			e.printStackTrace();
+		for(String s : output) {
+			System.out.println(s);
 		}
-		sizeX = Integer.parseInt(puzzle.get(0).substring(0, puzzle.get(0).indexOf(' ')));
-		sizeY = Integer.parseInt(puzzle.get(0).substring(puzzle.get(0).indexOf(' ') + 1));
 		puzzle.remove(0);
 		gameGrid = new Grid(sizeX, sizeY);
 		for(int i = 0; i < sizeX; i++) {
@@ -932,11 +792,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			for(int j = 0; j < sizeY; j++) {
 				gameGrid.getBox(i, j).setState(Integer.parseInt(puzzle.get(i).substring(j, j + 1)));
 			}
-		}
-		try {
-			Files.delete(decryptedPuzzle.toPath());
-		} catch(IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -1000,14 +855,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 * @param b button to be compared with known buttons
 	 */
 	void doClickAction(Button b) {
+		if(b != bXUp && b != bXDown && b != bYUp && b != bYDown && b != bBegin && b != bPause)
+		displayStatusNoBG("Loading...");
 		if(b == bNewPuzzle) {
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "gamemode";
 			allButtons.setWindow(currWindow);
 			//get size from settings file
 
 		} else if(b == bRandomPuzzle) {
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "size picker";
 			allButtons.setWindow(currWindow);
 			String size = prefs.get("size");
@@ -1018,7 +875,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			if(sizeY == 0)
 				sizeY = 10;
 		} else if(b == bOptions) {
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "options";
 			allButtons.setWindow(currWindow);
 		} else if(b == bResume) {
@@ -1066,27 +923,13 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				sizeY--;
 			}
 		} else if(b == bBack) {
-			currWindow = prevWindow;
-			allButtons.setWindow(prevWindow);
+			currWindow = windows.pop();
+			allButtons.setWindow(currWindow);
 		} else if(b == bStart || b == bRegenPuzzle) {
 			frame.setTitle("GENERATING...");
-			{
-				Graphics2D art = (Graphics2D) imgBuffer.getGraphics();
-				RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-				art.setRenderingHints(rh);
-				art.setColor(new Color(128, 128, 255));
-				art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-				art.setColor(black);
-				art = setFont(50f, art);
-				drawCenteredText(f, "Generating random puzzle...", frame.getHeight() / 2 + 25, art);
-				art = (Graphics2D) frame.getGraphics();
-				if(art != null) {
-					art.drawImage(imgBuffer, 0, 0, frame.getWidth(), frame.getHeight(), 0, 0, frame.getWidth(), frame.getHeight(), null);
-					art.dispose();
-				}
-			}
+			displayStatus("Generating random puzzle...");
 			b.setVisible(false);
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "game";
 			allButtons.setWindow(currWindow);
 			status = "get ready";
@@ -1099,9 +942,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			generatePuzzle();
 			Main.timer.reset();
 		} else if(b == bMainMenu || b == bMainMenu2) {
+			windows = new Stack<>();
 			frame.setTitle("Main Menu | Picross");
-			prevWindow = currWindow;
 			currWindow = "menu";
+			windows.push(currWindow);
 			allButtons.setWindow(currWindow);
 			status = "menu";
 			numMistakes = 0;
@@ -1109,8 +953,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		} else if(b == bQuitGame) {
 			frame.setTitle("Quitting...");
 			writePrefs();
-			if(music != null)
-				music.stop();
 			frame.setVisible(false);
 			isRunning = false;
 			frame.dispose();
@@ -1123,58 +965,37 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			playable = true;
 			faded = false;
 		} else if(b == bControlsMenu) {
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "controls";
 			allButtons.setWindow(currWindow);
-		} else if(b == bOpenMusicLocator) {
-			mLocator.setVisible(true);
-			Panel textPanel = new Panel();
-			TextField textBox = new TextField(40);
-			textBox.setText(musicLocation);
-			textPanel.add(textBox);
-			textBox.addKeyListener(new KeyListener() {
-				@Override
-				public void keyTyped(KeyEvent e) {
-
-				}
-
-				@Override
-				public void keyPressed(KeyEvent e) {
-					if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-						musicLocation = textBox.getText().equals("") ? musicLocation : textBox.getText();
-						checkMusicLocation();
-						if(hasMusic)
-							prefs.put("music folder", musicLocation);
-						music.stop();
-						mLocator.setVisible(false);
-					}
-					if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-						mLocator.setVisible(false);
-						textBox.setText(musicLocation);
-					}
-				}
-
-				@Override
-				public void keyReleased(KeyEvent e) {
-
-				}
-			});
-			mLocator.add("Center", textPanel);
 		} else if(b == bCreator) {
 			runCreator();
 		} else if(b == bLoadPuzzle) {
-			prevWindow = currWindow;
+			windows.push(currWindow);
 			currWindow = "load";
 			allButtons.setWindow(currWindow);
+			loadMenuButtons.setVisible(true);
+			//get all puzzles
+			List<String> puzzleNames = getPuzzleNames();
+			scrollIndex = 0;
+			Button[] pButtons = new Button[getNumPuzzles()];
+			for(int i = 0; i < getNumPuzzles(); i++) {
+				pButtons[i] = new Button();
+				pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
+			}
+			puzzleButtons.addButtons(pButtons);
+			puzzleButtons.setVisible(true);
+		} else {
+			for(int i = 0; i < puzzleButtons.size(); i++) {
+				if(b == puzzleButtons.get(i)) {
+					loadPuzzle(b.getText());
+				}
+			}
 		}
 	}
 
 	void doSlideAction(Slider s) {
-		if(s == volumeSlider) {
-			music.setVolume(s.getPos());
-			prefs.put("volume", Double.toString(s.getPos()));
-			volume = s.getPos();
-		}
+
 	}
 
 	/**
@@ -1254,54 +1075,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		return frame;
 	}
 
-	//@Nullable
-	private String getRandomSong() {
-		if(hasMusic) {
-			/*Random r = new Random();
-			currMusic = musicList.get((int) (r.nextDouble() * musicList.size()));
-			String s = currMusic;
-			currMusic = currMusic.substring(0, currMusic.length() - 4);*/
-			if(currSong == musicList.size() || currSong == 0) {
-				Collections.shuffle(musicList);
-				currSong = 0;
-			}
-			currMusic = musicList.get(currSong);
-			currSong++;
-			return currMusic;
-		}
-		return null;
-	}
-
-	private void playNextSong() {
-		if(hasMusic) {
-			music.stop();
-			Media m;
-			m = new Media(Paths.get(musicLocation + "/" + getRandomSong()).toUri().toString());
-			music = new MediaPlayer(m);
-			music.play();
-			music.setVolume(volume);
-		}
-	}
-
-	private void checkMusicLocation() {
-		File f = new File(musicLocation);
-		if(!f.exists()) {
-			hasMusic = false;
-		} else {
-			List<String> temp = new ArrayList<>();
-			//noinspection ConstantConditions
-			for(File f2 : f.listFiles()) {
-				if(f2.getName().substring(f2.getName().length() - 4, f2.getName().length()).equals(".mp3"))
-					temp.add(f2.getName());
-			}
-			if(temp.size() == 0) {
-				hasMusic = false;
-			} else {
-				musicList = temp;
-				hasMusic = true;
-			}
-		}
-	}
 
 	private Graphics2D setFont(float size, Graphics2D art) {
 		art.setFont(f.deriveFont(size));
@@ -1334,6 +1107,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		loadMenuButtons = new ButtonList("load");
 		loadMenuButtons.addButtons(new Button[] {bBack});
 
+		puzzleButtons = new ButtonList("puzzles");
+
 		sizePickerButtons = new ButtonList("size picker");
 		bXUp = new Button(300, 400, 100, 50, "Λ", 30);
 		bXDown = new Button(300, 510, 100, 50, "V", 30);
@@ -1343,10 +1118,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		sizePickerButtons.addButtons(new Button[] {bXUp, bXDown, bYUp, bYDown, bBack, bStart});
 
 		optionsMenuButtons = new ButtonList("options");
-		volumeSlider = new Slider(frame.getWidth() / 2 - 100, 300, 200, Double.parseDouble(prefs.get("volume")));
-		bOpenMusicLocator = new Button(10, frame.getHeight() - 60, 150, 50, "Choose music location", YELLOW, 30);
-		tutorialBox = new CheckBox(50, frame.getHeight() - 100, 50, true);
-		optionsMenuButtons.addButtons(new Button[] {bBack, bOpenMusicLocator});
+		optionsMenuButtons.addButtons(new Button[] {bBack});
 
 		gameButtons = new ButtonList("game");
 		bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
@@ -1354,8 +1126,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 		pauseMenuButtons = new ButtonList("pause");
 		bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", GREEN, 17);
-		bMainMenu = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
-		bMainMenu2 = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", new Color(128, 128, 255), 17);
+		bMainMenu = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
+		bMainMenu2 = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
 		bRegenPuzzle = new Button(frame.getWidth() / 2, frame.getHeight() / 2 + 7, 100, 43, "New Puzzle", GREEN, 17);
 		bBegin = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100, "BEGIN", GREEN, 20);
 		pauseMenuButtons.addButtons(new Button[] {bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
@@ -1376,6 +1148,37 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			prefs.close();
 		} catch(IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void displayStatus(String message) {
+		Graphics2D art = (Graphics2D) imgBuffer.getGraphics();
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		art.setRenderingHints(rh);
+		f = art.getFont();
+		art.setColor(bgColor);
+		art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+		art.setColor(black);
+		art = setFont(50f, art);
+		drawCenteredText(f, message, frame.getHeight() / 2 + 25, art);
+		art = (Graphics2D) frame.getGraphics();
+		if(art != null) {
+			art.drawImage(imgBuffer, 0, 0, frame.getWidth(), frame.getHeight(), 0, 0, frame.getWidth(), frame.getHeight(), null);
+			art.dispose();
+		}
+	}
+	private void displayStatusNoBG(String message) {
+		Graphics2D art = (Graphics2D) imgBuffer.getGraphics();
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		art.setRenderingHints(rh);
+		f = art.getFont();
+		art.setColor(black);
+		art = setFont(50f, art);
+		drawCenteredText(f, message, frame.getHeight() / 2 + 25, art);
+		art = (Graphics2D) frame.getGraphics();
+		if(art != null) {
+			art.drawImage(imgBuffer, 0, 0, frame.getWidth(), frame.getHeight(), 0, 0, frame.getWidth(), frame.getHeight(), null);
+			art.dispose();
 		}
 	}
 }

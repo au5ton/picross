@@ -8,12 +8,25 @@ import static picross.Main.mainWindow;
 class Button {
 	private int x1, y1, sizeX, sizeY;
 	private int maxFontSize;
-	private boolean clicking, isVisible, canClick, isToggled;
+	private boolean clicking;
+	private boolean isVisible;
+	/**
+	 * Prevents infinite clicking by forcing one click per mouse click or at least while the mouse stays in bounds.
+	 */
+	private boolean canClick;
+	private boolean isToggled;
 	private Color baseColor, coverColor, borderColor = Color.BLACK;
 	private String text;
 	private Font font;
 	private FontMetrics fontInfo;
 
+	public Button() {
+		clicking = false;
+		baseColor = Color.WHITE;
+		coverColor = new Color(0, 0, 0, 0);
+		isVisible = false;
+		canClick = true;
+	}
 	public Button(int x, int y, int size_x, int size_y, String text) {
 		x1 = x;
 		y1 = y;
@@ -207,6 +220,27 @@ class Button {
 	public void setPos(int x, int y) {
 		x1 = x;
 		y1 = y;
+	}
+
+	public void setX(int x) {
+		x1 = x;
+	}
+
+	public void setY(int y) {
+		y1 = y;
+	}
+
+	public void setSize(int x, int y) {
+		sizeX = x;
+		sizeY = y;
+	}
+
+	public void setSizeX(int x) {
+		sizeX = x;
+	}
+
+	public void setSizeY(int y) {
+		sizeY = y;
 	}
 
 	public int getX() {
