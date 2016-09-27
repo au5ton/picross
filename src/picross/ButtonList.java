@@ -67,4 +67,20 @@ class ButtonList {
 	public String getName() {
 		return name;
 	}
+	public void sort() {
+		List<String> buttonNames = new ArrayList<>();
+		for(Button b : buttons) {
+			buttonNames.add(b.getText());
+		}
+		Collections.sort(buttonNames);
+		List<Button> newButtons = new ArrayList<>();
+		for(int i = 0; i < buttons.size(); i++) {
+			for(Button b : buttons) {
+				if(b.getText().equals(buttonNames.get(i))) {
+					newButtons.add(b);
+				}
+			}
+		}
+		buttons = newButtons;
+	}
 }

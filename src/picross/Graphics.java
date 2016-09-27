@@ -308,7 +308,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						b.setX(50);
 						int workingHeight = frame.getHeight() - 150;
 						int topBuffer = 100;
-						b.setY(workingHeight * i / 5 + 125);
+						b.setY(workingHeight * (i - scrollIndex) / 5 + topBuffer + 25);
 						b.setSizeX(frame.getWidth() - 100);
 						b.setSizeY(workingHeight / 5 - 25);
 						b.setVisible(true);
@@ -695,6 +695,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					frame.scrollAmt = 0;
 				}
 				break;
+			case "load":
+				if(frame.scrollAmt != 0) {
+					scrollIndex += (scrollIndex + frame.scrollAmt >= 0 && scrollIndex + frame.scrollAmt <= puzzleButtons.size() - 5 ? frame.scrollAmt : 0);
+
+					frame.scrollAmt = 0;
+				}
+				scrollIndex = scrollIndex;
+				break;
 		}
 	}
 
@@ -756,6 +764,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 
 	private void loadPuzzle(String name) {
+		frame.setTitle("LOADING...");
+		displayStatus("Loading custom puzzle...");
+		windows.push(currWindow);
+		currWindow = "game";
+		allButtons.setWindow(currWindow);
+		status = "get ready";
+		bBegin.setVisible(true);
+		bPause.setVisible(false);
+		numMistakes = 0;
+		bRegenPuzzle.setVisible(false);
+		bMainMenu.setVisible(false);
+		playable = false;
 		List<String> output = new ArrayList<>();
 		File puzzleFile = new File("." + slashCharacter + "saves" + slashCharacter + name + ".nin");
 		try {
@@ -764,12 +784,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			e.printStackTrace();
 		}
 		if(s.hasNext()) {
-			String size = s.next();
+			String size = s.nextLine();
 			sizeX = Integer.parseInt(size.substring(0, size.indexOf(' ')));
 			sizeY = Integer.parseInt(size.substring(size.indexOf(' ') + 1, size.length()));
 			gameGrid = new Grid(sizeX, sizeY);
 		}
-
 		runSolver("." + slashCharacter + "saves" + slashCharacter + name + ".nin");
 		List<String> prevOutput = new ArrayList<>();
 		do {
@@ -782,16 +801,45 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			}
 		} while(!output.equals(prevOutput));
 		List<String> puzzle = new ArrayList<>();
-		for(String s : output) {
-			System.out.println(s);
-		}
-		puzzle.remove(0);
-		gameGrid = new Grid(sizeX, sizeY);
-		for(int i = 0; i < sizeX; i++) {
-			System.out.println(puzzle.get(i));
-			for(int j = 0; j < sizeY; j++) {
-				gameGrid.getBox(i, j).setState(Integer.parseInt(puzzle.get(i).substring(j, j + 1)));
+		int startIndex = 0;
+		for(int i = 0; i < output.size(); i++) {
+			puzzle.add(output.get(i));
+			if(output.get(i).contains("hash misses")) {
+				startIndex = i + 2;
 			}
+		}
+		puzzle.remove(startIndex + sizeY);
+		gameGrid = new Grid(sizeX, sizeY);
+		solutionGrid = new Grid(sizeX, sizeY);
+		for(int i = 0; i < sizeY; i++) {
+			System.out.println(puzzle.get(i + startIndex));
+			for(int j = 0; j < sizeX; j++) {
+				char currCheck = puzzle.get(i + startIndex).charAt(j);
+				solutionGrid.getBox(j, i).setState(currCheck == '#' ? 1 : 0);
+			}
+		}
+		gameGrid.generateClues(solutionGrid);
+		clueLen = new int[2];
+		clueLen[0] = 0;
+		clueLen[1] = 0;
+		for(int i = 0; i < gameGrid.sizeY; i++) {
+			if(gameGrid.cluesX[i].toString().length() > clueLen[0]) {
+				clueLen[0] = gameGrid.cluesX[i].toString().length();
+			}
+		}
+		clueLen[0] *= 7;
+		clueLen[0] += 10;
+		if(clueLen[0] < 100)
+			clueLen[0] = 100;
+		for(int i = 0; i < gameGrid.sizeX; i++) {
+			if(gameGrid.cluesY[i].getValues().size() > clueLen[1]) {
+				clueLen[1] = gameGrid.cluesY[i].getValues().size();
+			}
+		}
+		clueLen[1] *= 12;
+		clueLen[1] += 50;
+		if(clueLen[1] < 130) {
+			clueLen[1] = 130;
 		}
 	}
 
@@ -984,6 +1032,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
 			}
 			puzzleButtons.addButtons(pButtons);
+			puzzleButtons.sort();
 			puzzleButtons.setVisible(true);
 		} else {
 			for(int i = 0; i < puzzleButtons.size(); i++) {

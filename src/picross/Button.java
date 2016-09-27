@@ -26,6 +26,7 @@ class Button {
 		coverColor = new Color(0, 0, 0, 0);
 		isVisible = false;
 		canClick = true;
+		maxFontSize = 50;
 	}
 	public Button(int x, int y, int size_x, int size_y, String text) {
 		x1 = x;
@@ -166,6 +167,7 @@ class Button {
 			art.fillRect(x1, y1, sizeX, sizeY);
 			art.setColor(borderColor);
 			art.drawRect(x1, y1, sizeX, sizeY);
+			art.setColor(Color.black);
 			art.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text) / 2), y1 + (sizeY / 2 + textSize / 3));
 			art.setFont(art.getFont().deriveFont(12f));
 		}
