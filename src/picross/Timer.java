@@ -54,7 +54,6 @@ public class Timer implements Runnable {
 	public void addMS(int millis) {
 		startTime = startTime.plusMillis(millis);
 	}
-
 	public String toString(boolean zeroes) {
 		int ms = (int) startTime.toMillis();
 		int seconds = ms / 1000;

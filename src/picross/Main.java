@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.jar.Pack200;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 class Main {
 	public static Timer timer, FPSCounter;
@@ -34,6 +39,12 @@ class Main {
 			System.out.println("Could not load prefs.txt! Expect errors.");
 			e.printStackTrace();
 		}
+		try {
+			TextDocument savedPuzzleTest = new TextDocument("puzzle.txt");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(prefs.get("volume"));
 		FPSCounter = new Timer();
 		new Thread(FPSCounter).start();
 		mainWindow = new Graphics();
@@ -44,9 +55,8 @@ class Main {
 		new Thread(animator).start();
 	}
 
-
 	public static void runSolver(String fileName) {
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "./resources/bgusolver.jar", "-file", fileName);
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "resources" + slashCharacter + "bgusolver.jar", "-file", fileName);
 		pb.directory(new File("."));
 		try {
 			Process p = pb.start();

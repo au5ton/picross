@@ -661,7 +661,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							//if the box is not part of the solution, you made a mistake
 							if(!currBox.green(solutionGrid)) {
 								numMistakes++;
-								Main.timer.addSeconds(10);
+								Main.timer.addSeconds(10 * numMistakes);
 								currBox.setCanModify(false);
 							}
 							currBox.setCanModify(false);
