@@ -39,11 +39,6 @@ class Main {
 			System.out.println("Could not load prefs.txt! Expect errors.");
 			e.printStackTrace();
 		}
-		try {
-			TextDocument savedPuzzleTest = new TextDocument("puzzle.txt");
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
 		System.out.println(prefs.get("volume"));
 		FPSCounter = new Timer();
 		new Thread(FPSCounter).start();

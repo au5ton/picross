@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
@@ -21,12 +19,19 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	static int bSize;
 	private static int numFrames = 0;
 	private final int MIN_BSIZE = 14;
+	private final int controlMouse = 0;
+	private final int controlKeyboard = 1;
 	//base components
 	private Grid gameGrid;
 	private Grid solutionGrid;
 	private Box currBox;
-	private int x;
-	private int y;
+	private int mouseX;
+	private int mouseY;
+	private int savedMouseX;
+	private int savedMouseY;
+	private int kbX;
+	private int kbY;
+	private int controlMode;
 	private int numMistakes;
 	private int numFadeFrames = 0;//counts frames for fading effect
 	private int fadeAlpha;
@@ -46,6 +51,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private boolean faded = false;
 	private boolean modifier = false;
 	private boolean debugging = false;
+	private boolean pushingSolveKey = false;
 	//graphics
 	@SuppressWarnings ("CanBeFinal")
 	private FancyFrame frame;
@@ -169,6 +175,32 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		int keyCode = e.getKeyCode();
 		if(keyCode == KeyEvent.VK_SHIFT) {
 			modifier = true;
+		} else if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+			//enter keyboard mode
+			if (controlMode == controlMouse) {
+				savedMouseX = mouseX;
+				savedMouseY = mouseY;
+				kbX = currBox == null ? 0 : currBox.getPos()[0];
+				kbY = currBox == null ? 0 : currBox.getPos()[1];
+				controlMode = controlKeyboard;
+				System.out.println("Entering keyboard control mode");
+			} else {
+				if (keyCode == KeyEvent.VK_UP && kbY > 0) {
+					kbY--;
+				}
+				if(keyCode == KeyEvent.VK_DOWN && kbY < sizeY - 1) {
+					kbY++;
+				}
+				if(keyCode == KeyEvent.VK_LEFT && kbX > 0) {
+					kbX--;
+				}
+				if (keyCode == KeyEvent.VK_RIGHT && kbX < sizeX - 1) {
+					kbX++;
+				}
+//				System.out.println("Keyboard X pos: " + kbX + ", Y pos: " + kbY);
+			}
+		} else if(controlMode == controlKeyboard && (keyCode == KeyEvent.VK_ENTER || keyCode == KeyEvent.VK_SPACE)) {
+			pushingSolveKey = true;
 		}
 		if(keyChar == 'd') {
 			debugging = true;
@@ -180,9 +212,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		int key = arg0.getKeyCode();
 		if(key == KeyEvent.VK_SHIFT) {
 			modifier = false;
-		}
-		if(key == KeyEvent.VK_D) {
+		} else if(key == KeyEvent.VK_D) {
 			debugging = false;
+		} else if(key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) {
+			pushingSolveKey = false;
 		}
 	}
 
@@ -246,6 +279,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						Main.animator.begin();
 					} else if(!status.equals("paused") && Main.animator.isRunning()) {
 						Main.animator.reset();
+					}
+					if(controlMode == controlKeyboard) {
+						int mouseDiffX = Math.abs(mouseX - savedMouseX);
+						int mouseDiffY = Math.abs(mouseY - savedMouseY);
+						if(mouseDiffX > 10 || mouseDiffY > 10) {
+							controlMode = controlMouse;
+							System.out.println("Entering mouse control mode");
+						}
 					}
 					break;
 				case "gamemode":
@@ -313,8 +354,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					}
 					break;
 			}
-			x = frame.mouseX;
-			y = frame.mouseY;
+			mouseX = frame.mouseX;
+			mouseY = frame.mouseY;
 			mouseActions();
 			draw();
 			try {
@@ -410,12 +451,24 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					for(int j = 0; j < (gameGrid.sizeY); j++) {
 						gameGrid.drawGrid(i, j, art, cWidth);
 						art.setColor(BLACK);
-						if(playable && i == (x - clueLen[0] - cWidth) / bSize && j == (y - clueLen[1]) / bSize && x > clueLen[0] + cWidth && y > clueLen[1]) {
+						//if(playable && i == (mouseX - clueLen[0] - cWidth) / bSize && j == (mouseY - clueLen[1]) / bSize && mouseX > clueLen[0] + cWidth && mouseY > clueLen[1]) {
+						if(playable && currBox != null && i == currBox.getPos()[0] && j == currBox.getPos()[1]) {
 							art.setColor(new Color(0, 0, 0, 64));
 							art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
-						} else if(playable && ((i == (x - clueLen[0] - cWidth) / bSize && x > clueLen[0] + cWidth) || (j == (y - clueLen[1]) / bSize && y > clueLen[1]))) {
-							art.setColor(new Color(0, 0, 0, 32));
-							art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
+							//} else if(playable && ((i == (mouseX - clueLen[0] - cWidth) / bSize && mouseX > clueLen[0] + cWidth) || (j == (mouseY - clueLen[1]) / bSize && mouseY > clueLen[1]))) {
+						} else {
+							if(controlMode == controlKeyboard) {
+								if(playable && currBox != null && (i == currBox.getPos()[0] || j == currBox.getPos()[1])) {
+									art.setColor(new Color(0, 0, 0, 32));
+									art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
+								}
+							} else {
+								if(playable && ((i == (mouseX - clueLen[0] - cWidth) / bSize && mouseX > clueLen[0] + cWidth) || (j == (mouseY - clueLen[1]) / bSize && mouseY > clueLen[1]))) {
+									art.setColor(new Color(0, 0, 0, 32));
+									art.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
+								}
+							}
+
 						}
 						art.setColor(BLACK);
 						art.drawRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
@@ -503,12 +556,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							if(Main.animator.getMS() % 1000 <= 500) {
 								drawCenteredText(f, "PAUSED", frame.getHeight() / 2 - 10, art);
 							}
-							bResume.draw(x, y, art);
-							bMainMenu.draw(x, y, art);
+							bResume.draw(mouseX, mouseY, art);
+							bMainMenu.draw(mouseX, mouseY, art);
 							break;
 					}
 					if(status.equals("get ready"))
-						bBegin.draw(x, y, art);
+						bBegin.draw(mouseX, mouseY, art);
 					drawCenteredText(f, showText, frame.getHeight() / 2 - 10, art);
 					art.setColor(BLACK);
 					//if(!status.equals("get ready") && !status.equals("paused"))
@@ -548,11 +601,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "LOAD A PUZZLE", 100, art);
-				loadMenuButtons.drawAll(x, y, art);
-				puzzleButtons.drawAll(x, y, art);
+				loadMenuButtons.drawAll(mouseX, mouseY, art);
+				puzzleButtons.drawAll(mouseX, mouseY, art);
 				break;
 		}
-		allButtons.drawButtons(x, y, art);
+		allButtons.drawButtons(mouseX, mouseY, art);
 		if(Main.FPSCounter.getMS() > 1000) {
 			Main.FPSCounter.begin();
 			fps = numFrames;
@@ -575,8 +628,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 * Creates a Grid with random states of size sizeX, sizeY.
 	 */
 	private void getSolution() {
-		//x = Integer.parseInt(s.nextLine());
-		//y = Integer.parseInt(s.nextLine());
+		//mouseX = Integer.parseInt(s.nextLine());
+		//mouseY = Integer.parseInt(s.nextLine());
 		gameGrid = new Grid(sizeX, sizeY);
 		solutionGrid = new Grid(sizeX, sizeY);
 		for(int i = 0; i < sizeX; i++) {
@@ -637,39 +690,52 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		}
 		switch(currWindow) {
 			case "game":
-				//bound checking to prevent instant toggling of a flag
-				if(currBox != null && (x - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] + cWidth && y > clueLen[1] && currBox != gameGrid.getBox((x - clueLen[0] - cWidth) / bSize, (y - clueLen[1]) / bSize)) {
-					currBox.setCanModify(true);
-				}
-				//get box only if mouse is within game grid, otherwise it is null
-				if((x - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (y - clueLen[1]) / bSize < gameGrid.sizeY && x > clueLen[0] + cWidth && y > clueLen[1]) {
-					currBox = gameGrid.getBox((x - clueLen[0] - cWidth) / bSize, (y - clueLen[1]) / bSize);
-				} else {
-					currBox = null;
-				}
-				if(currBox != null) {
-					if(frame.isClicking()) {
-						//only disables boxes as the player attempts to modify them
-						if(!playable)
-							currBox.setCanModify(false);
-						//left click = reveal
-						if(frame.getMouseButton() == 3) {
-							currBox.impossibru();
-							currBox.setCanModify(false);
-						} else if(frame.getMouseButton() == 1) {
-							//click buttons
-							//if the box is not part of the solution, you made a mistake
-							if(!currBox.green(solutionGrid)) {
-								numMistakes++;
-								Main.timer.addSeconds(10 * numMistakes);
+				if(controlMode == controlMouse) {
+					//bound checking to prevent instant toggling of a flag
+					if (currBox != null && (mouseX - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (mouseY - clueLen[1]) / bSize < gameGrid.sizeY && mouseX > clueLen[0] + cWidth && mouseY > clueLen[1] && currBox != gameGrid.getBox((mouseX - clueLen[0] - cWidth) / bSize, (mouseY - clueLen[1]) / bSize)) {
+						currBox.setCanModify(true);
+					}
+					//get box only if mouse is within game grid, otherwise it is null
+					if ((mouseX - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (mouseY - clueLen[1]) / bSize < gameGrid.sizeY && mouseX > clueLen[0] + cWidth && mouseY > clueLen[1]) {
+						currBox = gameGrid.getBox((mouseX - clueLen[0] - cWidth) / bSize, (mouseY - clueLen[1]) / bSize);
+					} else {
+						currBox = null;
+					}
+					if (currBox != null) {
+						if (frame.isClicking()) {
+							//only disables boxes as the player attempts to modify them
+							if (!playable)
+								currBox.setCanModify(false);
+							//left click = reveal
+							if (frame.getMouseButton() == 3) {
+								currBox.impossibru();
+								currBox.setCanModify(false);
+							} else if (frame.getMouseButton() == 1) {
+								//click buttons
+								//if the box is not part of the solution, you made a mistake
+								if (!currBox.green(solutionGrid)) {
+									numMistakes++;
+									Main.timer.addSeconds(10 * numMistakes);
+									currBox.setCanModify(false);
+								}
 								currBox.setCanModify(false);
 							}
-							currBox.setCanModify(false);
-						}
-						//right click = flag, is not checked with the solution to prevent cheating
+							//right click = flag, is not checked with the solution to prevent cheating
 
-					} else {
-						currBox.setCanModify(true);
+						} else {
+							currBox.setCanModify(true);
+						}
+					}
+				} else if(controlMode == controlKeyboard) {
+					currBox = gameGrid.getBox(kbX, kbY);
+					if(pushingSolveKey && currBox.canModify()) {
+						if(!modifier && !currBox.green(solutionGrid)) {
+							numMistakes++;
+							Main.timer.addSeconds(10 * numMistakes);
+						} else if (modifier) {
+							currBox.impossibru();
+						}
+						currBox.setCanModify(false);
 					}
 				}
 				break;
@@ -856,11 +922,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 
 	/**
-	 * Prints a string centered at (x, y).
+	 * Prints a string centered at (mouseX, mouseY).
 	 *
 	 * @param f   font, analyzed to center text exactly
 	 * @param s   string to print
-	 * @param x   x-value of the center in pixels
+	 * @param x   mouseX-value of the center in pixels
 	 * @param y   number of pixels from top of canvas where the *bottom* of the string should go
 	 * @param art canvas to paint final string
 	 */
@@ -883,11 +949,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 
 	/**
-	 * Prints a string right-aligned to the point (x, y).
+	 * Prints a string right-aligned to the point (mouseX, mouseY).
 	 *
 	 * @param f   font, analyzed to find leftmost pixel of printed text
 	 * @param s   string to print
-	 * @param x   x-value of the string end in pixels
+	 * @param x   mouseX-value of the string end in pixels
 	 * @param y   number of pixels from top of canvas where the *bottom* of the string should go
 	 * @param art canvas to paint final string
 	 */
@@ -982,6 +1048,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			bRegenPuzzle.setVisible(false);
 			bMainMenu.setVisible(false);
 			playable = false;
+			kbX = 0;
+			kbY = 0;
 			generatePuzzle();
 			Main.timer.reset();
 		} else if(b == bMainMenu || b == bMainMenu2) {
@@ -1089,15 +1157,15 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	}
 
 	/**
-	 * @param x1 x-coordinate of left bound of rectangle
-	 * @param y1 y-coordinate of left bound of rectangle
-	 * @param x2 x-coordinate of right bound of rectangle
-	 * @param y2 y-coordinate of right bound of rectangle
+	 * @param x1 mouseX-coordinate of left bound of rectangle
+	 * @param y1 mouseY-coordinate of left bound of rectangle
+	 * @param x2 mouseX-coordinate of right bound of rectangle
+	 * @param y2 mouseY-coordinate of right bound of rectangle
 	 * @return Returns whether the mouse's current positions falls within the defined bounds.
 	 */
 	//@Contract (pure = true)
 	private boolean isInBounds(int x1, int y1, int x2, int y2) {
-		return (x > x1) && (x < x2) && (y > y1) && (y < y2);
+		return (mouseX > x1) && (mouseX < x2) && (mouseY > y1) && (mouseY < y2);
 	}
 
 	private int getStrLen(String s, float fontHeight) {
