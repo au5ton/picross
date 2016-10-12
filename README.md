@@ -5,11 +5,9 @@ FEATURES:
 - Random puzzles - Play a puzzle of any size, from 1x1 to 25x25.
 - Puzzle creator - Create your own puzzles! These must be uniquely solvable.
 
-COMING VERY SOON:
-- Scoring system
+TODO
+- Comparing your scores to those of other players
+- Online repository for puzzles
 - Other modes of control (i.e keyboard controls)
-
-COMING NOT-SO-SOON:
-- Better looking graphics - better button highlighting, images
-- Save states? (may not happen since it is prone to cheating)
-- More efficient system for generating puzzles, the current system is bad (it does work though)
+- Better looking graphics - better button highlighting, custom textures and animations
+- More efficient system for generating puzzles, the current system is not optimal
