@@ -64,7 +64,7 @@ class Main {
 	}
 
 	public static void runCreator() {
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "./resources/puzzleCreator.jar");
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "resources" + slashCharacter + "puzzleCreator.jar");
 		pb.directory(new File("."));
 		try {
 			Process p = pb.start();
