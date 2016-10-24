@@ -63,13 +63,13 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	List<Button> controlsButtons;
 	List<String> controlsDescriptions;
 	//key assignments
-	private int keyPauseGame = KeyEvent.VK_ESCAPE;
-	private int keyUp = KeyEvent.VK_UP;
-	private int keyLeft = KeyEvent.VK_LEFT;
-	private int keyDown = KeyEvent.VK_DOWN;
-	private int keyRight = KeyEvent.VK_RIGHT;
-	private int keyResolve1 = KeyEvent.VK_ENTER;
-	private int keyResolve2 = KeyEvent.VK_SPACE;
+	private int keyPauseGame;
+	private int keyUp;
+	private int keyLeft;
+	private int keyDown;
+	private int keyRight;
+	private int keyResolve1;
+	private int keyResolve2;
 	private int keyCancelAssignment = KeyEvent.VK_BACK_SPACE;
 	private String keyAssigning = null;
 	//all buttons
@@ -104,6 +104,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Button bCreator;
 	private Button bRandomPuzzle;
 	private Button bLoadPuzzle;
+	private Button bRestoreControls;
 
 	public Graphics() {
 		FPSCounter.begin();
@@ -410,6 +411,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							i++;
 						}
 					}
+					bRestoreControls.setPos(frame.getWidth() - 150 - 10, bRestoreControls.getY());
 					break;
 				case "load":
 					puzzleButtons.setVisible(false);
@@ -1158,6 +1160,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			puzzleButtons.addButtons(pButtons);
 			puzzleButtons.sort();
 			puzzleButtons.setVisible(true);
+		} else if (b == bRestoreControls) {
+			for (Button b1 : controlsMenuButtons.toList()) {
+				if (b1 instanceof ControlsButton) {
+					switch (((ControlsButton) b1).getLabel()) {
+						case "pauseGame":
+							b1.setText("Escape");
+							keyPauseGame = KeyEvent.VK_ESCAPE;
+							break;
+						//TODO continue for each other button
+					}
+				}
+			}
 		} else if (b instanceof ControlsButton) {
 			HashMap<String, Button> controlsButtons = new HashMap<>();
 			for (Button b1 : controlsMenuButtons.toList()) {
@@ -1329,22 +1343,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		gameEndButtons.addButtons(new Button[] {bMainMenu, bRegenPuzzle});
 
 		controlsMenuButtons = new ButtonList("controls");
-		controlsMenuButtons.addButtons(new Button[] {bBack});
+		bRestoreControls = new Button(frame.getWidth() - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
+		controlsMenuButtons.addButtons(new Button[]{bBack, bRestoreControls});
 
 		allButtons.addButtonLists(new ButtonList[] {mainMenuButtons, gameChoiceButtons, loadMenuButtons, sizePickerButtons, optionsMenuButtons, gameButtons, gameEndButtons, pauseMenuButtons, controlsMenuButtons});
 		allButtons.setWindow("menu");
 	}
 
 	private void initControls() {
-		/*CONTROLS TEXT
-		text.add("Esc -> Pause");//TODO implement
-		text.add("Q -> Quit current game");//TODO implement
-		text.add("R -> Reset puzzle");//TODO implement
-		text.add("M (hold) -> Show currently playing song");
-		text.add("N -> Skip current song");
-		text.add("Scroll on size picker -> quickly change size");
-		text.add("Shift (hold) -> size picker changes by 5s instead of 1s");
-		END CONTROLS TEXT*/
 		int buttonWidth = 100;
 		int buttonHeight = 50;
 		controlsButtons = new ArrayList<Button>();
@@ -1352,24 +1358,31 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		//ESC pauses the game
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
 		controlsDescriptions.add("Pause game");
+		keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
 		//Up Arrow Key moves the cursor up 1 block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("up"))), "up", 20));
 		controlsDescriptions.add("Move in-game cursor up");
+		keyUp = Integer.parseInt(prefs.get("up"));
 		//Left Arrow Key moves the cursor left 1 block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("left"))), "left", 20));
 		controlsDescriptions.add("Move in-game cursor left");
+		keyLeft = Integer.parseInt(prefs.get("left"));
 		//Down Arrow Key moves the cursor down 1 block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("down"))), "down", 20));
 		controlsDescriptions.add("Move in-game cursor down");
+		keyDown = Integer.parseInt(prefs.get("down"));
 		//Right Arrow Key moves the cursor right 1 block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("right"))), "right", 20));
 		controlsDescriptions.add("Move in-game cursor right");
+		keyRight = Integer.parseInt(prefs.get("right"));
 		//Enter key marks a block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20));
 		controlsDescriptions.add("Resolves the current tile");
+		keyResolve1 = Integer.parseInt(prefs.get("resolve1"));
 		//Space also marks a block
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
 		controlsDescriptions.add("Secondary key to resolve the current tile");
+		keyResolve2 = Integer.parseInt(prefs.get("resolve2"));
 
 		controlsMenuButtons.addButtons(controlsButtons);
 	}
