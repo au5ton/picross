@@ -67,6 +67,10 @@ class ButtonList {
 	public String getName() {
 		return name;
 	}
+
+	public List<Button> toList() {
+		return buttons;
+	}
 	public void sort() {
 		List<String> buttonNames = new ArrayList<>();
 		for(Button b : buttons) {

@@ -1,3 +1,8 @@
-volume=0.5
+pauseGame=27
+resolve2=32
+resolve1=10
 size=10,10
-music folder=/home/kyle/Music/Monstercat
+left=37
+up=38
+right=39
+down=40

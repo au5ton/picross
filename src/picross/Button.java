@@ -135,7 +135,11 @@ class Button {
 	public void draw(int x, int y, Graphics2D art) {
 		if(clicking && !mainWindow.getFrame().isClicking()) {
 			if(isInBounds(x, y)) {
-				mainWindow.doClickAction(this);
+				try {
+					mainWindow.doClickAction(this);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				unClick();
 			} else {
 				unClick();

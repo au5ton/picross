@@ -59,6 +59,19 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Color bgColor = new Color(128, 128, 255);
 	static int[] clueLen;
 	private Font f;
+	//controls menu elements
+	List<Button> controlsButtons;
+	List<String> controlsDescriptions;
+	//key assignments
+	private int keyPauseGame = KeyEvent.VK_ESCAPE;
+	private int keyUp = KeyEvent.VK_UP;
+	private int keyLeft = KeyEvent.VK_LEFT;
+	private int keyDown = KeyEvent.VK_DOWN;
+	private int keyRight = KeyEvent.VK_RIGHT;
+	private int keyResolve1 = KeyEvent.VK_ENTER;
+	private int keyResolve2 = KeyEvent.VK_SPACE;
+	private int keyCancelAssignment = KeyEvent.VK_BACK_SPACE;
+	private String keyAssigning = null;
 	//all buttons
 	private AllButtons allButtons;
 	//button categories
@@ -118,13 +131,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		String size = prefs.get("size");
 		sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 		sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
+		keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
 		//initializes currBox so the game doesn't freak out
 		currBox = null;
 		//buttons, sliders, and checkboxes
 		displayStatus("Creating buttons...");
 		initButtons();
+		initControls();
 		displayStatus("Setting up graphics...");
 	}
+
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
@@ -154,7 +170,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		doClickAction(bPause);
+		try {
+			doClickAction(bPause);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -173,34 +193,78 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	public void keyPressed(KeyEvent e) {
 		char keyChar = e.getKeyChar();
 		int keyCode = e.getKeyCode();
-		if(keyCode == KeyEvent.VK_SHIFT) {
-			modifier = true;
-		} else if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
-			//enter keyboard mode
-			if (controlMode == controlMouse) {
-				savedMouseX = mouseX;
-				savedMouseY = mouseY;
-				kbX = currBox == null ? 0 : currBox.getPos()[0];
-				kbY = currBox == null ? 0 : currBox.getPos()[1];
-				controlMode = controlKeyboard;
-				System.out.println("Entering keyboard control mode");
-			} else {
-				if (keyCode == KeyEvent.VK_UP && kbY > 0) {
-					kbY--;
+		if (keyAssigning == null) {
+			if (keyCode == KeyEvent.VK_SHIFT) {
+				modifier = true;
+			} else if (keyCode == keyPauseGame) {
+				try {
+					doClickAction(bPause);
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
-				if(keyCode == KeyEvent.VK_DOWN && kbY < sizeY - 1) {
-					kbY++;
-				}
-				if(keyCode == KeyEvent.VK_LEFT && kbX > 0) {
-					kbX--;
-				}
-				if (keyCode == KeyEvent.VK_RIGHT && kbX < sizeX - 1) {
-					kbX++;
-				}
+			} else if (keyCode == keyUp || keyCode == keyDown || keyCode == keyLeft || keyCode == keyRight) {
+				//enter keyboard mode
+				if (controlMode == controlMouse) {
+					savedMouseX = mouseX;
+					savedMouseY = mouseY;
+					kbX = currBox == null ? 0 : currBox.getPos()[0];
+					kbY = currBox == null ? 0 : currBox.getPos()[1];
+					controlMode = controlKeyboard;
+					System.out.println("Entering keyboard control mode");
+				} else {
+					if (keyCode == keyUp && kbY > 0) {
+						kbY--;
+					}
+					if (keyCode == keyDown && kbY < sizeY - 1) {
+						kbY++;
+					}
+					if (keyCode == keyLeft && kbX > 0) {
+						kbX--;
+					}
+					if (keyCode == keyRight && kbX < sizeX - 1) {
+						kbX++;
+					}
 //				System.out.println("Keyboard X pos: " + kbX + ", Y pos: " + kbY);
+				}
+			} else if (controlMode == controlKeyboard && (keyCode == keyResolve1 || keyCode == keyResolve2)) {
+				pushingSolveKey = true;
 			}
-		} else if(controlMode == controlKeyboard && (keyCode == KeyEvent.VK_ENTER || keyCode == KeyEvent.VK_SPACE)) {
-			pushingSolveKey = true;
+		} else if (keyCode != keyCancelAssignment) {
+			HashMap<String, Button> controlsButtons = new HashMap<>();
+			for (Button b : controlsMenuButtons.toList()) {
+				if (b instanceof ControlsButton) {
+					String desc = ((ControlsButton) b).getLabel();
+					controlsButtons.put(desc, b);
+				}
+			}
+			String keyString = KeyEvent.getKeyText(keyCode);
+			switch (keyAssigning) {
+				case "pauseGame":
+					keyPauseGame = keyCode;
+					break;
+				case "up":
+					keyUp = keyCode;
+					break;
+				case "left":
+					keyLeft = keyCode;
+					break;
+				case "down":
+					keyDown = keyCode;
+					break;
+				case "right":
+					keyRight = keyCode;
+					break;
+				case "resolve1":
+					keyResolve1 = keyCode;
+					break;
+				case "resolve2":
+					keyResolve2 = keyCode;
+					break;
+			}
+			controlsButtons.get(keyAssigning).setText(keyString);
+			keyAssigning = null;
+		} else {
+			keyAssigning = null;
 		}
 		if(keyChar == 'd') {
 			debugging = true;
@@ -226,6 +290,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@Override
 	public void run() {
 		while(isRunning) {
+			int i;
 			switch(currWindow) {
 				case "game":
 					if(playable)
@@ -249,7 +314,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					));
 					//check for completeness
 					boolean temp = true;
-					for(int i = 0; i < gameGrid.sizeX; i++) {
+					for (i = 0; i < gameGrid.sizeX; i++) {
 						for(int j = 0; j < gameGrid.sizeY; j++) {
 							if(gameGrid.getBox(i, j).getState() != 1 && solutionGrid.getBox(i, j).getState() == 1)
 								temp = false;
@@ -338,11 +403,17 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					bBack.setVisible(true);
 					break;
 				case "controls":
-
+					i = 0;
+					for (Button b : controlsMenuButtons.toList()) {
+						if (b instanceof ControlsButton) {
+							b.setPos(100, 150 + (50 * i));
+							i++;
+						}
+					}
 					break;
 				case "load":
 					puzzleButtons.setVisible(false);
-					for(int i = scrollIndex; i < scrollIndex + (puzzleButtons.size() >= 5 ? 5 : puzzleButtons.size()); i++) {
+					for (i = scrollIndex; i < scrollIndex + (puzzleButtons.size() >= 5 ? 5 : puzzleButtons.size()); i++) {
 						Button b = puzzleButtons.get(i);
 						b.setX(50);
 						int workingHeight = frame.getHeight() - 150;
@@ -579,20 +650,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art = setFont(50f, art);
 				drawCenteredText(f, "CONTROLS", 100, art);
 				art.drawRect(100, 150, frame.getWidth() - 200, frame.getHeight() - 200);
-				List<String> text = new ArrayList<>();
-				//CONTROLS TEXT
-				text.add("Esc -> Pause");//TODO implement
-				text.add("Q -> Quit current game");//TODO implement
-				text.add("R -> Reset puzzle");//TODO implement
-				text.add("M (hold) -> Show currently playing song");
-				text.add("N -> Skip current song");
-				text.add("Scroll on size picker -> quickly change size");
-				text.add("Shift (hold) -> size picker changes by 5s instead of 1s");
-				//END CONTROLS TEXT
-				frame.setMinimumSize(new Dimension(130 + getMaxStrLen(text, 25f) + 130, 210 + (35 * text.size()) + 100));
+				frame.setMinimumSize(new Dimension(130 + getMaxStrLen(controlsDescriptions, 25f) + 130, 210 + (50 * (controlsMenuButtons.size() - 1)) + 100));
 				art = setFont(25f, art);
-				for(int i = 0; i < text.size(); i++) {
-					art.drawString(text.get(i), 130, 180 + i * 35);
+				for (int i = 0; i < controlsDescriptions.size(); i++) {
+					art.drawString(controlsDescriptions.get(i), 210, 150 + 50 * (i + 1) - 15);
 				}
 				break;
 			case "load":
@@ -967,27 +1028,27 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 *
 	 * @param b button to be compared with known buttons
 	 */
-	void doClickAction(Button b) {
-		if(b != bXUp && b != bXDown && b != bYUp && b != bYDown && b != bBegin && b != bPause)
-		displayStatusNoBG("Loading...");
-		if(b == bNewPuzzle) {
+	void doClickAction(Button b) throws Exception {
+		if (b != bXUp && b != bXDown && b != bYUp && b != bYDown && b != bBegin && b != bPause && !(b instanceof ControlsButton))
+			displayStatusNoBG("Loading...");
+		if (b == bNewPuzzle) {
 			windows.push(currWindow);
 			currWindow = "gamemode";
 			allButtons.setWindow(currWindow);
 			//get size from settings file
 
-		} else if(b == bRandomPuzzle) {
+		} else if (b == bRandomPuzzle) {
 			windows.push(currWindow);
 			currWindow = "size picker";
 			allButtons.setWindow(currWindow);
 			String size = prefs.get("size");
 			sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 			sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
-			if(sizeX == 0)
+			if (sizeX == 0)
 				sizeX = 10;
-			if(sizeY == 0)
+			if (sizeY == 0)
 				sizeY = 10;
-		} else if(b == bResume) {
+		} else if (b == bResume) {
 			status = "";
 			allButtons.setWindow("game");
 			bResume.setVisible(false);
@@ -996,8 +1057,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			Main.timer.resume();
 			playable = true;
 			faded = false;
-		} else if(b == bPause) {
-			if(status.equals("")) {
+		} else if (b == bPause) {
+			if (status.equals("")) {
 				allButtons.setWindow("pause");
 				status = "paused";
 				bPause.setVisible(false);
@@ -1007,34 +1068,34 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				playable = false;
 				faded = false;
 			}
-		} else if(b == bXUp) {
-			if(modifier) {
+		} else if (b == bXUp) {
+			if (modifier) {
 				sizeX += 5;
 			} else {
 				sizeX++;
 			}
-		} else if(b == bXDown) {
-			if(modifier) {
+		} else if (b == bXDown) {
+			if (modifier) {
 				sizeX -= 5;
 			} else {
 				sizeX--;
 			}
-		} else if(b == bYUp) {
-			if(modifier) {
+		} else if (b == bYUp) {
+			if (modifier) {
 				sizeY += 5;
 			} else {
 				sizeY++;
 			}
-		} else if(b == bYDown) {
-			if(modifier) {
+		} else if (b == bYDown) {
+			if (modifier) {
 				sizeY -= 5;
 			} else {
 				sizeY--;
 			}
-		} else if(b == bBack) {
+		} else if (b == bBack) {
 			currWindow = windows.pop();
 			allButtons.setWindow(currWindow);
-		} else if(b == bStart || b == bRegenPuzzle) {
+		} else if (b == bStart || b == bRegenPuzzle) {
 			frame.setTitle("GENERATING...");
 			displayStatus("Generating random puzzle...");
 			b.setVisible(false);
@@ -1052,7 +1113,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			kbY = 0;
 			generatePuzzle();
 			Main.timer.reset();
-		} else if(b == bMainMenu || b == bMainMenu2) {
+		} else if (b == bMainMenu || b == bMainMenu2) {
 			windows = new Stack<>();
 			frame.setTitle("Main Menu | Picross");
 			currWindow = "menu";
@@ -1061,7 +1122,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			status = "menu";
 			numMistakes = 0;
 			playable = false;
-		} else if(b == bQuitGame) {
+		} else if (b == bQuitGame) {
 			frame.setTitle("Quitting...");
 			writePrefs();
 			frame.setVisible(false);
@@ -1069,19 +1130,19 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			frame.dispose();
 			isDone = true;
 			System.exit(0);
-		} else if(b == bBegin) {
+		} else if (b == bBegin) {
 			b.setVisible(false);
 			status = "";
 			Main.timer.begin();
 			playable = true;
 			faded = false;
-		} else if(b == bControlsMenu) {
+		} else if (b == bControlsMenu) {
 			windows.push(currWindow);
 			currWindow = "controls";
 			allButtons.setWindow(currWindow);
-		} else if(b == bCreator) {
+		} else if (b == bCreator) {
 			runCreator();
-		} else if(b == bLoadPuzzle) {
+		} else if (b == bLoadPuzzle) {
 			windows.push(currWindow);
 			currWindow = "load";
 			allButtons.setWindow(currWindow);
@@ -1090,13 +1151,35 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			List<String> puzzleNames = getPuzzleNames();
 			scrollIndex = 0;
 			Button[] pButtons = new Button[getNumPuzzles()];
-			for(int i = 0; i < getNumPuzzles(); i++) {
+			for (int i = 0; i < getNumPuzzles(); i++) {
 				pButtons[i] = new Button();
 				pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
 			}
 			puzzleButtons.addButtons(pButtons);
 			puzzleButtons.sort();
 			puzzleButtons.setVisible(true);
+		} else if (b instanceof ControlsButton) {
+			HashMap<String, Button> controlsButtons = new HashMap<>();
+			for (Button b1 : controlsMenuButtons.toList()) {
+				if (b1 instanceof ControlsButton) {
+					controlsButtons.put(((ControlsButton) b1).getLabel(), b1);
+				}
+			}
+			if (keyAssigning != null) {
+				//return previously assigning button's key to normal
+				HashMap<String, Integer> assignments = new HashMap<>();
+				assignments.put("pauseGame", keyPauseGame);
+				assignments.put("up", keyUp);
+				assignments.put("left", keyLeft);
+				assignments.put("down", keyDown);
+				assignments.put("right", keyRight);
+				assignments.put("resolve1", keyResolve1);
+				assignments.put("resolve2", keyResolve2);
+				controlsButtons.get(keyAssigning).setText(KeyEvent.getKeyText(assignments.get(keyAssigning)));
+			}
+			keyAssigning = ((ControlsButton) b).getLabel();
+			b.setText("Press a key");
+			System.out.println("Assigning a key to label " + keyAssigning);
 		} else {
 			for(int i = 0; i < puzzleButtons.size(); i++) {
 				if(b == puzzleButtons.get(i)) {
@@ -1252,8 +1335,54 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		allButtons.setWindow("menu");
 	}
 
+	private void initControls() {
+		/*CONTROLS TEXT
+		text.add("Esc -> Pause");//TODO implement
+		text.add("Q -> Quit current game");//TODO implement
+		text.add("R -> Reset puzzle");//TODO implement
+		text.add("M (hold) -> Show currently playing song");
+		text.add("N -> Skip current song");
+		text.add("Scroll on size picker -> quickly change size");
+		text.add("Shift (hold) -> size picker changes by 5s instead of 1s");
+		END CONTROLS TEXT*/
+		int buttonWidth = 100;
+		int buttonHeight = 50;
+		controlsButtons = new ArrayList<Button>();
+		controlsDescriptions = new ArrayList<>();
+		//ESC pauses the game
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
+		controlsDescriptions.add("Pause game");
+		//Up Arrow Key moves the cursor up 1 block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("up"))), "up", 20));
+		controlsDescriptions.add("Move in-game cursor up");
+		//Left Arrow Key moves the cursor left 1 block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("left"))), "left", 20));
+		controlsDescriptions.add("Move in-game cursor left");
+		//Down Arrow Key moves the cursor down 1 block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("down"))), "down", 20));
+		controlsDescriptions.add("Move in-game cursor down");
+		//Right Arrow Key moves the cursor right 1 block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("right"))), "right", 20));
+		controlsDescriptions.add("Move in-game cursor right");
+		//Enter key marks a block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20));
+		controlsDescriptions.add("Resolves the current tile");
+		//Space also marks a block
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
+		controlsDescriptions.add("Secondary key to resolve the current tile");
+
+		controlsMenuButtons.addButtons(controlsButtons);
+	}
+
 	private void writePrefs() {
 		prefs.put("size", "" + sizeX + ',' + sizeY);
+		prefs.put("pauseGame", Integer.toString(keyPauseGame));
+		prefs.put("up", Integer.toString(keyUp));
+		prefs.put("left", Integer.toString(keyLeft));
+		prefs.put("down", Integer.toString(keyDown));
+		prefs.put("right", Integer.toString(keyRight));
+		prefs.put("resolve1", Integer.toString(keyResolve1));
+		prefs.put("resolve2", Integer.toString(keyResolve2));
 		try {
 			prefs.close();
 		} catch(IOException e) {
