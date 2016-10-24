@@ -7,18 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f2c552f-ccae-453d-82b4-55469f09563e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/picross/ControlsButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/picross_jar/picross.jar" afterPath="$PROJECT_DIR$/out/artifacts/picross_jar/picross.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/picross/picross/Button.class" afterPath="$PROJECT_DIR$/out/production/picross/picross/Button.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/picross/picross/ButtonList.class" afterPath="$PROJECT_DIR$/out/production/picross/picross/ButtonList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/picross/picross/Graphics.class" afterPath="$PROJECT_DIR$/out/production/picross/picross/Graphics.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clues.nin" afterPath="$PROJECT_DIR$/clues.nin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/picross_jar/prefs.txt" afterPath="$PROJECT_DIR$/out/artifacts/picross_jar/prefs.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prefs.txt" afterPath="$PROJECT_DIR$/prefs.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Button.java" afterPath="$PROJECT_DIR$/src/picross/Button.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/ButtonList.java" afterPath="$PROJECT_DIR$/src/picross/ButtonList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="284">
-              <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+              <caret line="71" column="23" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -86,10 +75,10 @@
         <entry file="file://$PROJECT_DIR$/src/picross/ControlsButton.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="375">
-              <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+              <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
               <folding>
-                <element signature="e#171#172#0" expanded="true" />
-                <element signature="e#185#186#0" expanded="true" />
+                <element signature="e#172#173#0" expanded="true" />
+                <element signature="e#186#187#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -600,6 +589,14 @@
       <option name="presentableId" value="Default" />
       <updated>1475681268336</updated>
     </task>
+    <task id="LOCAL-00001" summary="Improvement of controls menu in progress">
+      <created>1477329207336</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1477329207336</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -642,6 +639,11 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Improvement of controls menu in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improvement of controls menu in progress" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1063,10 +1065,10 @@
     <entry file="file://$PROJECT_DIR$/src/picross/ControlsButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
-          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
           <folding>
-            <element signature="e#171#172#0" expanded="true" />
-            <element signature="e#185#186#0" expanded="true" />
+            <element signature="e#172#173#0" expanded="true" />
+            <element signature="e#186#187#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1074,7 +1076,7 @@
     <entry file="file://$PROJECT_DIR$/src/picross/ButtonList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
-          <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+          <caret line="71" column="23" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
           <folding />
         </state>
       </provider>
