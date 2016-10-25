@@ -7,11 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f2c552f-ccae-453d-82b4-55469f09563e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/picross_jar/picross.jar" afterPath="$PROJECT_DIR$/out/artifacts/picross_jar/picross.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/picross/picross/ButtonList.class" afterPath="$PROJECT_DIR$/out/production/picross/picross/ButtonList.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/picross/picross/Graphics.class" afterPath="$PROJECT_DIR$/out/production/picross/picross/Graphics.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +41,8 @@
       <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+            <state relative-caret-position="100">
+              <caret line="1170" column="61" selection-start-line="1170" selection-start-column="61" selection-end-line="1170" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
@@ -607,7 +603,14 @@
       <option name="project" value="LOCAL" />
       <updated>1477329250814</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Adding 'restore defaults' button">
+      <created>1477330129177</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1477330129177</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -653,7 +656,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Improvement of controls menu in progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvement of controls menu in progress" />
+    <MESSAGE value="Adding 'restore defaults' button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding 'restore defaults' button" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1102,8 +1106,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+        <state relative-caret-position="100">
+          <caret line="1170" column="61" selection-start-line="1170" selection-start-column="61" selection-end-line="1170" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#windowClosing#0;class#Graphics#0" expanded="false" />
