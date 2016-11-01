@@ -15,7 +15,7 @@ import static picross.Main.*;
 
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
-	public static final String VERSION = "v1.3.0.4";
+	private static final String VERSION = "v1.3.1";
 	static int bSize;
 	private static int numFrames = 0;
 	private final int MIN_BSIZE = 14;
@@ -123,7 +123,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		playable = false;
 		status = "menu";
 		currWindow = "menu";
-		windows = new Stack<String>();
+		windows = new Stack<>();
 		windows.push(currWindow);
 		//grab size from file
 		if(prefs.get("size").equals("0,0") || prefs.get("size").equals("null")) {
@@ -132,7 +132,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		String size = prefs.get("size");
 		sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
 		sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
-		keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
 		//initializes currBox so the game doesn't freak out
 		currBox = null;
 		//buttons, sliders, and checkboxes
@@ -231,14 +230,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				pushingSolveKey = true;
 			}
 		} else if (keyCode != keyCancelAssignment) {
-			HashMap<String, Button> controlsButtons = new HashMap<>();
-			for (Button b : controlsMenuButtons.toList()) {
-				if (b instanceof ControlsButton) {
-					String desc = ((ControlsButton) b).getLabel();
-					controlsButtons.put(desc, b);
-				}
-			}
-			String keyString = KeyEvent.getKeyText(keyCode);
 			switch (keyAssigning) {
 				case "pauseGame":
 					keyPauseGame = keyCode;
@@ -262,10 +253,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					keyResolve2 = keyCode;
 					break;
 			}
-			controlsButtons.get(keyAssigning).setText(keyString);
+			updateButtons("controls");
 			keyAssigning = null;
 		} else {
 			keyAssigning = null;
+			updateButtons("controls");
 		}
 		if(keyChar == 'd') {
 			debugging = true;
@@ -651,8 +643,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art.setColor(black);
 				art = setFont(50f, art);
 				drawCenteredText(f, "CONTROLS", 100, art);
-				art.drawRect(100, 150, frame.getWidth() - 200, frame.getHeight() - 200);
-				frame.setMinimumSize(new Dimension(130 + getMaxStrLen(controlsDescriptions, 25f) + 130, 210 + (50 * (controlsMenuButtons.size() - 1)) + 100));
+				art.drawRect(100, 150, frame.getWidth() - 200, frame.getHeight() - 250);
+				frame.setMinimumSize(new Dimension(100 + 100 + 10 + getMaxStrLen(controlsDescriptions, 25f) + 100, 150 + (50 * (controlsMenuButtons.size() - 2)) + 100));
 				art = setFont(25f, art);
 				for (int i = 0; i < controlsDescriptions.size(); i++) {
 					art.drawString(controlsDescriptions.get(i), 210, 150 + 50 * (i + 1) - 15);
@@ -918,7 +910,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			gameGrid = new Grid(sizeX, sizeY);
 		}
 		runSolver("." + slashCharacter + "saves" + slashCharacter + name + ".nin");
-		List<String> prevOutput = new ArrayList<>();
+		List<String> prevOutput;
 		do {
 			prevOutput = output;
 			output = LogStreamReader.output;
@@ -1157,39 +1149,43 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				pButtons[i] = new Button();
 				pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
 			}
+			puzzleButtons = new ButtonList("puzzles");
 			puzzleButtons.addButtons(pButtons);
 			puzzleButtons.sort();
 			puzzleButtons.setVisible(true);
 		} else if (b == bRestoreControls) {
-			for (Button b1 : controlsMenuButtons.toList()) {
-				if (b1 instanceof ControlsButton) {
-					switch (((ControlsButton) b1).getLabel()) {
-						case "pauseGame":
-							b1.setText("Escape");
-							keyPauseGame = KeyEvent.VK_ESCAPE;
-							break;
-						//TODO continue for each other button
-					}
+			controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> {
+				switch (((ControlsButton) b1).getLabel()) {
+					case "pauseGame":
+						keyPauseGame = KeyEvent.VK_ESCAPE;
+						break;
+					case "up":
+						keyUp = KeyEvent.VK_UP;
+						break;
+					case "left":
+						keyLeft = KeyEvent.VK_LEFT;
+						break;
+					case "down":
+						keyDown = KeyEvent.VK_DOWN;
+						break;
+					case "right":
+						keyRight = KeyEvent.VK_RIGHT;
+						break;
+					case "resolve1":
+						keyResolve1 = KeyEvent.VK_SPACE;
+						break;
+					case "resolve2":
+						keyResolve2 = KeyEvent.VK_ENTER;
+						break;
 				}
-			}
+				updateButtons("controls");
+			});
 		} else if (b instanceof ControlsButton) {
 			HashMap<String, Button> controlsButtons = new HashMap<>();
-			for (Button b1 : controlsMenuButtons.toList()) {
-				if (b1 instanceof ControlsButton) {
-					controlsButtons.put(((ControlsButton) b1).getLabel(), b1);
-				}
-			}
+			controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> controlsButtons.put(((ControlsButton) b1).getLabel(), b1));
 			if (keyAssigning != null) {
 				//return previously assigning button's key to normal
-				HashMap<String, Integer> assignments = new HashMap<>();
-				assignments.put("pauseGame", keyPauseGame);
-				assignments.put("up", keyUp);
-				assignments.put("left", keyLeft);
-				assignments.put("down", keyDown);
-				assignments.put("right", keyRight);
-				assignments.put("resolve1", keyResolve1);
-				assignments.put("resolve2", keyResolve2);
-				controlsButtons.get(keyAssigning).setText(KeyEvent.getKeyText(assignments.get(keyAssigning)));
+				updateButtons("controls");
 			}
 			keyAssigning = ((ControlsButton) b).getLabel();
 			b.setText("Press a key");
@@ -1200,6 +1196,40 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					loadPuzzle(b.getText());
 				}
 			}
+		}
+	}
+
+	private void updateButtons(String window) {
+		switch(window) {
+			case "controls":
+				for(Button b : controlsMenuButtons.toList()) {
+					if(b instanceof ControlsButton) {
+						switch(((ControlsButton) b).getLabel()) {
+							case "pauseGame":
+								b.setText(KeyEvent.getKeyText(keyPauseGame));
+								break;
+							case "up":
+								b.setText(KeyEvent.getKeyText(keyUp));
+								break;
+							case "left":
+								b.setText(KeyEvent.getKeyText(keyLeft));
+								break;
+							case "down":
+								b.setText(KeyEvent.getKeyText(keyDown));
+								break;
+							case "right":
+								b.setText(KeyEvent.getKeyText(keyRight));
+								break;
+							case "resolve1":
+								b.setText(KeyEvent.getKeyText(keyResolve1));
+								break;
+							case "resolve2":
+								b.setText(KeyEvent.getKeyText(keyResolve2));
+								break;
+						}
+					}
+				}
+				break;
 		}
 	}
 
@@ -1353,8 +1383,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private void initControls() {
 		int buttonWidth = 100;
 		int buttonHeight = 50;
-		controlsButtons = new ArrayList<Button>();
+		controlsButtons = new ArrayList<>();
 		controlsDescriptions = new ArrayList<>();
+		//catch-all for if prefs is not properly initialized
+		if(!(prefs.has("pauseGame") && prefs.has("up") && prefs.has("left") && prefs.has("down") && prefs.has("right") && prefs.has("resolve1") && prefs.has("resolve2"))) {
+			try {
+				doClickAction(bRestoreControls);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		//ESC pauses the game
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
 		controlsDescriptions.add("Pause game");

@@ -3,7 +3,7 @@ package picross;
 import java.awt.*;
 
 /**
- * Created by kyle on 10/24/16.
+ * Created by kyle on 10/24/16 at 11:32 AM.
  */
 public class ControlsButton extends Button {
 	private String label;

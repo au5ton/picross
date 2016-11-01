@@ -5,7 +5,7 @@ public class Box {
 	private boolean canModify;
 	private final int x;
 	private final int y;
-	private int /**
+	/**
 	 * 0 = empty
 	 * 1 = solved
 	 * 2 = flagged
@@ -14,7 +14,7 @@ public class Box {
 	 * game is not complete until # of solved tiles = number in solution
 	 * //x is left->right, y is down->up
 	 */
-			state;
+	private int state;
 
 
 	public Box(int x_, int y_) {

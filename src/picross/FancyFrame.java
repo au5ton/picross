@@ -7,7 +7,6 @@ class FancyFrame extends Frame implements MouseMotionListener, MouseListener, Mo
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 169736940888001290L;
 	public int mouseX;
 	public int mouseY;
 	private int mouseButton;

@@ -15,12 +15,10 @@ class TextDocument {
 	protected String locationStr;
 	protected Scanner s;
 	protected List<String> contents;
-	private boolean isPrefs;
 	@SuppressWarnings ("CanBeFinal")
 	protected HashMap<String, String> parsedContents;
 
 	public TextDocument(String path) throws IOException {
-		isPrefs = false;
 		contents = new ArrayList<>();
 		parsedContents = new HashMap<>();
 		locationStr = path;

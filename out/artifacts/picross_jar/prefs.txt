@@ -1,1 +1,8 @@
+pauseGame=0
+resolve2=0
+resolve1=0
 size=20,20
+left=0
+up=0
+right=0
+down=0

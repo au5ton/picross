@@ -3,6 +3,7 @@ package picross;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,9 +19,7 @@ public class AllButtons {
 
 	public AllButtons(ButtonList[] bLists) {
 		buttonLists = new ArrayList<>();
-		for(ButtonList buttonList : bLists) {
-			buttonLists.add(buttonList);
-		}
+		Collections.addAll(buttonLists, bLists);
 	}
 
 	public void setWindow(String windowName) {
@@ -39,8 +38,6 @@ public class AllButtons {
 	}
 
 	public void addButtonLists(ButtonList[] bLists) {
-		for(ButtonList buttonList : bLists) {
-			buttonLists.add(buttonList);
-		}
+		Collections.addAll(buttonLists, bLists);
 	}
 }

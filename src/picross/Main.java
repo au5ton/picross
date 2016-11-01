@@ -4,15 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.jar.Pack200;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 class Main {
-	public static Timer timer, FPSCounter;
+	public static Timer timer;
+	public static Timer FPSCounter;
 	public static Timer animator;
 	public static Graphics mainWindow;
 	public static SettingsDocument prefs;
@@ -64,8 +59,8 @@ class Main {
 	}
 
 	public static void runCreator() {
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "resources" + slashCharacter + "puzzleCreator.jar");
-		pb.directory(new File("."));
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "puzzleCreator.jar");
+		pb.directory(new File("." + slashCharacter + "resources"));
 		try {
 			Process p = pb.start();
 			LogStreamReader lsr = new LogStreamReader(p.getInputStream());

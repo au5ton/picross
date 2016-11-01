@@ -8,6 +8,7 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="picross_lmao" default="default" basedir=".">
+    <target name="default"/>
     <description>Builds, tests, and runs the project picross lmao.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
