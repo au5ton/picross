@@ -128,11 +128,11 @@ class Button {
 	/**
 	 * Renders the button onto graphics.
 	 *
-	 * @param x   x-coordinate of mouse
-	 * @param y   y-coordinate of mouse
 	 * @param art Graphics to draw on
 	 */
-	public void draw(int x, int y, Graphics2D art) {
+	public void draw(Graphics2D art) {
+		int x = mainWindow.getFrame().mouseX;
+		int y = mainWindow.getFrame().mouseY;
 		if(clicking && !mainWindow.getFrame().isClicking()) {
 			if(isInBounds(x, y)) {
 				try {

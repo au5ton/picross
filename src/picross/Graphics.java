@@ -621,12 +621,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							if(Main.animator.getMS() % 1000 <= 500) {
 								drawCenteredText(f, "PAUSED", frame.getHeight() / 2 - 10, art);
 							}
-							bResume.draw(mouseX, mouseY, art);
-							bMainMenu.draw(mouseX, mouseY, art);
+							bResume.draw(art);
+							bMainMenu.draw(art);
 							break;
 					}
 					if(status.equals("get ready"))
-						bBegin.draw(mouseX, mouseY, art);
+						bBegin.draw(art);
 					drawCenteredText(f, showText, frame.getHeight() / 2 - 10, art);
 					art.setColor(BLACK);
 					//if(!status.equals("get ready") && !status.equals("paused"))
