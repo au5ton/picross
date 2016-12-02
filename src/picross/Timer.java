@@ -8,25 +8,48 @@ import static java.time.Duration.ZERO;
 public class Timer implements Runnable {
 	private Duration startTime;
 	private boolean running;
+	private boolean countingUp;
 	private final int delay;
 
 	public Timer() {
 		running = false;
 		startTime = ZERO;
+		countingUp = true;
 		delay = 10;
 	}
 
 	public Timer(int delay) {
 		running = false;
 		startTime = ZERO;
+		countingUp = true;
 		this.delay = delay;
+	}
+
+	public Timer(boolean countUp, int length) {
+		running = false;
+		if (!countUp) {
+			startTime = java.time.Duration.ofMillis(length);
+		} else {
+			startTime = ZERO;
+		}
+		countingUp = countUp;
+		delay = 10;
+
 	}
 
 	@Override
 	public void run() {
 		while(true) {
 			if(running)
-				startTime = startTime.plusMillis(delay);
+				if (countingUp) {
+					startTime = startTime.plusMillis(delay);
+				} else {
+					startTime = startTime.minusMillis(delay);
+					if (startTime.toMillis() <= 0) {
+						running = false;
+					}
+				}
+
 			try {
 				Thread.sleep(delay);
 			} catch(InterruptedException e) {
@@ -118,6 +141,14 @@ public class Timer implements Runnable {
 
 	public void begin() {
 		startTime = ZERO;
+		running = true;
+	}
+
+	public void restart(int length) {
+		if (!countingUp)
+			startTime = java.time.Duration.ofMillis(length);
+		else
+			startTime = ZERO;
 		running = true;
 	}
 
