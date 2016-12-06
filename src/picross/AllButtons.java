@@ -32,7 +32,7 @@ public class AllButtons {
 	public void drawButtons(int x, int y, Graphics2D art) {
 		for(ButtonList buttonList : buttonLists) {
 			if(buttonList.getName().equals(currWindow)) {
-				buttonList.drawAll(x, y, art);
+				buttonList.drawAll(art);
 			}
 		}
 	}

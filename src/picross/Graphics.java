@@ -656,8 +656,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art.setColor(BLACK);
 				art = setFont(50f, art);
 				drawCenteredText(f, "LOAD A PUZZLE", 100, art);
-				loadMenuButtons.drawAll(mouseX, mouseY, art);
-				puzzleButtons.drawAll(mouseX, mouseY, art);
+				loadMenuButtons.drawAll(art);
+				puzzleButtons.drawAll(art);
 				break;
 		}
 		allButtons.drawButtons(mouseX, mouseY, art);
