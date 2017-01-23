@@ -9,6 +9,7 @@ class Main {
 	public static Timer timer;
 	public static Timer FPSCounter;
 	public static Timer animator;
+	public static Timer colorSwitcher;
 	public static Graphics mainWindow;
 	public static SettingsDocument prefs;
 	/**
@@ -37,6 +38,9 @@ class Main {
 		System.out.println(prefs.get("volume"));
 		FPSCounter = new Timer();
 		new Thread(FPSCounter).start();
+		colorSwitcher = new Timer();
+		new Thread(colorSwitcher).start();
+		colorSwitcher.begin();
 		mainWindow = new Graphics();
 		new Thread(mainWindow).start();
 		timer = new Timer();

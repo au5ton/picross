@@ -283,6 +283,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@Override
 	public void run() {
 		while(isRunning) {
+			Background.updateColor();
+			bgColor = Background.getCurrentColor();
 			int i;
 			switch(currWindow) {
 				case "game":

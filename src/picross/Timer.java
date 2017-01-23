@@ -144,6 +144,10 @@ public class Timer implements Runnable {
 		running = true;
 	}
 
+	public void restart() {
+		startTime = ZERO;
+		running = true;
+	}
 	public void restart(int length) {
 		if (!countingUp)
 			startTime = java.time.Duration.ofMillis(length);
