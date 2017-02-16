@@ -1,6 +1,8 @@
 package picross;//TODO create interactive tutorial
 //TODO redesign main menu, similar to original but new color scheme
 
+import common.Background;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -105,6 +107,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Button bRandomPuzzle;
 	private Button bLoadPuzzle;
 	private Button bRestoreControls;
+	private Button bGamba;
 
 	public Graphics() {
 		FPSCounter.begin();
@@ -288,9 +291,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			int i;
 			switch(currWindow) {
 				case "game":
-					if(playable)
+					if (playable) {
 						bPause.setVisible(true);
-					else {
+						bGamba.setVisible(true);
+					} else {
 						bBegin.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50);
 						bResume.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7);
 						bMainMenu.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7);
@@ -594,6 +598,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 				if(!playable) {
 					bPause.setVisible(false);
+					bGamba.setVisible(false);
 					if(bBegin.isVisible()) {
 						faded = true;
 					}
@@ -842,11 +847,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				output = LogStreamReader.output;
 				try {
 					Thread.sleep(100);
-				} catch(InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			} while(output.size() < 5);
-			int solutionsLine = Strings.findLineWith(output, "Solutions : ", true);
+			} while (output.size() < 5);
+			int solutionsLine;
+			do {
+				solutionsLine = Strings.findLineWith(output, "Solutions : ", true);
+			} while (Strings.findLineWith(output, "Solutions : ", true) == -1);
 			numSolutions = Integer.parseInt(output.get(solutionsLine).substring(output.get(solutionsLine).length() - 1, output.get(solutionsLine).length()));
 			System.out.println(output.get(solutionsLine));
 			//String difficulty = "";
@@ -894,6 +902,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		status = "get ready";
 		bBegin.setVisible(true);
 		bPause.setVisible(false);
+		bGamba.setVisible(false);
 		numMistakes = 0;
 		bRegenPuzzle.setVisible(false);
 		bMainMenu.setVisible(false);
@@ -1050,6 +1059,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			bResume.setVisible(false);
 			bMainMenu2.setVisible(false);
 			bPause.setVisible(true);
+			bGamba.setVisible(false);
 			Main.timer.resume();
 			playable = true;
 			faded = false;
@@ -1058,11 +1068,27 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				allButtons.setWindow("pause");
 				status = "paused";
 				bPause.setVisible(false);
+				bGamba.setVisible(false);
 				bResume.setVisible(true);
 				bMainMenu2.setVisible(true);
 				Main.timer.pause();
 				playable = false;
 				faded = false;
+			}
+		} else if (b == bGamba) {
+			int randX = (int) (Math.random() * sizeX);
+			int randY = (int) (Math.random() * sizeY);
+			if (gameGrid.getBox(randX, randY).green(solutionGrid)) {
+				int winTime = -10000;
+				if (timer.getMS() + winTime > 0)
+					timer.addMS(winTime);
+				else
+					timer.addMS(timer.getMS() * (-1));
+			} else {
+				int loseTime = 10000;
+				numMistakes++;
+				timer.addMS(loseTime + numMistakes * 10000);
+				gameGrid.getBox(randX, randY).setCanModify(false);
 			}
 		} else if (b == bXUp) {
 			if (modifier) {
@@ -1101,6 +1127,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			status = "get ready";
 			bBegin.setVisible(true);
 			bPause.setVisible(false);
+			bGamba.setVisible(false);
 			numMistakes = 0;
 			bRegenPuzzle.setVisible(false);
 			bMainMenu.setVisible(false);
@@ -1361,7 +1388,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 		gameButtons = new ButtonList("game");
 		bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
-		gameButtons.addButtons(new Button[] {bPause});
+		bGamba = new Button(20, 150, 60, 60, "GAMBA", ORANGE, 17);
+		gameButtons.addButtons(new Button[]{bPause, bGamba});
 
 		pauseMenuButtons = new ButtonList("pause");
 		bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", GREEN, 17);
