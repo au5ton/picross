@@ -1,8 +1,5 @@
 package common;
 
-
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import java.awt.*;
 
 import static common.Motion.getNumberBetween;
@@ -54,7 +51,7 @@ public class Background {
 				currentR = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getRed(), destinationColor.getRed(), progress);
 				currentG = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getGreen(), destinationColor.getGreen(), progress);
 				currentB = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getBlue(), destinationColor.getBlue(), progress);
-			} catch (InvalidArgumentException e) {
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 			currentColor = new Color(currentR, currentG, currentB);
