@@ -2,6 +2,7 @@ package picross;//TODO create interactive tutorial
 //TODO redesign main menu, similar to original but new color scheme
 
 import common.Background;
+import common.TextEntryBox;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -108,6 +109,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private Button bLoadPuzzle;
 	private Button bRestoreControls;
 	private Button bGamba;
+	//text boxes
+	private TextEntryBox userNameBox;
 
 	public Graphics() {
 		FPSCounter.begin();
@@ -141,6 +144,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		displayStatus("Creating buttons...");
 		initButtons();
 		initControls();
+		userNameBox = new TextEntryBox(200, 30, frame.getWidth() / 2, frame.getHeight() / 2 + 100);
 		displayStatus("Setting up graphics...");
 	}
 
@@ -262,9 +266,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			keyAssigning = null;
 			updateButtons("controls");
 		}
-		if(keyChar == 'd') {
+		if (keyChar == 'd' && !userNameBox.hasFocus()) {
 			debugging = true;
 		}
+		if (userNameBox.hasFocus()) {
+			userNameBox.handleKey(e);
+		}
+		if (keyCode == KeyEvent.VK_ENTER && userNameBox.getText().length() > 0 && userNameBox.hasFocus()) {
+			userNameBox.setText("");
+			submitScore();
+			userNameBox.setHasFocus(false);
+			userNameBox.setVisible(false);
+		}
+	}
+
+	private void submitScore() {
+		//TODO submit score
 	}
 
 	@Override
@@ -327,7 +344,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							Main.timer.pause();
 						int timeInSeconds = Main.timer.getSeconds();
 						int MS = timeInSeconds - Main.timer.getMS();
-						//TODO submit scores!!!!
+						userNameBox.setVisible(true);
 					}
 					//maximum mistakes
 					if(numMistakes == 5) {
@@ -355,6 +372,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							System.out.println("Entering mouse control mode");
 						}
 					}
+					userNameBox.setCenterX(frame.getWidth() / 2);
+					userNameBox.setCenterY(frame.getHeight() / 2 + 100);
 					break;
 				case "gamemode":
 					gameChoiceButtons.setVisible(true);
@@ -646,6 +665,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art = setFont(20f, art);
 				art.setColor(BLACK);
 				drawRightText(f, "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
+				userNameBox.draw(art);
 				break;
 			case "controls":
 				art.setColor(bgColor);
@@ -802,6 +822,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						}
 						currBox.setCanModify(false);
 					}
+				}
+				if (frame.isClicking()) {
+					userNameBox.setHasFocus(userNameBox.isInBounds(mouseX, mouseY));
 				}
 				break;
 			case "menu":
@@ -1037,7 +1060,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	 * @param b button to be compared with known buttons
 	 */
 	void doClickAction(Button b) throws Exception {
-		if (b != bXUp && b != bXDown && b != bYUp && b != bYDown && b != bBegin && b != bPause && !(b instanceof ControlsButton))
+		if (b != bXUp && b != bXDown && b != bYUp && b != bYDown && b != bBegin && b != bPause && b != bGamba && !(b instanceof ControlsButton))
 			displayStatusNoBG("Loading...");
 		if (b == bNewPuzzle) {
 			windows.push(currWindow);
@@ -1143,6 +1166,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			kbY = 0;
 			generatePuzzle();
 			Main.timer.reset();
+			userNameBox.setVisible(false);
 		} else if (b == bMainMenu || b == bMainMenu2) {
 			windows = new Stack<>();
 			frame.setTitle("Main Menu | Picross");
@@ -1152,6 +1176,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			status = "menu";
 			numMistakes = 0;
 			playable = false;
+			userNameBox.setVisible(false);
 		} else if (b == bQuitGame) {
 			frame.setTitle("Quitting...");
 			writePrefs();
