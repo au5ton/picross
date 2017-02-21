@@ -8,9 +8,9 @@ import static common.Motion.getNumberBetween;
  * Created by mario on 1/12/2017.
  */
 public class Background {
-	private static Color initialColor = Color.white;
-	private static Color destinationColor = Color.white;
-	private static Color currentColor = Color.white;
+	private static Color initialColor = new Color(128, 128, 255);
+	private static Color destinationColor = RandomColorGenerator.getOpaqueColor();
+	private static Color currentColor = initialColor;
 	private static int colorIntervalMS = 10000;
 	protected static Timer timer;
 
