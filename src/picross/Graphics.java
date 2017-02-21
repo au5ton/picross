@@ -325,7 +325,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						playable = false;
 						if(Main.timer != null)
 							Main.timer.pause();
-						//submit scores!!!!
+						int timeInSeconds = Main.timer.getSeconds();
+						int MS = timeInSeconds - Main.timer.getMS();
+						//TODO submit scores!!!!
 					}
 					//maximum mistakes
 					if(numMistakes == 5) {
