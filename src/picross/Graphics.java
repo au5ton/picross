@@ -325,6 +325,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						playable = false;
 						if(Main.timer != null)
 							Main.timer.pause();
+						//submit scores!!!!
 					}
 					//maximum mistakes
 					if(numMistakes == 5) {
@@ -1076,9 +1077,13 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				faded = false;
 			}
 		} else if (b == bGamba) {
-			int randX = (int) (Math.random() * sizeX);
-			int randY = (int) (Math.random() * sizeY);
-			if (gameGrid.getBox(randX, randY).green(solutionGrid)) {
+			Box randBox;
+			do {
+				int randX = (int) (Math.random() * sizeX);
+				int randY = (int) (Math.random() * sizeY);
+				randBox = gameGrid.getBox(randX, randY);
+			} while (randBox.getState() != 0);
+			if (randBox.green(solutionGrid)) {
 				int winTime = -10000;
 				if (timer.getMS() + winTime > 0)
 					timer.addMS(winTime);
@@ -1088,7 +1093,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				int loseTime = 10000;
 				numMistakes++;
 				timer.addMS(loseTime + numMistakes * 10000);
-				gameGrid.getBox(randX, randY).setCanModify(false);
+				randBox.setCanModify(false);
 			}
 		} else if (b == bXUp) {
 			if (modifier) {

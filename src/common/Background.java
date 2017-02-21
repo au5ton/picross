@@ -48,9 +48,9 @@ public class Background {
 			int currentG = 0;
 			int currentB = 0;
 			try {
-				currentR = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getRed(), destinationColor.getRed(), progress);
-				currentG = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getGreen(), destinationColor.getGreen(), progress);
-				currentB = getNumberBetween(Motion.MODE_LOGISTIC, initialColor.getBlue(), destinationColor.getBlue(), progress);
+				currentR = getNumberBetween(Motion.MODE_LINEAR, initialColor.getRed(), destinationColor.getRed(), progress);
+				currentG = getNumberBetween(Motion.MODE_LINEAR, initialColor.getGreen(), destinationColor.getGreen(), progress);
+				currentB = getNumberBetween(Motion.MODE_LINEAR, initialColor.getBlue(), destinationColor.getBlue(), progress);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
