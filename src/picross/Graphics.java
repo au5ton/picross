@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.awt.Color.*;
+import java.net.MalformedURLException;
 import static picross.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
@@ -298,13 +299,22 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private void submitScore() {
 		String username = userNameBox.getText().trim();
 		double time = (double) (Main.timer.getMS()) / 1000;
+                URL url;
 		System.out.println("Sending score to server...");
 		try {
-			URL url = new URL("https://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY);
+			url = new URL("https://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY);
 			url.openStream();
 		} catch (IOException e) {
-			Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, e);
-			//TODO: Display menu stating that a connection couldn't be established.
+			//Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, e);
+                    try {
+                        //If the first try fails, try again over http.
+                        System.out.println("Trying again over HTTP...");
+                        url = new URL("http://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY);
+                        url.openStream();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Graphics.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+			
 		}
 
 	}
