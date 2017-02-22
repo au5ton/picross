@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f2c552f-ccae-453d-82b4-55469f09563e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
     </list>
@@ -35,8 +36,8 @@
       <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="1564" column="41" lean-forward="false" selection-start-line="1564" selection-start-column="41" selection-end-line="1564" selection-end-column="41" />
+            <state relative-caret-position="119">
+              <caret line="25" column="47" lean-forward="false" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -865,7 +866,7 @@
       <workItem from="1487262866394" duration="1154000" />
       <workItem from="1487692924654" duration="880000" />
       <workItem from="1487693977372" duration="1828000" />
-      <workItem from="1487729757896" duration="2804000" />
+      <workItem from="1487729757896" duration="2915000" />
     </task>
     <task id="LOCAL-00001" summary="Improvement of controls menu in progress">
       <created>1477329207336</created>
@@ -958,11 +959,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487732497937</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Minor code cleanup">
+      <created>1487732572034</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1487732572034</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10382000" />
+    <option name="totallyTimeSpent" value="10493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1052,7 +1060,8 @@
     <MESSAGE value="Prevented multiple submissions by adding a boolean" />
     <MESSAGE value="Fixed text remaining after submission" />
     <MESSAGE value="Tested, updated to 1.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tested, updated to 1.4" />
+    <MESSAGE value="Minor code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor code cleanup" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1475,8 +1484,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="1564" column="41" lean-forward="false" selection-start-line="1564" selection-start-column="41" selection-end-line="1564" selection-end-column="41" />
+        <state relative-caret-position="119">
+          <caret line="25" column="47" lean-forward="false" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
           <folding />
         </state>
       </provider>
