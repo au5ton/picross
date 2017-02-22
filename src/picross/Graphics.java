@@ -59,7 +59,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private String currWindow;
     private Stack<String> windows;
     private String status;
-    //flags
+	private String gameName = "Picross";
+	//flags
     private boolean isRunning;
     private boolean isDone;
     private boolean playable;
@@ -127,6 +128,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private TextEntryBox userNameBox;
 
     public Graphics() {
+	    if (Math.random() < 0.01) {
+		    gameName = "Pillsbury";
+	    }
         FPSCounter.begin();
         //initialize frame & basic flags
         Dimension SIZE = new Dimension(800, 600);
@@ -513,8 +517,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
         f = art.getFont();
         switch (currWindow) {
             case "menu":
-                frame.setTitle("Main Menu | Picross");
-                art.setColor(bgColor);
+	            frame.setTitle("Main Menu  | " + gameName);
+	            art.setColor(bgColor);
                 //art.setColor(getRandomColor());
                 art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
                 art.setColor(BLACK);
@@ -538,8 +542,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 drawCenteredText(f, "CHOOSE GAMEMODE", 100, art);
                 break;
             case "size picker":
-                frame.setTitle("Size Picker | Picross");
-                if (sizeX == 25 || (modifier && sizeX + 5 > 25)) {
+	            frame.setTitle("Size Picker  | " + gameName);
+	            if (sizeX == 25 || (modifier && sizeX + 5 > 25)) {
                     bXUp.setVisible(false);
                 } else if (sizeX == 1 || (modifier && sizeX - 5 < 1)) {
                     bXDown.setVisible(false);
@@ -568,8 +572,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 art = setFont(20f, art);
                 break;
             case "game":
-                frame.setTitle("" + Main.timer.toString(true) + " | Picross");
-                art.setColor(bgColor);
+	            frame.setTitle("" + Main.timer.toString(true) + "  | " + gameName);
+	            art.setColor(bgColor);
                 art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
                 if (playable) {
                     art.setColor(fadeOff(64, 100));
@@ -1238,8 +1242,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             scoreSubmitted = false;
         } else if (b == bMainMenu || b == bMainMenu2) {
             windows = new Stack<>();
-            frame.setTitle("Main Menu | Picross");
-            currWindow = "menu";
+	        frame.setTitle("Main Menu  | " + gameName);
+	        currWindow = "menu";
             windows.push(currWindow);
             allButtons.setWindow(currWindow);
             status = "menu";
