@@ -659,7 +659,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                         case "solved":
 	                        art.setColor(Color.black);
 	                        art = setFont(20f, art);
-	                        DrawingTools.drawCenteredText(f, "Enter user name for score submission:", frame.getWidth() / 2, frame.getHeight() / 2 + 75, art);
+	                        if (! scoreSubmitted)
+		                        DrawingTools.drawCenteredText(f, "Enter user name for score submission:", frame.getWidth() / 2, frame.getHeight() / 2 + 75, art);
 	                        art.setColor(GREEN);
                             showText = "SOLVED";
                             bMainMenu.setVisible(true);
