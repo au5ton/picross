@@ -69,9 +69,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     static int[] clueLen;
     private Font f;
     //controls menu elements
-    List<Button> controlsButtons;
-    List<String> controlsDescriptions;
-    //key assignments
+    private List<Button> controlsButtons;
+	private List<String> controlsDescriptions;
+	//key assignments
     private int keyPauseGame;
     private int keyUp;
     private int keyLeft;
@@ -885,7 +885,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
                     frame.scrollAmt = 0;
                 }
-                scrollIndex = scrollIndex;
                 break;
         }
     }
