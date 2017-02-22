@@ -14,7 +14,7 @@ class FancyFrame extends Frame implements MouseMotionListener, MouseListener, Mo
 	private boolean hasClicked;
 	private boolean clicking;
 
-	@SuppressWarnings ("SameParameterValue")
+	@SuppressWarnings("SameParameterValue")
 	public FancyFrame(String title, Dimension size) {
 		setTitle(title);
 		setSize(size);
@@ -70,7 +70,7 @@ class FancyFrame extends Frame implements MouseMotionListener, MouseListener, Mo
 		return hasClicked;
 	}
 
-	@SuppressWarnings ("SameParameterValue")
+	@SuppressWarnings("SameParameterValue")
 	public void setHasClicked(boolean b) {
 		hasClicked = b;
 	}

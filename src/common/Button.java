@@ -2,7 +2,7 @@ package common;
 
 import java.awt.*;
 
-import static java.awt.Color.*;
+import static java.awt.Color.white;
 
 /**
  * @author onContentStop

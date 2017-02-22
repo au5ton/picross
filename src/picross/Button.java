@@ -4,7 +4,7 @@ import java.awt.*;
 
 import static picross.Main.mainWindow;
 
-@SuppressWarnings ("CanBeFinal")
+@SuppressWarnings("CanBeFinal")
 class Button {
 	private int x1, y1, sizeX, sizeY;
 	private int maxFontSize;
@@ -28,6 +28,7 @@ class Button {
 		canClick = true;
 		maxFontSize = 50;
 	}
+
 	public Button(int x, int y, int size_x, int size_y, String text) {
 		x1 = x;
 		y1 = y;
@@ -41,7 +42,7 @@ class Button {
 		canClick = true;
 	}
 
-	@SuppressWarnings ("SameParameterValue")
+	@SuppressWarnings("SameParameterValue")
 	public Button(int x, int y, int size_x, int size_y, String text, int maxFontSize) {
 		x1 = x;
 		y1 = y;
@@ -95,13 +96,13 @@ class Button {
 	}
 
 	private void hover() {
-		if(isVisible) {
+		if (isVisible) {
 			coverColor = new Color(0, 0, 0, 32);
 		}
 	}
 
 	private void click() {
-		if(isVisible && canClick) {
+		if (isVisible && canClick) {
 			clicking = true;
 			coverColor = new Color(0, 0, 0, 128);
 		}
@@ -110,13 +111,13 @@ class Button {
 	private void unClick() {
 		clicking = false;
 		canClick = false;
-		if(isVisible) {
+		if (isVisible) {
 			coverColor = new Color(0, 0, 0, 32);
 		}
 	}
 
 	private void unHover() {
-		if(isVisible) {
+		if (isVisible) {
 			coverColor = new Color(0, 0, 0, 0);
 		}
 	}
@@ -133,8 +134,8 @@ class Button {
 	public void draw(Graphics2D art) {
 		int x = mainWindow.getFrame().mouseX;
 		int y = mainWindow.getFrame().mouseY;
-		if(clicking && !mainWindow.getFrame().isClicking()) {
-			if(isInBounds(x, y)) {
+		if (clicking && ! mainWindow.getFrame().isClicking()) {
+			if (isInBounds(x, y)) {
 				try {
 					mainWindow.doClickAction(this);
 				} catch (Exception e) {
@@ -145,13 +146,13 @@ class Button {
 				unClick();
 			}
 		}
-		if(isInBounds(x, y))
+		if (isInBounds(x, y))
 			hover();
 		else
 			unHover();
-		if(mainWindow.getFrame().isClicking()) {
-			if(mainWindow.getFrame().getMouseButton() == 1) {
-				if(isInBounds(x, y)) {
+		if (mainWindow.getFrame().isClicking()) {
+			if (mainWindow.getFrame().getMouseButton() == 1) {
+				if (isInBounds(x, y)) {
 					click();
 				}
 			}
@@ -163,7 +164,7 @@ class Button {
 		float textSize = getTextSize(art);
 		font = art.getFont().deriveFont(textSize);
 		fontInfo = art.getFontMetrics(font);
-		if(isVisible) {
+		if (isVisible) {
 			art.setFont(font);
 			art.setColor(baseColor);
 			art.fillRect(x1, y1, sizeX, sizeY);
@@ -183,13 +184,13 @@ class Button {
 	 */
 	private float getTextSize(Graphics2D art) {
 		float width = fontInfo.stringWidth(text) * text.length(), height = sizeY;
-		while(width > sizeX) {
+		while (width > sizeX) {
 			height -= 0.1;
 			font = art.getFont().deriveFont(height);
 			fontInfo = art.getFontMetrics(font);
 			width = fontInfo.stringWidth(text);
 		}
-		if(height > maxFontSize)
+		if (height > maxFontSize)
 			height = maxFontSize;
 		return height;
 	}
@@ -270,7 +271,7 @@ class Button {
 	}
 
 	public void toggle() {
-		isToggled = !isToggled;
+		isToggled = ! isToggled;
 	}
 
 	public Color getBaseColor() {

@@ -24,14 +24,14 @@ public class AllButtons {
 
 	public void setWindow(String windowName) {
 		currWindow = windowName;
-		for(ButtonList buttonList : buttonLists) {
+		for (ButtonList buttonList : buttonLists) {
 			buttonList.setVisible(buttonList.getName().equals(windowName));
 		}
 	}
 
 	public void drawButtons(int x, int y, Graphics2D art) {
-		for(ButtonList buttonList : buttonLists) {
-			if(buttonList.getName().equals(currWindow)) {
+		for (ButtonList buttonList : buttonLists) {
+			if (buttonList.getName().equals(currWindow)) {
 				buttonList.drawAll(art);
 			}
 		}

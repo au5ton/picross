@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class BetterFrame extends Frame implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 	public int mouseX, mouseY;
 	private boolean clicking;
-	private int mouseButton = -1;
+	private int mouseButton = - 1;
 	private String name;
 	private KeyInterface keyHandler;
 
@@ -58,7 +58,7 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		clicking = false;
-		mouseButton = -1;
+		mouseButton = - 1;
 	}
 
 	@Override

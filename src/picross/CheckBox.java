@@ -1,6 +1,7 @@
 package picross;
 
 import javax.imageio.ImageIO;
+import java.awt.Color;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import static java.awt.Color.*;
 /**
  * Created on 4/12/2016 at 9:02 PM.
  */
-@SuppressWarnings ({"SameParameterValue", "CanBeFinal"})
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 class CheckBox {
 	private final Color TRANSPARENT = new Color(0, 0, 0, 0);
 	private final Color HOVERING = new Color(0, 0, 0, 32);
@@ -42,25 +43,25 @@ class CheckBox {
 		art.drawRect(posX, posY, size, size);
 		art.setColor(coverColor);
 		art.fillRect(posX, posY, size, size);
-		if(mouseX > posX && mouseX < posX + size && mouseY > posY && mouseY < posY + size) {
+		if (mouseX > posX && mouseX < posX + size && mouseY > posY && mouseY < posY + size) {
 			hover();
 		} else
 			unHover();
-		if(frame.isClicking() && hovering) {
+		if (frame.isClicking() && hovering) {
 			click();
-		} else if(clicking) {
+		} else if (clicking) {
 			unClick();
 		}
-		if(checked) {
+		if (checked) {
 			BufferedImage checkMark = null;
 			try {
 				URL url = this.getClass().getClassLoader().getResource("resources/check.png");
-				if(url != null)
+				if (url != null)
 					checkMark = ImageIO.read(url);
-			} catch(IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if(checkMark != null)
+			if (checkMark != null)
 				art.drawImage(checkMark, posX, posY, size, size, (img, infoflags, x, y, width, height) -> false);
 			else {
 				int border = size / 6;
@@ -70,29 +71,29 @@ class CheckBox {
 		}
 	}
 
-	@SuppressWarnings ("WeakerAccess")
+	@SuppressWarnings("WeakerAccess")
 	public void hover() {
 		hovering = true;
 		coverColor = HOVERING;
 	}
 
-	@SuppressWarnings ("WeakerAccess")
+	@SuppressWarnings("WeakerAccess")
 	public void unHover() {
 		hovering = false;
 		clicking = false;
 		coverColor = TRANSPARENT;
 	}
 
-	@SuppressWarnings ("WeakerAccess")
+	@SuppressWarnings("WeakerAccess")
 	public void click() {
 		clicking = true;
 		coverColor = CLICKING;
 	}
 
-	@SuppressWarnings ("WeakerAccess")
+	@SuppressWarnings("WeakerAccess")
 	public void unClick() {
 		clicking = false;
-		checked = !checked;
+		checked = ! checked;
 		coverColor = hovering ? HOVERING : TRANSPARENT;
 	}
 

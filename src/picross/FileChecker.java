@@ -11,7 +11,7 @@ import java.nio.file.Files;
 public class FileChecker {
 	public FileChecker() throws IOException {
 		File bgusolver = new File("bgusolver.jar");
-		if(!bgusolver.exists()) {
+		if (! bgusolver.exists()) {
 			InputStream link = (getClass().getResourceAsStream("bgusolver.jar"));
 			Files.copy(link, bgusolver.getAbsoluteFile().toPath());
 		}

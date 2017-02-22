@@ -3,7 +3,10 @@ package picross;
 import common.Background;
 import common.Timer;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +37,7 @@ class Main {
 		System.out.println("Using " + slashCharacter + " for slash character in this file system.");
 		try {
 			prefs = new SettingsDocument("prefs.txt");
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println("Could not load prefs.txt! Expect errors.");
 			e.printStackTrace();
 		}
@@ -61,7 +64,7 @@ class Main {
 			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
 			Thread thread = new Thread(lsr, "LogStreamReader");
 			thread.start();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -74,7 +77,7 @@ class Main {
 			LogStreamReader lsr = new LogStreamReader(p.getInputStream());
 			Thread thread = new Thread(lsr, "PuzzleCreatorStream");
 			thread.start();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -83,9 +86,9 @@ class Main {
 		int i = 0;
 		File savesFolder = new File("." + slashCharacter + "saves");
 		File[] saves = savesFolder.listFiles();
-		if(saves != null) {
-			for(File f : saves) {
-				if(f.getName().contains(".nin")) {
+		if (saves != null) {
+			for (File f : saves) {
+				if (f.getName().contains(".nin")) {
 					i++;
 				}
 			}
@@ -97,22 +100,23 @@ class Main {
 		List<String> out = new ArrayList<>();
 		File savesFolder = new File("." + slashCharacter + "saves");
 		File[] saves = savesFolder.listFiles();
-		if(saves != null) {
-			for(File f : saves) {
-				if(f.getName().contains(".nin")) {
+		if (saves != null) {
+			for (File f : saves) {
+				if (f.getName().contains(".nin")) {
 					out.add(f.getName());
 				}
 			}
 		}
 		return out;
 	}
+
 	public static List<String> getPuzzleSizes() {
 		List<String> out = new ArrayList<>();
 		File savesFolder = new File("." + slashCharacter + "saves");
 		File[] saves = savesFolder.listFiles();
-		if(saves != null) {
-			for(File f : saves) {
-				if(f.getName().contains(".nin")) {
+		if (saves != null) {
+			for (File f : saves) {
+				if (f.getName().contains(".nin")) {
 					try {
 						Scanner s = new Scanner(f);
 						if (s.hasNext()) {
@@ -120,7 +124,7 @@ class Main {
 							int spaceLoc = size.indexOf(' ');
 							out.add(size.substring(0, spaceLoc) + "x" + size.substring(spaceLoc + 1, size.length()));
 						}
-					} catch(IOException e) {
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
@@ -132,13 +136,13 @@ class Main {
 	public static List<TextDocument> getPuzzles() throws IOException {
 		List<String> puzzleTitles = getPuzzleNames();
 		List<TextDocument> out = new ArrayList<>();
-		for(String puzzle : puzzleTitles) {
+		for (String puzzle : puzzleTitles) {
 			out.add(new TextDocument(puzzle));
 		}
 		return out;
 	}
-	private static void extractFile(String name) throws IOException
-	{
+
+	private static void extractFile(String name) throws IOException {
 		File target = new File(name);
 		if (target.exists()) {
 			System.out.println(name + " already exists!");
@@ -148,15 +152,14 @@ class Main {
 		FileOutputStream out = new FileOutputStream(target);
 		ClassLoader cl = Main.class.getClassLoader();
 		InputStream in = cl.getResourceAsStream(name);
-		if(in == null) {
+		if (in == null) {
 			throw new IOException("Could not find " + name + " within jar!");
 		}
 
-		byte[] buf = new byte[8*1024];
+		byte[] buf = new byte[8 * 1024];
 		int len;
-		while((len = in.read(buf)) != -1)
-		{
-			out.write(buf,0,len);
+		while ((len = in.read(buf)) != - 1) {
+			out.write(buf, 0, len);
 		}
 		out.close();
 		in.close();

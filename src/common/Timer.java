@@ -33,7 +33,7 @@ public class Timer implements Runnable {
 
 	public Timer(boolean countUp, int length) {
 		running = false;
-		if (!countUp) {
+		if (! countUp) {
 			startTime = Duration.ofMillis(length);
 			currentTime = Duration.ofMillis(length);
 		} else {
@@ -95,7 +95,7 @@ public class Timer implements Runnable {
 		minutes %= 60;
 		String out = "";
 		int numSeparators;
-		if (!zeroes) {
+		if (! zeroes) {
 			if (hours > 0) {
 				numSeparators = 4;
 			} else if (minutes > 0) {
@@ -163,7 +163,7 @@ public class Timer implements Runnable {
 	}
 
 	public void restart(int length) {
-		if (!countingUp)
+		if (! countingUp)
 			startTime = Duration.ofMillis(length);
 		else
 			startTime = ZERO;

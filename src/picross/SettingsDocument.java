@@ -14,16 +14,16 @@ public class SettingsDocument extends TextDocument {
 		contents = new ArrayList<>();
 		parsedContents = new HashMap<>();
 		locationStr = path;
-		if(!new File(path).exists()) {
+		if (! new File(path).exists()) {
 			System.out.println(path + " does not exist! Creating...");
 			FileWriter makeDoc = new FileWriter(new File(path));
 			makeDoc.close();
 		}
 		String temp;
 		s = new Scanner(new File(path));
-		while(s.hasNext()) {
+		while (s.hasNext()) {
 			temp = s.nextLine();
-			if(temp.length() > 1 && temp.indexOf('=') > 0)
+			if (temp.length() > 1 && temp.indexOf('=') > 0)
 				contents.add(temp);
 		}
 		contents.stream().filter(line -> line.length() > 2).forEach(line -> {
@@ -45,14 +45,14 @@ public class SettingsDocument extends TextDocument {
 		parsedContents.put(k, v);
 	}
 
-	@SuppressWarnings ("unchecked")
+	@SuppressWarnings("unchecked")
 	public void close() throws IOException {
 		FileWriter fw = new FileWriter(new File(locationStr));
 		Set everything = parsedContents.entrySet();
 		Map.Entry<String, String> things[] = new Map.Entry[everything.size()];
 		things = (Map.Entry<String, String>[]) everything.toArray(things);
 		s.reset();
-		for(Map.Entry<String, String> thing : things) {
+		for (Map.Entry<String, String> thing : things) {
 			System.out.println("Writing \"" + thing.getKey() + "=" + thing.getValue() + "\" to " + locationStr);
 			fw.write(thing.getKey() + "=" + thing.getValue() + '\n');
 		}

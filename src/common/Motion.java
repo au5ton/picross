@@ -22,7 +22,7 @@ public class Motion {
 				progressFunction = Math.pow(percentage, 2);
 				break;
 			case MODE_LOGISTIC:
-				progressFunction = 1.06 / (1d + Math.pow(Constants.e, -3.5 * (2 * percentage - 1))) - 0.03;
+				progressFunction = 1.06 / (1d + Math.pow(Constants.e, - 3.5 * (2 * percentage - 1))) - 0.03;
 				break;
 			default:
 				throw new IllegalArgumentException("Mode given does not exist: " + mode);

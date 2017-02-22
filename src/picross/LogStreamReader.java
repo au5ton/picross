@@ -20,13 +20,13 @@ class LogStreamReader implements Runnable {
 	public void run() {
 		try {
 			String line = reader.readLine();
-			while(line != null) {
+			while (line != null) {
 				//System.out.println(line);
 				output.add(line);
 				line = reader.readLine();
 			}
 			reader.close();
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

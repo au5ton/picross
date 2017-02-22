@@ -9,7 +9,7 @@ import java.util.List;
  * Created on 4/7/2016 at 11:17 PM.
  */
 class ButtonList {
-	@SuppressWarnings ("CanBeFinal")
+	@SuppressWarnings("CanBeFinal")
 	private List<Button> buttons;
 	private String name;
 
@@ -37,7 +37,7 @@ class ButtonList {
 	}
 
 	public void drawAll(Graphics2D art) {
-		for(Button b : buttons) {
+		for (Button b : buttons) {
 			b.draw(art);
 		}
 	}
@@ -59,7 +59,7 @@ class ButtonList {
 	}
 
 	public void setVisible(boolean visible) {
-		for(Button button : buttons) {
+		for (Button button : buttons) {
 			button.setVisible(visible);
 		}
 	}
@@ -71,16 +71,17 @@ class ButtonList {
 	public List<Button> toList() {
 		return buttons;
 	}
+
 	public void sort() {
 		List<String> buttonNames = new ArrayList<>();
-		for(Button b : buttons) {
+		for (Button b : buttons) {
 			buttonNames.add(b.getText());
 		}
 		Collections.sort(buttonNames);
 		List<Button> newButtons = new ArrayList<>();
-		for(int i = 0; i < buttons.size(); i++) {
-			for(Button b : buttons) {
-				if(b.getText().equals(buttonNames.get(i))) {
+		for (int i = 0; i < buttons.size(); i++) {
+			for (Button b : buttons) {
+				if (b.getText().equals(buttonNames.get(i))) {
 					newButtons.add(b);
 				}
 			}

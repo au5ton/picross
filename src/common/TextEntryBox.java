@@ -161,7 +161,7 @@ public class TextEntryBox {
 
 				break;
 			case KeyEvent.VK_LEFT:
-				shiftCursor(-1);
+				shiftCursor(- 1);
 				break;
 			case KeyEvent.VK_RIGHT:
 				shiftCursor(1);

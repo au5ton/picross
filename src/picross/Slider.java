@@ -8,7 +8,7 @@ import static java.awt.Color.WHITE;
 /**
  * Created on 4/7/2016 at 11:47 PM.
  */
-@SuppressWarnings ({"SameParameterValue", "CanBeFinal"})
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 class Slider {
 	private final Color TRANSPARENT = new Color(0, 0, 0, 0);
 	private final Color HOVERING = new Color(0, 0, 0, 32);
@@ -18,7 +18,7 @@ class Slider {
 	private Color coverColor = TRANSPARENT;
 	private boolean isVisible, hovering, clicking;
 
-	@SuppressWarnings ("SameParameterValue")
+	@SuppressWarnings("SameParameterValue")
 	public Slider(int x1, int y1, int size_x) {
 		x = x1;
 		y = y1;
@@ -39,17 +39,17 @@ class Slider {
 	}
 
 	public void draw(int mouseX, int mouseY, Graphics2D art) {
-		if(isVisible) {
+		if (isVisible) {
 			int knobPos = x + (int) ((double) sizeX * position);
 			FancyFrame frame = Main.mainWindow.getFrame();
-			if(mouseX > x && mouseX < x + sizeX && mouseY > y - knobRadius && mouseY < y + knobRadius) {
+			if (mouseX > x && mouseX < x + sizeX && mouseY > y - knobRadius && mouseY < y + knobRadius) {
 				hover();
-			} else if(hovering && !clicking) {
+			} else if (hovering && ! clicking) {
 				unHover();
 			}
-			if(hovering && frame.isClicking()) {
+			if (hovering && frame.isClicking()) {
 				click();
-			} else if(clicking) {
+			} else if (clicking) {
 				unClick();
 			}
 			moveKnob(mouseX);
@@ -74,30 +74,30 @@ class Slider {
 	}
 
 	private void hover() {
-		if(isVisible) {
+		if (isVisible) {
 			hovering = true;
 			coverColor = HOVERING;
 		}
 	}
 
 	private void click() {
-		if(isVisible) {
+		if (isVisible) {
 			clicking = true;
 			coverColor = CLICKING;
 		}
 	}
 
 	private void unHover() {
-		if(isVisible) {
+		if (isVisible) {
 			hovering = false;
 			coverColor = TRANSPARENT;
 		}
 	}
 
 	private void unClick() {
-		if(isVisible) {
+		if (isVisible) {
 			clicking = false;
-			if(hovering) {
+			if (hovering) {
 				coverColor = HOVERING;
 			} else {
 				coverColor = TRANSPARENT;
@@ -105,7 +105,7 @@ class Slider {
 		}
 	}
 
-	@SuppressWarnings ("SameParameterValue")
+	@SuppressWarnings("SameParameterValue")
 	public void setVisible(boolean v) {
 		isVisible = v;
 	}
@@ -124,11 +124,11 @@ class Slider {
 	}
 
 	private void moveKnob(int mouseX) {
-		if(clicking) {
+		if (clicking) {
 			position = ((double) mouseX - (double) x) / (double) sizeX;
-			if(position < 0.0)
+			if (position < 0.0)
 				position = 0.0;
-			if(position > 1.0)
+			if (position > 1.0)
 				position = 1.0;
 			Main.mainWindow.doSlideAction(this);
 		}

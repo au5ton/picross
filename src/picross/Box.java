@@ -1,6 +1,6 @@
 package picross;
 
-@SuppressWarnings ("WeakerAccess")
+@SuppressWarnings("WeakerAccess")
 public class Box {
 	private boolean canModify;
 	private final int x;
@@ -25,26 +25,26 @@ public class Box {
 	}
 
 	public void impossibru() {//toggles flagged state
-		if(state == 0)
+		if (state == 0)
 			setState(2);
-		else if(state == 2)
+		else if (state == 2)
 			setState(0);
 	}
 
 	public boolean green(Grid solution) {//checks solution
-		if(solution.getBox(x, y).getState() == 1 && state == 0) {
+		if (solution.getBox(x, y).getState() == 1 && state == 0) {
 			setState(1);
 			setCanModify(false);
 			return true;
-		} else if(state == 2) {
+		} else if (state == 2) {
 			setState(0);
 			setCanModify(false);
 			return true;
-		} else if(state == 3) {
+		} else if (state == 3) {
 			return true;
-		} else if(state == 0) {
+		} else if (state == 0) {
 			setState(3);
-			return !canModify();//ONLY returns false if the box can be modified, i.e is deliberately clicked on
+			return ! canModify();//ONLY returns false if the box can be modified, i.e is deliberately clicked on
 		}
 		setCanModify(false);
 		return true;
@@ -60,7 +60,7 @@ public class Box {
 	}
 
 	public void setState(int s) {
-		if(canModify())
+		if (canModify())
 			state = s;
 	}
 
