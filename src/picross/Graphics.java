@@ -346,6 +346,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					if (playable) {
 						bPause.setVisible(true);
 						bGamba.setVisible(true);
+						bGamba.setPos(255, frame.getHeight() - 35);
 					} else {
 						bBegin.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50);
 						bResume.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7);
@@ -381,7 +382,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						}
 						int timeInSeconds = Main.timer.getSeconds();
 						int MS = timeInSeconds - Main.timer.getMS();
-						if (! scoreSubmitted)
+						if (! scoreSubmitted && sizeX >= 5 && sizeY >= 5)
 							userNameBox.setVisible(true);
 					}
 					//maximum mistakes
@@ -1478,7 +1479,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
 		gameButtons = new ButtonList("game");
 		bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
-		bGamba = new Button(20, 150, 60, 60, "GAMBA", ORANGE, 17);//TODO move this to a more suitable location (bottom bar?)
+		bGamba = new Button(255, frame.getHeight() - 35, 60, 25, "GAMBA", ORANGE, 17);//TODO move this to a more suitable location (bottom bar?)
 		gameButtons.addButtons(new Button[] {bPause, bGamba});
 
 		pauseMenuButtons = new ButtonList("pause");
