@@ -23,9 +23,9 @@ import static picross.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
 
-    private static final String VERSION = "v1.3.1";
-    static int bSize;
-    private static int numFrames = 0;
+	private static final String VERSION = "v1.4o";
+	static int bSize;
+	private static int numFrames = 0;
     private final int MIN_BSIZE = 14;
     private final int controlMouse = 0;
     private final int controlKeyboard = 1;
@@ -1463,8 +1463,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
         gameButtons = new ButtonList("game");
         bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
-        bGamba = new Button(20, 150, 60, 60, "GAMBA", ORANGE, 17);
-        gameButtons.addButtons(new Button[]{bPause, bGamba});
+	    bGamba = new Button(20, 150, 60, 60, "GAMBA", ORANGE, 17);//TODO move this to a more suitable location (bottom bar?)
+	    gameButtons.addButtons(new Button[] {bPause, bGamba});
 
         pauseMenuButtons = new ButtonList("pause");
         bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", GREEN, 17);
