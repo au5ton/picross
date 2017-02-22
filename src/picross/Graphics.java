@@ -119,9 +119,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		frame = new FancyFrame("Loading...", SIZE);
 		frame.addKeyListener(this);
 		frame.addWindowListener(this);
+                frame.setLocationRelativeTo(null);
 		//basic window flags
 		isRunning = true;
 		isDone = false;
+                frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/icon.png"));
 		frame.setVisible(true);
 		//makes graphics look like not trash
 		imgBuffer = frame.createImage(frame.getWidth(), frame.getHeight());
