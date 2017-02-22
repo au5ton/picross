@@ -1,5 +1,8 @@
 package picross;
 
+import common.Background;
+import common.Timer;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ class Main {
 		colorSwitcher = new Timer();
 		new Thread(colorSwitcher).start();
 		colorSwitcher.begin();
+		Background.setTimer(colorSwitcher);
 		mainWindow = new Graphics();
 		new Thread(mainWindow).start();
 		timer = new Timer();

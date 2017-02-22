@@ -2,6 +2,7 @@ package picross;//TODO create interactive tutorial
 //TODO redesign main menu, similar to original but new color scheme
 
 import common.Background;
+import common.DrawingTools;
 import common.TextEntryBox;
 
 import java.awt.*;
@@ -288,8 +289,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
     private void submitScore() {
         String username = userNameBox.getText().trim();
-        Double time = (double) (Main.timer.getMS())/1000;
-        System.out.println("Sending score to server...");
+	    double time = (double) (Main.timer.getMS()) / 1000;
+	    System.out.println("Sending score to server...");
         try {
             URL url = new URL("https://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY);
             url.openStream();
@@ -653,7 +654,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     art = setFont(30f, art);
                     switch (status) {
                         case "solved":
-                            art.setColor(GREEN);
+	                        art.setColor(Color.black);
+	                        art = setFont(20f, art);
+	                        DrawingTools.drawCenteredText(f, "Enter user name for score submission:", frame.getWidth() / 2, frame.getHeight() / 2 + 75, art);
+	                        art.setColor(GREEN);
                             showText = "SOLVED";
                             bMainMenu.setVisible(true);
                             bRegenPuzzle.setVisible(true);

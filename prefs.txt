@@ -1,7 +1,7 @@
 pauseGame=27
 resolve2=10
 resolve1=32
-size=4,2
+size=2,2
 left=37
 up=38
 right=39
