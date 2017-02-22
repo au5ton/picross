@@ -60,7 +60,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private boolean modifier = false;
     private boolean debugging = false;
     private boolean pushingSolveKey = false;
-    //graphics
+	private boolean scoreSubmitted = false;
+	//graphics
     @SuppressWarnings("CanBeFinal")
     private FancyFrame frame;
     private Image imgBuffer;
@@ -284,6 +285,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             userNameBox.setText("");
             userNameBox.setHasFocus(false);
             userNameBox.setVisible(false);
+	        scoreSubmitted = true;
         }
     }
 
@@ -363,7 +365,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                         }
                         int timeInSeconds = Main.timer.getSeconds();
                         int MS = timeInSeconds - Main.timer.getMS();
-                        userNameBox.setVisible(true);
+	                    if (! scoreSubmitted)
+		                    userNameBox.setVisible(true);
                     }
                     //maximum mistakes
                     if (numMistakes == 5) {
@@ -1204,6 +1207,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             generatePuzzle();
             Main.timer.reset();
             userNameBox.setVisible(false);
+	        scoreSubmitted = false;
         } else if (b == bMainMenu || b == bMainMenu2) {
             windows = new Stack<>();
             frame.setTitle("Main Menu | Picross");
@@ -1214,6 +1218,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             numMistakes = 0;
             playable = false;
             userNameBox.setVisible(false);
+	        scoreSubmitted = false;
         } else if (b == bQuitGame) {
             frame.setTitle("Quitting...");
             writePrefs();
