@@ -8,6 +8,6 @@ FEATURES:
 - Leaderboard - See how you stack up against other players. View it at https://westonreed.com/picross/leaderboard.php
 
 TODO
-- Online repository for puzzles
-- Better looking graphics - better button highlighting, custom textures and animations
-- More efficient system for generating puzzles, the current system is not optimal
+- [ ] Online repository for puzzles
+- [ ] Better looking graphics - better button highlighting, custom textures and animations
+- [ ] More efficient system for generating puzzles, the current system is not optimal
