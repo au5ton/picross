@@ -1,4 +1,4 @@
-package puzzleCreator;
+package puzzlecreator;
 
 import java.io.File;
 import java.io.IOException;
