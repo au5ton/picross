@@ -10,22 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f2c552f-ccae-453d-82b4-55469f09563e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Box.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Button.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/ButtonList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Clue.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/CryptoException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/CryptoUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/FancyFrame.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Graphics.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Grid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/LogStreamReader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Resizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Strings.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/TextDocument.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/puzzleCreator/Timer.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/puzzleCreator.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.metadata/.lock" afterPath="$PROJECT_DIR$/.metadata/.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.metadata/.mylyn/repositories.xml.zip" afterPath="$PROJECT_DIR$/.metadata/.mylyn/repositories.xml.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes/history.version" afterPath="$PROJECT_DIR$/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes/history.version" />
@@ -87,7 +71,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.project" afterPath="$PROJECT_DIR$/.project" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Main.java" afterPath="$PROJECT_DIR$/src/picross/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Resizer.java" afterPath="$PROJECT_DIR$/src/picross/Resizer.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -118,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/puzzleCreator/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="226">
-              <caret line="98" column="38" lean-forward="false" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="38" />
+              <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -175,40 +159,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Timer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/Timer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1256#1257#0" expanded="false" />
-                <element signature="e#1311#1312#0" expanded="false" />
-                <element signature="e#1339#1340#0" expanded="false" />
-                <element signature="e#1383#1384#0" expanded="false" />
-                <element signature="e#1406#1407#0" expanded="false" />
-                <element signature="e#1448#1449#0" expanded="false" />
-                <element signature="e#1488#1489#0" expanded="false" />
-                <element signature="e#1541#1542#0" expanded="false" />
-                <element signature="e#1575#1576#0" expanded="false" />
-                <element signature="e#1626#1627#0" expanded="false" />
-                <element signature="e#3191#3192#0" expanded="false" />
-                <element signature="e#3213#3214#0" expanded="false" />
-                <element signature="e#3238#3239#0" expanded="false" />
-                <element signature="e#3259#3260#0" expanded="false" />
-                <element signature="e#3283#3284#0" expanded="false" />
-                <element signature="e#3304#3305#0" expanded="false" />
-                <element signature="e#3701#3702#0" expanded="false" />
-                <element signature="e#3722#3723#0" expanded="false" />
-                <element signature="e#3758#3759#0" expanded="false" />
-                <element signature="e#3783#3784#0" expanded="false" />
-                <element signature="e#3815#3816#0" expanded="false" />
-                <element signature="e#3839#3840#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Background.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/Background.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -251,12 +201,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="-884">
               <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Resizer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/picross/Resizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -265,7 +227,7 @@
         <entry file="file://$PROJECT_DIR$/src/puzzleCreator/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="15" column="88" lean-forward="false" selection-start-line="15" selection-start-column="88" selection-end-line="15" selection-end-column="88" />
+              <caret line="16" column="88" lean-forward="false" selection-start-line="16" selection-start-column="88" selection-end-line="16" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -340,6 +302,7 @@
         <option value="$PROJECT_DIR$/src/picross/Main.java" />
         <option value="$PROJECT_DIR$/src/puzzleCreator/Main.java" />
         <option value="$PROJECT_DIR$/src/puzzleCreator/Graphics.java" />
+        <option value="$PROJECT_DIR$/src/picross/Resizer.java" />
       </list>
     </option>
   </component>
@@ -1004,7 +967,7 @@
       <workItem from="1487804941713" duration="675000" />
       <workItem from="1487806448823" duration="202000" />
       <workItem from="1487806671050" duration="294000" />
-      <workItem from="1487807003477" duration="2452000" />
+      <workItem from="1487807003477" duration="3191000" />
     </task>
     <task id="LOCAL-00001" summary="Improvement of controls menu in progress">
       <created>1477329207336</created>
@@ -1125,11 +1088,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487806934291</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Added puzzle creator">
+      <created>1487809657997</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1487809657997</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15894000" />
+    <option name="totallyTimeSpent" value="16633000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1223,7 +1193,8 @@
     <MESSAGE value="'o' removed from version string" />
     <MESSAGE value="Code reformat to prepare for release" />
     <MESSAGE value="Easter Egg" />
-    <option name="LAST_COMMIT_MESSAGE" value="Easter Egg" />
+    <MESSAGE value="Added puzzle creator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added puzzle creator" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1244,13 +1215,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Timer.java" />
     <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1625,18 +1589,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/puzzleCreator/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="15" column="88" lean-forward="false" selection-start-line="15" selection-start-column="88" selection-end-line="15" selection-end-column="88" />
+          <caret line="16" column="88" lean-forward="false" selection-start-line="16" selection-start-column="88" selection-end-line="16" selection-end-column="88" />
           <folding />
         </state>
       </provider>
@@ -1644,7 +1600,25 @@
     <entry file="file://$PROJECT_DIR$/src/puzzleCreator/Graphics.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
-          <caret line="98" column="38" lean-forward="false" selection-start-line="98" selection-start-column="38" selection-end-line="98" selection-end-column="38" />
+          <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Resizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-884">
+          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
           <folding />
         </state>
       </provider>

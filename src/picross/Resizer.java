@@ -3,6 +3,9 @@ package picross;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * @author Maurice Perry
+ */
 public enum Resizer {
 	NEAREST_NEIGHBOR {
 		@Override
