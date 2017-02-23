@@ -21,7 +21,7 @@ class Main {
 	/**
 	 * This is used to accommodate other file systems by changing to a forward slash if that is the preferred character.
 	 */
-	public static char slashCharacter = File.separatorChar;
+	static char slashCharacter = File.separatorChar;
 
 	public static void main(String[] args) {
 		try {
@@ -70,7 +70,7 @@ class Main {
 	}
 
 	public static void runCreator() {
-		ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "puzzleCreator.jar");
+		/*ProcessBuilder pb = new ProcessBuilder("java", "-jar", "." + slashCharacter + "puzzleCreator.jar");
 		pb.directory(new File("." + slashCharacter + "resources"));
 		try {
 			Process p = pb.start();
@@ -79,7 +79,8 @@ class Main {
 			thread.start();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
+		puzzleCreator.Main.start();
 	}
 
 	public static int getNumPuzzles() {
