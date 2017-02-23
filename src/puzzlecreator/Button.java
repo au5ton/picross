@@ -1,8 +1,8 @@
-package puzzleCreator;
+package puzzlecreator;
 
 import java.awt.*;
 
-import static puzzleCreator.Main.mainWindow;
+import static puzzlecreator.Main.mainWindow;
 
 @SuppressWarnings("CanBeFinal")
 class Button {

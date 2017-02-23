@@ -1,4 +1,4 @@
-package puzzleCreator;
+package puzzlecreator;
 
 import java.io.BufferedReader;
 import java.io.IOException;

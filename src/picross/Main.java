@@ -80,7 +80,7 @@ class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-		puzzleCreator.Main.start();
+		puzzlecreator.Main.start();
 	}
 
 	public static int getNumPuzzles() {
