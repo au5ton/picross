@@ -1,4 +1,4 @@
-package puzzlecreator;
+package puzzleCreator;
 
 import java.io.File;
 import java.io.FileWriter;

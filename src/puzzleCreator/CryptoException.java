@@ -1,4 +1,4 @@
-package puzzlecreator;
+package puzzleCreator;
 
 import javax.smartcardio.CardTerminal;
 

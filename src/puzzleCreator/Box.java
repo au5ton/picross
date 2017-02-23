@@ -1,4 +1,4 @@
-package puzzlecreator;
+package puzzleCreator;
 
 @SuppressWarnings("WeakerAccess")
 public class Box {

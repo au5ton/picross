@@ -1,4 +1,4 @@
-package puzzlecreator;
+package puzzleCreator;
 
 import java.time.Duration;
 

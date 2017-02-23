@@ -1,12 +1,12 @@
-package puzzlecreator;
+package puzzleCreator;
 
 import java.awt.*;
 import java.util.List;
 
 import static java.awt.Color.*;
-import static puzzlecreator.Graphics.bSize;
-import static puzzlecreator.Graphics.clueLen;
-import static puzzlecreator.Main.mainWindow;
+import static puzzleCreator.Graphics.bSize;
+import static puzzleCreator.Graphics.clueLen;
+import static puzzleCreator.Main.mainWindow;
 
 class Grid {
 	public final int sizeX;

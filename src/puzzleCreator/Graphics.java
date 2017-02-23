@@ -1,4 +1,4 @@
-package puzzlecreator;//TODO create interactive tutorial
+package puzzleCreator;//TODO create interactive tutorial
 //TODO begin work on solution creator jar
 
 import java.awt.*;
@@ -17,7 +17,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static java.awt.Color.*;
-import static puzzlecreator.Main.*;
+import static puzzleCreator.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
 	static int bSize;

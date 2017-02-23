@@ -1,4 +1,4 @@
-package puzzlecreator;
+package puzzleCreator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
