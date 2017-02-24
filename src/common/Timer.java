@@ -44,6 +44,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Timer constructor, with an option for changing the frequency of updates
+	 *
 	 * @param delay the amount of time between updates to the current time, in milliseconds
 	 */
 	public Timer(int delay) {
@@ -56,8 +57,9 @@ public class Timer implements Runnable {
 
 	/**
 	 * Timer constructor, with options for counting up or down and an initial time.
+	 *
 	 * @param countUp whether or not the Timer should count up
-	 * @param length the initial amount of time, in milliseconds
+	 * @param length  the initial amount of time, in milliseconds
 	 */
 	public Timer(boolean countUp, int length) {
 		running = false;
@@ -96,6 +98,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Checks the current amount of time on the Timer.
+	 *
 	 * @return the time in hours, truncated
 	 */
 	public int getHours() {
@@ -104,6 +107,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Checks the current amount of time on the Timer.
+	 *
 	 * @return the time in seconds, truncated
 	 */
 	public int getSeconds() {
@@ -112,6 +116,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Checks the current amount of time on the Timer.
+	 *
 	 * @return the time in milliseconds
 	 */
 	public int getMS() {
@@ -120,6 +125,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Adds time to the Timer.
+	 *
 	 * @param seconds the number of seconds to add
 	 */
 	public void addSeconds(int seconds) {
@@ -128,6 +134,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Adds time to the Timer.
+	 *
 	 * @param millis the number of milliseconds to add
 	 */
 	public void addMS(int millis) {
@@ -136,8 +143,9 @@ public class Timer implements Runnable {
 
 	/**
 	 * Represents the current time on the Timer as a String, in h:mm:ss.(milliseconds) with the option to
-	 * @return the time as a String
+	 *
 	 * @param zeroes whether or not the String should include leading zeroes
+	 * @return the time as a String
 	 */
 	public String toString(boolean zeroes) {
 		int ms = (int) currentTime.toMillis();
@@ -178,6 +186,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Deprecated. Use <code>toString(boolean)</code> instead, an argument of <code>true</code> has the same functionality as this method.
+	 *
 	 * @return the time as a String
 	 */
 	public String toString() {
@@ -239,6 +248,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * May be used to give a different initial time to a countdown timer, and resets it in the process.
+	 *
 	 * @param length the length of time to begin the countdown at
 	 */
 	public void restart(int length) {
@@ -251,6 +261,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Checks if the Timer is currently running
+	 *
 	 * @return the status of the timer
 	 */
 	public boolean isRunning() {
@@ -259,6 +270,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Changes the frequency at which the Timer updates.
+	 *
 	 * @param delay the time to wait, in milliseconds, before adding to <code>currentTime</code>
 	 */
 	public void setDelay(int delay) {
@@ -267,6 +279,7 @@ public class Timer implements Runnable {
 
 	/**
 	 * Checks if the Timer is counting up or down.
+	 *
 	 * @return the direction that the Timer is taking
 	 */
 	public boolean countingUp() {
