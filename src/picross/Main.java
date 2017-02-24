@@ -16,6 +16,7 @@ class Main {
 	public static Timer FPSCounter;
 	public static Timer animator;
 	public static Timer colorSwitcher;
+	public static Timer promptTimer;
 	public static Graphics mainWindow;
 	public static SettingsDocument prefs;
 	/**
@@ -54,6 +55,8 @@ class Main {
 		new Thread(timer).start();
 		animator = new Timer();
 		new Thread(animator).start();
+		promptTimer = new Timer();
+		new Thread(promptTimer).start();
 	}
 
 	public static void runSolver(String fileName) {

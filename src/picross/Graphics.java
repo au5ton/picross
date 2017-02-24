@@ -429,6 +429,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     }
                     userNameBox.setCenterX(frame.getWidth() / 2);
                     userNameBox.setCenterY(frame.getHeight() / 2 + 100);
+	                int promptDelay = 5;
+	                if (showingPausePrompt && Main.promptTimer.getSeconds() >= promptDelay) {
+		                showingPausePrompt = false;
+		                Main.promptTimer.reset();
+	                }
                     break;
                 case "gamemode":
                     gameChoiceButtons.setVisible(true);
@@ -694,8 +699,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     art.setColor(BLACK);
                     art.drawRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
                     String showText = "";
-
-                    switch (status) {
+	                art = setFont(30f, art);
+	                switch (status) {
                         case "solved":
                             if (!scoreSubmitted && competitiveMode) {
                                 art.setColor(white);
@@ -744,6 +749,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 art.setColor(BLACK);
                 drawRightText(f, "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
                 userNameBox.draw(art);
+	            if (showingPausePrompt) {
+		            art = setFont(20f, art);
+		            art.drawString("Press the pause button again to confirm disabling Competitive Mode", bPause.getX() + bPause.getSize().width + 15, bPause.getY() + bPause.getSize().height / 2 + 10);
+	            }
                 break;
             case "controls":
                 art.setColor(bgColor);
@@ -1203,8 +1212,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     competitiveMode = false;
                     competitiveModeToggle.setChecked(false);
                     doClickAction(b);
-                } else
-                    showingPausePrompt = true;
+                } else {
+	                showingPausePrompt = true;
+	                Main.promptTimer.begin();
+                }
             }
         } else if (b == bGamba) {
             int[] goodBad = findGoodBadSquaresRemaining();
