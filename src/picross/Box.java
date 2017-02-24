@@ -5,6 +5,10 @@ public class Box {
 	private boolean canModify;
 	private final int x;
 	private final int y;
+	public static final int EMPTY = 0;
+	public static final int SOLVED = 1;
+	public static final int FLAGGED = 2;
+	public static final int MISTAKE = 3;
 	/**
 	 * 0 = empty
 	 * 1 = solved
@@ -20,30 +24,30 @@ public class Box {
 	public Box(int x_, int y_) {
 		x = x_;
 		y = y_;
-		state = 0;
+		state = EMPTY;
 		setCanModify(true);
 	}
 
 	public void impossibru() {//toggles flagged state
-		if (state == 0)
-			setState(2);
-		else if (state == 2)
-			setState(0);
+		if (state == EMPTY)
+			setState(FLAGGED);
+		else if (state == FLAGGED)
+			setState(EMPTY);
 	}
 
 	public boolean green(Grid solution) {//checks solution
-		if (solution.getBox(x, y).getState() == 1 && state == 0) {
-			setState(1);
+		if (solution.getBox(x, y).getState() == SOLVED && state == EMPTY) {
+			setState(SOLVED);
 			setCanModify(false);
 			return true;
-		} else if (state == 2) {
-			setState(0);
+		} else if (state == FLAGGED) {
+			setState(EMPTY);
 			setCanModify(false);
 			return true;
-		} else if (state == 3) {
+		} else if (state == MISTAKE) {
 			return true;
-		} else if (state == 0) {
-			setState(3);
+		} else if (state == EMPTY) {
+			setState(MISTAKE);
 			return ! canModify();//ONLY returns false if the box can be modified, i.e is deliberately clicked on
 		}
 		setCanModify(false);

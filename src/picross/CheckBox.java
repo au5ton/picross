@@ -100,4 +100,9 @@ class CheckBox {
 	public boolean isChecked() {
 		return checked;
 	}
+
+	public void setPos(int x, int y) {
+		posX = x;
+		posY = y;
+	}
 }

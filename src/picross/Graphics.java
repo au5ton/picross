@@ -69,7 +69,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private boolean debugging = false;
     private boolean pushingSolveKey = false;
     private boolean scoreSubmitted = false;
-    //graphics
+	private boolean competitiveMode = true;
+	//graphics
     @SuppressWarnings("CanBeFinal")
     private FancyFrame frame;
     private Image imgBuffer;
@@ -124,8 +125,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private Button bLoadPuzzle;
     private Button bRestoreControls;
     private Button bGamba;
-    //text boxes
+	private Button bSubmitScore;
+	//text boxes
     private TextEntryBox userNameBox;
+	//check boxes
+	private CheckBox competitiveModeToggle;
 
     public Graphics() {
 	    if (Math.random() < 0.01) {
@@ -164,8 +168,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
         displayStatus("Creating buttons...");
         initButtons();
         initControls();
-        userNameBox = new TextEntryBox(200, 30, frame.getWidth() / 2, frame.getHeight() / 2 + 100);
-        displayStatus("Setting up graphics...");
+	    userNameBox = new TextEntryBox(300, 30, frame.getWidth() / 2, frame.getHeight() / 2 + 100);
+	    competitiveModeToggle = new CheckBox(frame.getWidth() - 35, frame.getHeight() - 35, 25, true);
+	    displayStatus("Setting up graphics...");
     }
 
     @Override
@@ -294,10 +299,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
         }
         if (keyCode == KeyEvent.VK_ENTER && userNameBox.getText().length() > 0 && userNameBox.hasFocus()) {
             submitScore();
-            userNameBox.setText("");
-            userNameBox.setHasFocus(false);
-            userNameBox.setVisible(false);
-            scoreSubmitted = true;
         }
     }
 
@@ -321,7 +322,11 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             }
 
         }
-
+	    userNameBox.setText("");
+	    userNameBox.setHasFocus(false);
+	    userNameBox.setVisible(false);
+	    scoreSubmitted = true;
+	    bSubmitScore.setVisible(false);
     }
 
     @Override
@@ -359,6 +364,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                         bMainMenu2.setPos(frame.getWidth() / 2, frame.getHeight() / 2 + 7);
                         bRegenPuzzle.setPos(frame.getWidth() / 2, frame.getHeight() / 2 + 7);
                         bCreator.setPos(frame.getWidth() / 2 - 100, bCreator.getY());
+	                    bSubmitScore.setPos(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 120);
                     }
                     //get size of each box for optimal display size, takes into account clueLen and mistakes box
                     bSize = getBoxSize();
@@ -395,7 +401,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     if (numMistakes == 5) {
                         status = "failed";
                         allButtons.setWindow("game end");
-                        playable = false;
+	                    bSubmitScore.setVisible(false);
+	                    playable = false;
                         Main.timer.pause();
                     }
                     //maximum time
@@ -465,6 +472,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     bQuitGame.setPos(frame.getWidth() / 2 - 100, bQuitGame.getY());
                     bControlsMenu.setPos(frame.getWidth() / 2 - 100, bControlsMenu.getY());
                     bCreator.setPos(frame.getWidth() / 2 - 100, bCreator.getY());
+	                competitiveModeToggle.setPos(frame.getWidth() - 35, frame.getHeight() - 35);
+	                if (competitiveMode != competitiveModeToggle.isChecked()) {
+		                competitiveMode = competitiveModeToggle.isChecked();
+	                }
                     break;
                 case "options":
                     bBack.setVisible(true);
@@ -526,7 +537,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 drawCenteredText(f, "MAIN MENU", 100, art);
                 art = setFont(20f, art);
                 art.drawString(VERSION, 15, frame.getHeight() - 15);
-                break;
+	            competitiveModeToggle.draw(mouseX, mouseY, art);
+	            art.setColor(black);
+	            DrawingTools.drawRightText(f, "Competitive Mode", frame.getWidth() - 35, frame.getHeight() - 15, art);
+	            break;
             case "options":
                 art.setColor(bgColor);
                 art.fillRect(0, 0, frame.getWidth(), frame.getHeight());
@@ -678,9 +692,16 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     art.drawRect(frame.getWidth() / 2 - 100, frame.getHeight() / 2 - 50, 200, 100);
                     String showText = "";
 
-                    art = setFont(30f, art);
                     switch (status) {
                         case "solved":
+	                        if (! scoreSubmitted) {
+		                        art.setColor(white);
+		                        art.fillRect(frame.getWidth() / 2 - 350 / 2, frame.getHeight() / 2 + 55, 350, 100);
+		                        art.setColor(black);
+		                        art.drawRect(frame.getWidth() / 2 - 350 / 2, frame.getHeight() / 2 + 55, 350, 100);
+	                        } else {
+		                        bSubmitScore.setVisible(false);
+	                        }
                             art.setColor(Color.black);
                             art = setFont(20f, art);
                             if (!scoreSubmitted) {
@@ -708,7 +729,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     if (status.equals("get ready")) {
                         bBegin.draw(art);
                     }
-                    drawCenteredText(f, showText, frame.getHeight() / 2 - 10, art);
+	                art = setFont(30f, art);
+	                drawCenteredText(f, showText, frame.getHeight() / 2 - 10, art);
                     art.setColor(BLACK);
                     //if(!status.equals("get ready") && !status.equals("paused"))
                     //art.drawString("TIME:" + Main.timer.toString(), frame.getWidth() / 2 - 45, frame.getHeight() / 2 - 12);
@@ -1173,14 +1195,30 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 faded = false;
             }
         } else if (b == bGamba) {
+	        int[] goodBad = findGoodBadSquaresRemaining();
+	        int numGood = goodBad[0];
+	        int numBad = goodBad[1];
+	        if (numGood == 0 && numBad == 0) {//prevents infinite loop on the do-while statement below
+		        //ABORT ABORT ABORT
+		        return;
+	        }
+	        double rewardConstant = 10000;
+	        double rewardProportion;//should be from 0.0 to 1.0
+	        if (numGood > 0) {
+		        rewardProportion = (double) numBad / (double) (numGood + numBad);
+	        } else {
+		        rewardProportion = 0;//overrides because there is no chance of a reward when there are no good tiles left
+	        }
+//	        System.out.println("rewardProportion = " + rewardProportion);
             Box randBox;
             do {
                 int randX = (int) (Math.random() * sizeX);
                 int randY = (int) (Math.random() * sizeY);
                 randBox = gameGrid.getBox(randX, randY);
-            } while (randBox.getState() != 0);
+            } while (randBox.getState() != Box.EMPTY);
             if (randBox.green(solutionGrid)) {
-                int winTime = - 10000;
+	            int winTime = (int) (- 1d * rewardConstant * rewardProportion);
+//                System.out.println("Awarded " + (-1 * winTime) + " milliseconds for a winning gamble");
                 if (timer.getMS() + winTime > 0) {
                     timer.addMS(winTime);
                 } else {
@@ -1189,6 +1227,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             } else {
                 int loseTime = 10000;
                 numMistakes++;
+//                System.out.println("Punished for " + (loseTime + (numMistakes * 10000)) + " milliseconds due to a losing gamble");
                 timer.addMS(loseTime + numMistakes * 10000);
                 randBox.setCanModify(false);
             }
@@ -1289,53 +1328,73 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
             puzzleButtons.sort();
             puzzleButtons.setVisible(true);
         } else if (b == bRestoreControls) {
-            controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> {
-                switch (((ControlsButton) b1).getLabel()) {
-                    case "pauseGame":
-                        keyPauseGame = KeyEvent.VK_ESCAPE;
-                        break;
-                    case "up":
-                        keyUp = KeyEvent.VK_UP;
-                        break;
-                    case "left":
-                        keyLeft = KeyEvent.VK_LEFT;
-                        break;
-                    case "down":
-                        keyDown = KeyEvent.VK_DOWN;
-                        break;
-                    case "right":
-                        keyRight = KeyEvent.VK_RIGHT;
-                        break;
-                    case "resolve1":
-                        keyResolve1 = KeyEvent.VK_SPACE;
-                        break;
-                    case "resolve2":
-                        keyResolve2 = KeyEvent.VK_ENTER;
-                        break;
-                }
-                updateButtons("controls");
-            });
+	        controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> {
+		        switch (((ControlsButton) b1).getLabel()) {
+			        case "pauseGame":
+				        keyPauseGame = KeyEvent.VK_ESCAPE;
+				        break;
+			        case "up":
+				        keyUp = KeyEvent.VK_UP;
+				        break;
+			        case "left":
+				        keyLeft = KeyEvent.VK_LEFT;
+				        break;
+			        case "down":
+				        keyDown = KeyEvent.VK_DOWN;
+				        break;
+			        case "right":
+				        keyRight = KeyEvent.VK_RIGHT;
+				        break;
+			        case "resolve1":
+				        keyResolve1 = KeyEvent.VK_SPACE;
+				        break;
+			        case "resolve2":
+				        keyResolve2 = KeyEvent.VK_ENTER;
+				        break;
+		        }
+		        updateButtons("controls");
+	        });
+        } else if (b == bSubmitScore) {
+	        if (userNameBox.getText().length() > 0) {
+		        submitScore();
+	        }
         } else if (b instanceof ControlsButton) {
-            HashMap<String, Button> controlsButtons = new HashMap<>();
-            controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> controlsButtons.put(((ControlsButton) b1).getLabel(), b1));
-            if (keyAssigning != null) {
-                //return previously assigning button's key to normal
-                updateButtons("controls");
-            }
-            keyAssigning = ((ControlsButton) b).getLabel();
-            b.setText("Press a key");
-            System.out.println("Assigning a key to label " + keyAssigning);
+	        HashMap<String, Button> controlsButtons = new HashMap<>();
+	        controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> controlsButtons.put(((ControlsButton) b1).getLabel(), b1));
+	        if (keyAssigning != null) {
+		        //return previously assigning button's key to normal
+		        updateButtons("controls");
+	        }
+	        keyAssigning = ((ControlsButton) b).getLabel();
+	        b.setText("Press a key");
+	        System.out.println("Assigning a key to label " + keyAssigning);
         } else {
-            for (int i = 0; i < puzzleButtons.size(); i++) {
-                if (b == puzzleButtons.get(i)) {
-                    loadPuzzle(b.getText());
-                }
-            }
+	        for (int i = 0; i < puzzleButtons.size(); i++) {
+		        if (b == puzzleButtons.get(i)) {
+			        loadPuzzle(b.getText());
+		        }
+	        }
         }
     }
 
-    private void updateButtons(String window) {
-        switch (window) {
+	private int[] findGoodBadSquaresRemaining() {
+		int[] numGoodBad = {0, 0};
+		for (int i = 0; i < sizeX; i++) {
+			for (int j = 0; j < sizeY; j++) {
+				if (gameGrid.getBox(i, j).getState() == Box.EMPTY) {
+					if (solutionGrid.getBox(i, j).getState() == Box.SOLVED) {
+						numGoodBad[0]++;
+					} else {
+						numGoodBad[1]++;
+					}
+				}
+			}
+		}
+		return numGoodBad;
+	}
+
+	private void updateButtons(String window) {
+		switch (window) {
             case "controls":
                 for (Button b : controlsMenuButtons.toList()) {
                     if (b instanceof ControlsButton) {
@@ -1496,8 +1555,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 
         gameButtons = new ButtonList("game");
         bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
-        bGamba = new Button(255, frame.getHeight() - 35, 60, 25, "GAMBA", ORANGE, 17);//TODO move this to a more suitable location (bottom bar?)
-        gameButtons.addButtons(new Button[]{bPause, bGamba});
+	    bGamba = new Button(255, frame.getHeight() - 35, 60, 25, "GAMBA", ORANGE, 17);
+	    gameButtons.addButtons(new Button[]{bPause, bGamba});
 
         pauseMenuButtons = new ButtonList("pause");
         bResume = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 7, 100, 43, "Resume", GREEN, 17);
@@ -1508,7 +1567,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
         pauseMenuButtons.addButtons(new Button[]{bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
 
         gameEndButtons = new ButtonList("game end");
-        gameEndButtons.addButtons(new Button[]{bMainMenu, bRegenPuzzle});
+	    bSubmitScore = new Button(frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 120, 200, 30, "Submit", GREEN, 17);
+	    gameEndButtons.addButtons(new Button[] {bMainMenu, bRegenPuzzle, bSubmitScore});
 
         controlsMenuButtons = new ButtonList("controls");
         bRestoreControls = new Button(frame.getWidth() - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
