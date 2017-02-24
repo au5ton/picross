@@ -29,7 +29,7 @@ import static picross.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
 
-	private static final String VERSION = "v1.4";
+	private static final String VERSION = "v1.4.1";
 	static int bSize;
 	private static int numFrames = 0;
 	private final int MIN_BSIZE = 14;
