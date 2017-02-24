@@ -69,6 +69,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
     private boolean pushingSolveKey = false;
     private boolean scoreSubmitted = false;
     private boolean competitiveMode = true;
+    private boolean showingPausePrompt = false;
     //graphics
     @SuppressWarnings("CanBeFinal")
     private FancyFrame frame;
@@ -356,7 +357,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                         bGamba.setVisible(true);
                         bGamba.setPos(255, frame.getHeight() - 35);
                     }
-                    if (playable && !competitiveMode) {
+                    if (playable /*&& !competitiveMode*/) {
                         bPause.setVisible(true);
 
                     } else {
@@ -1196,6 +1197,14 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 Main.timer.pause();
                 playable = false;
                 faded = false;
+            } else if (competitiveMode) {
+                if (showingPausePrompt) {
+                    showingPausePrompt = false;
+                    competitiveMode = false;
+                    competitiveModeToggle.setChecked(false);
+                    doClickAction(b);
+                } else
+                    showingPausePrompt = true;
             }
         } else if (b == bGamba) {
             int[] goodBad = findGoodBadSquaresRemaining();

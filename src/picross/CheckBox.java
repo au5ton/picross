@@ -105,4 +105,8 @@ class CheckBox {
 		posX = x;
 		posY = y;
 	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 }
