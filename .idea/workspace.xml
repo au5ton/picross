@@ -11,9 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1f2c552f-ccae-453d-82b4-55469f09563e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prefs.txt" afterPath="$PROJECT_DIR$/prefs.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/Timer.java" afterPath="$PROJECT_DIR$/src/common/Timer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Graphics.java" afterPath="$PROJECT_DIR$/src/picross/Graphics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/picross/Main.java" afterPath="$PROJECT_DIR$/src/picross/Main.java" />
     </list>
     <ignored path="picross.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="434" column="44" lean-forward="false" selection-start-line="434" selection-start-column="44" selection-end-line="434" selection-end-column="44" />
+            <state relative-caret-position="327">
+              <caret line="586" column="132" lean-forward="false" selection-start-line="586" selection-start-column="132" selection-end-line="586" selection-end-column="132" />
               <folding />
             </state>
           </provider>
@@ -69,7 +69,7 @@
       <file leaf-file-name="TextEntryBox.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/TextEntryBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2890">
+            <state relative-caret-position="518">
               <caret line="188" column="38" lean-forward="false" selection-start-line="188" selection-start-column="38" selection-end-line="188" selection-end-column="38" />
               <folding>
                 <element signature="e#4481#4482#0" expanded="true" />
@@ -78,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Timer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Timer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/Timer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="13" column="52" lean-forward="false" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+            <state relative-caret-position="255">
+              <caret line="179" column="138" lean-forward="false" selection-start-line="179" selection-start-column="138" selection-end-line="179" selection-end-column="138" />
               <folding />
             </state>
           </provider>
@@ -171,6 +171,8 @@
       <find>&quot;game end</find>
       <find>competitiveMode = [tf][ra][ul][se]e*</find>
       <find>if\(</find>
+      <find>gameChoiceButtons\.setVisible\(true.+</find>
+      <find>gameChoiceButtons\.setVisible\(true.*</find>
     </findStrings>
     <replaceStrings>
       <replace>$1 | &quot; + gameName$2</replace>
@@ -210,8 +212,8 @@
         <option value="$PROJECT_DIR$/src/picross/Box.java" />
         <option value="$PROJECT_DIR$/src/picross/CheckBox.java" />
         <option value="$PROJECT_DIR$/src/picross/Main.java" />
-        <option value="$PROJECT_DIR$/src/picross/Graphics.java" />
         <option value="$PROJECT_DIR$/src/common/Timer.java" />
+        <option value="$PROJECT_DIR$/src/picross/Graphics.java" />
       </list>
     </option>
   </component>
@@ -820,7 +822,7 @@
       <workItem from="1487890578708" duration="5240000" />
       <workItem from="1487969950959" duration="792000" />
       <workItem from="1487978092368" duration="9000" />
-      <workItem from="1487978188560" duration="1701000" />
+      <workItem from="1487978188560" duration="2256000" />
     </task>
     <task id="LOCAL-00001" summary="Improvement of controls menu in progress">
       <created>1477329207336</created>
@@ -955,11 +957,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487895640614</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Documented the Timer class, because I felt like it">
+      <created>1487979907001</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1487979907001</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22638000" />
+    <option name="totallyTimeSpent" value="23193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1055,7 +1064,8 @@
     <MESSAGE value="Add LICENSE.txt" />
     <MESSAGE value="Began work on Competitive Mode" />
     <MESSAGE value="Reformatting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformatting" />
+    <MESSAGE value="Documented the Timer class, because I felt like it" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documented the Timer class, because I felt like it" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1305,16 +1315,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/TextEntryBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2890">
-          <caret line="188" column="38" lean-forward="false" selection-start-line="188" selection-start-column="38" selection-end-line="188" selection-end-column="38" />
-          <folding>
-            <element signature="e#4481#4482#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/picross/Box.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
@@ -1359,18 +1359,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+    <entry file="file://$PROJECT_DIR$/src/common/Timer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="434" column="44" lean-forward="false" selection-start-line="434" selection-start-column="44" selection-end-line="434" selection-end-column="44" />
+        <state relative-caret-position="255">
+          <caret line="179" column="138" lean-forward="false" selection-start-line="179" selection-start-column="138" selection-end-line="179" selection-end-column="138" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/Timer.java">
+    <entry file="file://$PROJECT_DIR$/src/common/TextEntryBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="13" column="52" lean-forward="false" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+        <state relative-caret-position="518">
+          <caret line="188" column="38" lean-forward="false" selection-start-line="188" selection-start-column="38" selection-end-line="188" selection-end-column="38" />
+          <folding>
+            <element signature="e#4481#4482#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/picross/Graphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="586" column="132" lean-forward="false" selection-start-line="586" selection-start-column="132" selection-end-line="586" selection-end-column="132" />
           <folding />
         </state>
       </provider>

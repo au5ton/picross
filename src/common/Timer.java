@@ -177,7 +177,7 @@ public class Timer implements Runnable {
 	}
 
 	/**
-	 * Deprecated. Use <code>toString(boolean zeroes)</code> instead.
+	 * Deprecated. Use <code>toString(boolean)</code> instead, an argument of <code>true</code> has the same functionality as this method.
 	 * @return the time as a String
 	 */
 	public String toString() {

@@ -437,6 +437,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     break;
                 case "gamemode":
                     gameChoiceButtons.setVisible(true);
+	                if (competitiveMode) {
+		                bLoadPuzzle.setVisible(false);
+	                }
                     bRandomPuzzle.setPos(frame.getWidth() / 2 - 100, bRandomPuzzle.getY());
                     bLoadPuzzle.setPos(frame.getWidth() / 2 - 100, bLoadPuzzle.getY());
                     break;
@@ -463,12 +466,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                     if (sizeX < 1) {
                         sizeX = 1;
                     }
+	                if (competitiveMode && sizeX < 5) {
+		                sizeX = 5;
+	                }
                     if (sizeY > 25) {
                         sizeY = 25;
                     }
                     if (sizeY < 1) {
                         sizeY = 1;
                     }
+	                if (competitiveMode && sizeY < 5) {
+		                sizeY = 5;
+	                }
                     break;
                 case "menu":
                     mainMenuButtons.setVisible(true);
@@ -567,7 +576,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 frame.setTitle("Size Picker  | " + gameName);
                 if (sizeX == 25 || (modifier && sizeX + 5 > 25)) {
                     bXUp.setVisible(false);
-                } else if (sizeX == 1 || (modifier && sizeX - 5 < 1)) {
+                } else if (sizeX == 1 || (modifier && sizeX - 5 < 1) || (competitiveMode && (sizeX <= 5 || modifier && sizeX - 5 < 5))) {
                     bXDown.setVisible(false);
                 } else {
                     bXUp.setVisible(true);
@@ -575,7 +584,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
                 }
                 if (sizeY == 25 || (modifier && sizeY + 5 > 25)) {
                     bYUp.setVisible(false);
-                } else if (sizeY == 1 || (modifier && sizeY - 5 < 1)) {
+                } else if (sizeY == 1 || (modifier && sizeY - 5 < 1) || (competitiveMode && (sizeY <= 5 || modifier && sizeY - 5 < 5))) {
                     bYDown.setVisible(false);
                 } else {
                     bYUp.setVisible(true);
