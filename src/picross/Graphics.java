@@ -201,7 +201,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		try {
-			doClickAction(bPause);
+			if (! competitiveMode)
+				doClickAction(bPause);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
