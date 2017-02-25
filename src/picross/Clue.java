@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class Clue {
 	/**
 	 * Type of clue. 0 denotes a clue for a row, 1 for a column.

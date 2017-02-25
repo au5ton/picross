@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("WeakerAccess")
 class Main {
 	public static Timer timer;
 	public static Timer FPSCounter;

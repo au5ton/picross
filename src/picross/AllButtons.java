@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created on 5/18/2016 at 10:45 AM.
  */
+@SuppressWarnings("WeakerAccess")
 public class AllButtons {
 	private List<ButtonList> buttonLists;
 	private String currWindow;
@@ -29,7 +30,7 @@ public class AllButtons {
 		}
 	}
 
-	public void drawButtons(int x, int y, Graphics2D art) {
+	public void drawButtons(Graphics2D art) {
 		for (ButtonList buttonList : buttonLists) {
 			if (buttonList.getName().equals(currWindow)) {
 				buttonList.drawAll(art);

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Maurice Perry
  */
+@SuppressWarnings("Duplicates")
 public enum Resizer {
 	NEAREST_NEIGHBOR {
 		@Override

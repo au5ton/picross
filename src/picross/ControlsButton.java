@@ -5,6 +5,7 @@ import java.awt.*;
 /**
  * Created by kyle on 10/24/16 at 11:32 AM.
  */
+@SuppressWarnings("WeakerAccess")
 public class ControlsButton extends Button {
 	private String label;
 

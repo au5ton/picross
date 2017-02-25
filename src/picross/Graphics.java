@@ -1,6 +1,4 @@
-package picross;//TODO create interactive tutorial
-//TODO redesign main menu, similar to original but new color scheme
-
+package picross;
 import common.Background;
 import common.DrawingTools;
 import common.TextEntryBox;
@@ -394,8 +392,6 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 						if (Main.timer != null) {
 							Main.timer.pause();
 						}
-						int timeInSeconds = Main.timer.getSeconds();
-						int MS = timeInSeconds - Main.timer.getMS();
 						if (! scoreSubmitted && sizeX >= 5 && sizeY >= 5) {
 							userNameBox.setVisible(true);
 						}
@@ -574,6 +570,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				break;
 			case "size picker":
 				frame.setTitle("Size Picker  | " + gameName);
+				//noinspection Duplicates
 				if (sizeX == 25 || (modifier && sizeX + 5 > 25)) {
 					bXUp.setVisible(false);
 				} else if (sizeX == 1 || (modifier && sizeX - 5 < 1) || (competitiveMode && (sizeX <= 5 || modifier && sizeX - 5 < 5))) {
@@ -582,6 +579,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					bXUp.setVisible(true);
 					bXDown.setVisible(true);
 				}
+				//noinspection Duplicates
 				if (sizeY == 25 || (modifier && sizeY + 5 > 25)) {
 					bYUp.setVisible(false);
 				} else if (sizeY == 1 || (modifier && sizeY - 5 < 1) || (competitiveMode && (sizeY <= 5 || modifier && sizeY - 5 < 5))) {
@@ -786,7 +784,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				puzzleButtons.drawAll(art);
 				break;
 		}
-		allButtons.drawButtons(mouseX, mouseY, art);
+		allButtons.drawButtons(art);
 		if (Main.FPSCounter.getMS() > 1000) {
 			Main.FPSCounter.begin();
 			fps = numFrames;
@@ -1459,7 +1457,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		}
 	}
 
-	void doSlideAction(Slider s) {
+	void doSlideAction(@SuppressWarnings("unused") Slider s) {
 
 	}
 

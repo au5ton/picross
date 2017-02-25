@@ -4,7 +4,7 @@ import java.awt.*;
 
 import static picross.Main.mainWindow;
 
-@SuppressWarnings("CanBeFinal")
+@SuppressWarnings({"CanBeFinal", "WeakerAccess"})
 class Button {
 	private int x1, y1, sizeX, sizeY;
 	private int maxFontSize;

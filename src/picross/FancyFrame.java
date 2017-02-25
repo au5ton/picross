@@ -3,6 +3,7 @@ package picross;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("WeakerAccess")
 class FancyFrame extends Frame implements MouseMotionListener, MouseListener, MouseWheelListener {
 	/**
 	 *

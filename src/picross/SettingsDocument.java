@@ -8,6 +8,7 @@ import java.util.*;
 /**
  * Created on 5/4/2016 at 7:57 PM.
  */
+@SuppressWarnings("WeakerAccess")
 public class SettingsDocument extends TextDocument {
 
 	public SettingsDocument(String path) throws IOException {

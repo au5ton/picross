@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Created on 4/12/2016 at 9:44 PM.
  */
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings("WeakerAccess")
 class TextDocument {
 	protected String locationStr;
 	protected Scanner s;

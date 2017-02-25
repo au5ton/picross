@@ -8,6 +8,7 @@ import static picross.Graphics.bSize;
 import static picross.Graphics.clueLen;
 import static picross.Main.mainWindow;
 
+@SuppressWarnings("WeakerAccess")
 class Grid {
 	public final int sizeX;
 	public final int sizeY;

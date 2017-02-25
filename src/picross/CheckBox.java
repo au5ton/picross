@@ -12,7 +12,7 @@ import static java.awt.Color.*;
 /**
  * Created on 4/12/2016 at 9:02 PM.
  */
-@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
+@SuppressWarnings({"SameParameterValue", "CanBeFinal", "WeakerAccess"})
 class CheckBox {
 	private final Color TRANSPARENT = new Color(0, 0, 0, 0);
 	private final Color HOVERING = new Color(0, 0, 0, 32);
