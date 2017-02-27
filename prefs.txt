@@ -5,4 +5,5 @@ size=9,5
 left=37
 up=38
 right=39
+gamba=71
 down=40

@@ -27,7 +27,7 @@ import static picross.Main.*;
 
 public class Graphics implements Runnable, KeyListener, WindowListener {
 
-	private static final String VERSION = "v1.4.1";
+	private static final String VERSION = "v1.4.2";
 	static int bSize;
 	private static int numFrames = 0;
 	private final int MIN_BSIZE = 14;
@@ -86,6 +86,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	private int keyRight;
 	private int keyResolve1;
 	private int keyResolve2;
+	private int keyGamba;
 	private int keyCancelAssignment = KeyEvent.VK_BACK_SPACE;
 	private String keyAssigning = null;
 	//all buttons
@@ -259,6 +260,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 			} else if (controlMode == controlKeyboard && (keyCode == keyResolve1 || keyCode == keyResolve2)) {
 				pushingSolveKey = true;
+			} else if (keyCode == keyGamba) {
+				try {
+					doClickAction(bGamba);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		} else if (keyCode != keyCancelAssignment) {
 			switch (keyAssigning) {
@@ -282,6 +289,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					break;
 				case "resolve2":
 					keyResolve2 = keyCode;
+					break;
+				case "gamba":
+					keyGamba = keyCode;
 					break;
 			}
 			updateButtons("controls");
@@ -756,7 +766,8 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				art = setFont(20f, art);
 				art.setColor(BLACK);
 				drawRightText(f, "TIME: " + Main.timer.toString(false), frame.getHeight() - 15, art);
-				userNameBox.draw(art);
+				if (competitiveMode)
+					userNameBox.draw(art);
 				if (showingPausePrompt) {
 					art = setFont(20f, art);
 					art.drawString("Press the pause button again to confirm disabling Competitive Mode", bPause.getX() + bPause.getSize().width + 15, bPause.getY() + bPause.getSize().height / 2 + 10);
@@ -1226,41 +1237,43 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 			}
 		} else if (b == bGamba) {
-			int[] goodBad = findGoodBadSquaresRemaining();
-			int numGood = goodBad[0];
-			int numBad = goodBad[1];
-			if (numGood == 0 && numBad == 0) {//prevents infinite loop on the do-while statement below
-				//ABORT ABORT ABORT
-				return;
-			}
-			double rewardConstant = 10000;
-			double rewardProportion;//should be from 0.0 to 1.0
-			if (numGood > 0) {
-				rewardProportion = (double) numBad / (double) (numGood + numBad);
-			} else {
-				rewardProportion = 0;//overrides because there is no chance of a reward when there are no good tiles left
-			}
-//	        System.out.println("rewardProportion = " + rewardProportion);
-			Box randBox;
-			do {
-				int randX = (int) (Math.random() * sizeX);
-				int randY = (int) (Math.random() * sizeY);
-				randBox = gameGrid.getBox(randX, randY);
-			} while (randBox.getState() != Box.EMPTY);
-			if (randBox.green(solutionGrid)) {
-				int winTime = (int) (- 1d * rewardConstant * rewardProportion);
-//                System.out.println("Awarded " + (-1 * winTime) + " milliseconds for a winning gamble");
-				if (timer.getMS() + winTime > 0) {
-					timer.addMS(winTime);
-				} else {
-					timer.addMS(timer.getMS() * (- 1));
+			if (status.equals("")) {
+				int[] goodBad = findGoodBadSquaresRemaining();
+				int numGood = goodBad[0];
+				int numBad = goodBad[1];
+				if (numGood == 0 && numBad == 0) {//prevents infinite loop on the do-while statement below
+					//ABORT ABORT ABORT
+					return;
 				}
-			} else {
-				int loseTime = 10000;
-				numMistakes++;
+				double rewardConstant = 10000;
+				double rewardProportion;//should be from 0.0 to 1.0
+				if (numGood > 0) {
+					rewardProportion = (double) numBad / (double) (numGood + numBad);
+				} else {
+					rewardProportion = 0;//overrides because there is no chance of a reward when there are no good tiles left
+				}
+//	        System.out.println("rewardProportion = " + rewardProportion);
+				Box randBox;
+				do {
+					int randX = (int) (Math.random() * sizeX);
+					int randY = (int) (Math.random() * sizeY);
+					randBox = gameGrid.getBox(randX, randY);
+				} while (randBox.getState() != Box.EMPTY);
+				if (randBox.green(solutionGrid)) {
+					int winTime = (int) (-1d * rewardConstant * rewardProportion);
+//                System.out.println("Awarded " + (-1 * winTime) + " milliseconds for a winning gamble");
+					if (timer.getMS() + winTime > 0) {
+						timer.addMS(winTime);
+					} else {
+						timer.addMS(timer.getMS() * (-1));
+					}
+				} else {
+					int loseTime = 10000;
+					numMistakes++;
 //                System.out.println("Punished for " + (loseTime + (numMistakes * 10000)) + " milliseconds due to a losing gamble");
-				timer.addMS(loseTime + numMistakes * 10000);
-				randBox.setCanModify(false);
+					timer.addMS(loseTime + numMistakes * 10000);
+					randBox.setCanModify(false);
+				}
 			}
 		} else if (b == bXUp) {
 			if (modifier) {
@@ -1382,8 +1395,12 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					case "resolve2":
 						keyResolve2 = KeyEvent.VK_ENTER;
 						break;
+					case "gamba":
+						keyGamba = KeyEvent.VK_G;
+						break;
 				}
 				updateButtons("controls");
+				writePrefs();
 			});
 		} else if (b == bSubmitScore) {
 			if (userNameBox.getText().length() > 0) {
@@ -1451,6 +1468,9 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 							case "resolve2":
 								b.setText(KeyEvent.getKeyText(keyResolve2));
 								break;
+							case "gamba":
+								b.setText(KeyEvent.getKeyText(keyGamba));
+								break;
 						}
 					}
 				}
@@ -1472,7 +1492,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@SuppressWarnings("SameParameterValue")
 	private Color fadeOn(int amt, int duration) {
 		duration /= 10;
-		if (numFadeFrames == duration) {
+		if (numFadeFrames >= duration) {
 			numFadeFrames = 0;
 			fadeAlpha = 0;
 			faded = true;
@@ -1495,7 +1515,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 	@SuppressWarnings("SameParameterValue")
 	private Color fadeOff(int amtInit, int duration) {
 		duration /= 10;
-		if (numFadeFrames > duration) {
+		if (numFadeFrames >= duration) {
 			numFadeFrames = 0;
 			fadeAlpha = 0;
 			faded = true;
@@ -1615,7 +1635,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		controlsButtons = new ArrayList<>();
 		controlsDescriptions = new ArrayList<>();
 		//catch-all for if prefs is not properly initialized
-		if (! (prefs.has("pauseGame") && prefs.has("up") && prefs.has("left") && prefs.has("down") && prefs.has("right") && prefs.has("resolve1") && prefs.has("resolve2"))) {
+		if (!(prefs.has("pauseGame") && prefs.has("up") && prefs.has("left") && prefs.has("down") && prefs.has("right") && prefs.has("resolve1") && prefs.has("resolve2") && prefs.has("gamba"))) {
 			try {
 				doClickAction(bRestoreControls);
 			} catch (Exception e) {
@@ -1650,6 +1670,10 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
 		controlsDescriptions.add("Secondary key to resolve the current tile");
 		keyResolve2 = Integer.parseInt(prefs.get("resolve2"));
+		//Gamba is hotkey for gamba
+		controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("gamba"))), "gamba", 20));
+		controlsDescriptions.add("Hotkey to do the gamba");
+		keyGamba = Integer.parseInt(prefs.get("gamba"));
 
 		controlsMenuButtons.addButtons(controlsButtons);
 	}
@@ -1663,6 +1687,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 		prefs.put("right", Integer.toString(keyRight));
 		prefs.put("resolve1", Integer.toString(keyResolve1));
 		prefs.put("resolve2", Integer.toString(keyResolve2));
+		prefs.put("gamba", Integer.toString(keyGamba));
 		try {
 			prefs.close();
 		} catch (IOException e) {
