@@ -943,16 +943,18 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 			case "size picker":
 				if (frame.scrollAmt != 0) {
 					if (isInBounds(bXUp.getX(), bXUp.getY() + bXUp.getSize().height, bXUp.getX() + bXUp.getSize().width, bXUp.getY() + bXUp.getSize().height + 60)) {
+						int min = competitiveMode ? 4 : 0;
 						if (modifier) {
-							sizeX -= sizeX - (5 * frame.scrollAmt) > 0 && sizeX - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
+							sizeX -= sizeX - (5 * frame.scrollAmt) > min && sizeX - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
 						} else {
-							sizeX -= sizeX - frame.scrollAmt > 0 && sizeX - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
+							sizeX -= sizeX - frame.scrollAmt > min && sizeX - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
 						}
 					} else if (isInBounds(bYUp.getX(), bYUp.getY() + bYUp.getSize().height, bYUp.getX() + bYUp.getSize().width, bYUp.getY() + bYUp.getSize().height + 60)) {
+						int min = competitiveMode ? 4 : 0;
 						if (modifier) {
-							sizeY -= sizeY - (5 * frame.scrollAmt) > 0 && sizeY - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
+							sizeY -= sizeY - (5 * frame.scrollAmt) > min && sizeY - (5 * frame.scrollAmt) <= 25 ? frame.scrollAmt * 5 : 0;
 						} else {
-							sizeY -= sizeY - frame.scrollAmt > 0 && sizeY - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
+							sizeY -= sizeY - frame.scrollAmt > min && sizeY - frame.scrollAmt <= 25 ? frame.scrollAmt : 0;
 						}
 					}
 					frame.scrollAmt = 0;
@@ -1237,7 +1239,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 				}
 			}
 		} else if (b == bGamba) {
-			if (status.equals("")) {
+			if (status.equals("") && !Main.gambaTimer.isRunning()) {
 				int[] goodBad = findGoodBadSquaresRemaining();
 				int numGood = goodBad[0];
 				int numBad = goodBad[1];
@@ -1274,6 +1276,7 @@ public class Graphics implements Runnable, KeyListener, WindowListener {
 					timer.addMS(loseTime + numMistakes * 10000);
 					randBox.setCanModify(false);
 				}
+				Main.gambaTimer.restart();
 			}
 		} else if (b == bXUp) {
 			if (modifier) {

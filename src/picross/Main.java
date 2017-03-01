@@ -18,6 +18,7 @@ class Main {
 	public static Timer animator;
 	public static Timer colorSwitcher;
 	public static Timer promptTimer;
+	public static Timer gambaTimer;
 	public static Graphics mainWindow;
 	public static SettingsDocument prefs;
 	/**
@@ -58,6 +59,9 @@ class Main {
 		new Thread(animator).start();
 		promptTimer = new Timer();
 		new Thread(promptTimer).start();
+		gambaTimer = new Timer(false, 1000);
+		gambaTimer.setDelay(100);
+		new Thread(gambaTimer).start();
 	}
 
 	public static void runSolver(String fileName) {
