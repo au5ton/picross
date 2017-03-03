@@ -19,7 +19,7 @@ class Main {
 	public static Timer colorSwitcher;
 	public static Timer promptTimer;
 	public static Timer gambaTimer;
-	public static Graphics mainWindow;
+	public static GameWindow mainWindow;
 	public static SettingsDocument prefs;
 	/**
 	 * This is used to accommodate other file systems by changing to a forward slash if that is the preferred character.
@@ -51,7 +51,7 @@ class Main {
 		new Thread(colorSwitcher).start();
 		colorSwitcher.begin();
 		Background.setTimer(colorSwitcher);
-		mainWindow = new Graphics();
+		mainWindow = new GameWindow();
 		new Thread(mainWindow).start();
 		timer = new Timer();
 		new Thread(timer).start();

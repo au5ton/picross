@@ -1,5 +1,7 @@
 package picross;
 
+import common.BetterFrame;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.*;
@@ -36,7 +38,7 @@ class CheckBox {
 	}
 
 	public void draw(int mouseX, int mouseY, Graphics2D art) {
-		FancyFrame frame = Main.mainWindow.getFrame();
+		BetterFrame frame = Main.mainWindow.getFrame();
 		art.setColor(white);
 		art.fillRect(posX, posY, size, size);
 		art.setColor(black);
@@ -47,7 +49,7 @@ class CheckBox {
 			hover();
 		} else
 			unHover();
-		if (frame.isClicking() && hovering) {
+		if (frame.clicking() && hovering) {
 			click();
 		} else if (clicking) {
 			unClick();

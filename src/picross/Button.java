@@ -129,12 +129,12 @@ class Button {
 	/**
 	 * Renders the button onto graphics.
 	 *
-	 * @param art Graphics to draw on
+	 * @param art GameWindow to draw on
 	 */
 	public void draw(Graphics2D art) {
 		int x = mainWindow.getFrame().mouseX;
 		int y = mainWindow.getFrame().mouseY;
-		if (clicking && ! mainWindow.getFrame().isClicking()) {
+		if (clicking && !mainWindow.getFrame().clicking()) {
 			if (isInBounds(x, y)) {
 				try {
 					mainWindow.doClickAction(this);
@@ -150,7 +150,7 @@ class Button {
 			hover();
 		else
 			unHover();
-		if (mainWindow.getFrame().isClicking()) {
+		if (mainWindow.getFrame().clicking()) {
 			if (mainWindow.getFrame().getMouseButton() == 1) {
 				if (isInBounds(x, y)) {
 					click();
@@ -179,7 +179,7 @@ class Button {
 	}
 
 	/**
-	 * @param art Graphics from which to derive a font
+	 * @param art GameWindow from which to derive a font
 	 * @return Returns the optimal size for button text, from 0 to maxFontSize.
 	 */
 	private float getTextSize(Graphics2D art) {

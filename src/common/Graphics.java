@@ -16,7 +16,7 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 	public BetterFrame frame;
 	public Image imgBuffer;
 	public Font f;
-	public Graphics2D art;
+	public Graphics2D graphics2D;
 
 	public Graphics() {
 		frame = new BetterFrame("Frame", new Dimension(width, height));
@@ -42,7 +42,17 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 
 	@Override
 	public void run() {
+		while (running) {
+			runActions();
+		}
+	}
 
+	protected void runActions() {
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void updateSize() {
@@ -53,18 +63,18 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 	}
 
 	public void startDraw() {
-		art = (Graphics2D) imgBuffer.getGraphics();
-		art.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		art.setFont(new Font("Arial", Font.PLAIN, 50));
-		f = art.getFont();
+		graphics2D = (Graphics2D) imgBuffer.getGraphics();
+		graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics2D.setFont(new Font("Arial", Font.PLAIN, 50));
+		f = graphics2D.getFont();
 	}
 
 	public void endDraw() {
-		art = (Graphics2D) frame.getGraphics();
-		if (art != null) {
+		graphics2D = (Graphics2D) frame.getGraphics();
+		if (graphics2D != null) {
 			imgBuffer = Resizer.PROGRESSIVE_BILINEAR.resize((BufferedImage) imgBuffer, width, height);
-			art.drawImage(imgBuffer, 0, 0, width, height, 0, 0, width, height, null);
-			art.dispose();
+			graphics2D.drawImage(imgBuffer, 0, 0, width, height, 0, 0, width, height, null);
+			graphics2D.dispose();
 		}
 	}
 
@@ -100,11 +110,11 @@ public class Graphics implements Runnable, WindowListener, WindowFocusListener {
 	}
 
 	public void setFont(Font font) {
-		art.setFont(font);
+		graphics2D.setFont(font);
 	}
 
 	public Graphics2D getGraphics() {
-		return art;
+		return graphics2D;
 	}
 
 	public Font getFont() {

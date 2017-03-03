@@ -12,6 +12,8 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 	private int mouseButton = - 1;
 	private String name;
 	private KeyInterface keyHandler;
+	private boolean hasClicked;
+	public int scrollAmt;
 
 	/**
 	 * Creates a new BetterFrame.
@@ -85,7 +87,7 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-
+		scrollAmt = e.getWheelRotation();
 	}
 
 	/**
@@ -108,5 +110,18 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 
 	public void setKeyHandler(KeyInterface kh) {
 		keyHandler = kh;
+	}
+
+	public boolean hasClicked() {
+		return hasClicked;
+	}
+
+	public void setHasClicked(boolean hasClicked) {
+		this.hasClicked = hasClicked;
+	}
+
+	@Override
+	public String getName() {
+		return name;
 	}
 }

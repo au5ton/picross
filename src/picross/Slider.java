@@ -1,5 +1,7 @@
 package picross;
 
+import common.BetterFrame;
+
 import java.awt.*;
 
 import static java.awt.Color.BLACK;
@@ -41,13 +43,13 @@ class Slider {
 	public void draw(int mouseX, int mouseY, Graphics2D art) {
 		if (isVisible) {
 			int knobPos = x + (int) ((double) sizeX * position);
-			FancyFrame frame = Main.mainWindow.getFrame();
+			BetterFrame frame = Main.mainWindow.getFrame();
 			if (mouseX > x && mouseX < x + sizeX && mouseY > y - knobRadius && mouseY < y + knobRadius) {
 				hover();
 			} else if (hovering && ! clicking) {
 				unHover();
 			}
-			if (hovering && frame.isClicking()) {
+			if (hovering && frame.clicking()) {
 				click();
 			} else if (clicking) {
 				unClick();
