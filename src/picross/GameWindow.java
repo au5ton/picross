@@ -1110,7 +1110,7 @@ public class GameWindow extends common.Graphics {
 					//ABORT ABORT ABORT
 					return;
 				}
-				double rewardConstant = 10000;
+				double rewardConstant = 3000;
 				double rewardProportion;//should be from 0.0 to 1.0
 				if (numGood > 0) {
 					rewardProportion = (double) numBad / (double) (numGood + numBad);
@@ -1139,7 +1139,8 @@ public class GameWindow extends common.Graphics {
 					timer.addMS(loseTime + numMistakes * 10000);
 					randBox.setCanModify(false);
 				}
-				Main.gambaTimer.restart();
+				if(competitiveMode)
+					Main.gambaTimer.restart();
 			}
 		} else if (b == bXUp) {
 			if (modifier) {

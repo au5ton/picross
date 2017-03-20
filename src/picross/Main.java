@@ -59,8 +59,8 @@ class Main {
 		new Thread(animator).start();
 		promptTimer = new Timer();
 		new Thread(promptTimer).start();
-		gambaTimer = new Timer(false, 1000);
-		gambaTimer.setDelay(100);
+		gambaTimer = new Timer(false, 10);
+		gambaTimer.setDelay(10);
 		new Thread(gambaTimer).start();
 	}
 

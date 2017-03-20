@@ -11,7 +11,7 @@ public class Background {
 	private static Color initialColor = new Color(128, 128, 255);
 	private static Color destinationColor = RandomColorGenerator.getOpaqueColor();
 	private static Color currentColor = initialColor;
-	private static int colorIntervalMS = 5000;
+	private static int colorIntervalMS = 30000;
 	protected static Timer timer;
 
 	public static Color getCurrentColor() {
@@ -35,7 +35,7 @@ public class Background {
 			if (equalColors(currentColor, destinationColor)) {
 				do {
 					destinationColor = RandomColorGenerator.getOpaqueColor();
-				} while (destinationColor.getRed() + destinationColor.getBlue() + destinationColor.getGreen() < 350);
+				} while (destinationColor.getRed() + destinationColor.getBlue() + destinationColor.getGreen() < 500);
 				initialColor = currentColor;
 				timer.restart();
 			}
