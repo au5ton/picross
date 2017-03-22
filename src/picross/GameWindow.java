@@ -211,7 +211,7 @@ public class GameWindow extends common.Graphics {
             try {
                 //If the first try fails, try again over http.
                 System.out.println("Trying again over HTTP...");
-                url = new URL("http://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY);
+                url = new URL("http://westonreed.com/picross/addscore.php?username=" + username + "&time=" + time + "&size=" + sizeX + "x" + sizeY + "&version=" + VERSION);
                 url.openStream();
             } catch (IOException ex) {
                 Logger.getLogger(GameWindow.class.getName()).log(Level.SEVERE, null, ex);
