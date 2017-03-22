@@ -25,7 +25,7 @@ import static picross.Main.*;
 
 public class GameWindow extends common.Graphics {
 
-    private static final String VERSION = "v1.4.2";
+    private static final String VERSION = "1.4.3";
     static int bSize;
     private static int numFrames = 0;
     private final int MIN_BSIZE = 14;
@@ -427,7 +427,7 @@ public class GameWindow extends common.Graphics {
                 graphics2D = setFont(50f, graphics2D);
                 drawCenteredText(f, "MAIN MENU", 100, graphics2D);
                 graphics2D = setFont(20f, graphics2D);
-                graphics2D.drawString(VERSION, 15, height - 15);
+                graphics2D.drawString("v" + VERSION, 15, height - 15);
                 competitiveModeToggle.draw(mouseX, mouseY, graphics2D);
                 graphics2D.setColor(black);
                 DrawingTools.drawRightText(f, "Competitive Mode", width - 35, height - 15, graphics2D);
@@ -1240,36 +1240,16 @@ public class GameWindow extends common.Graphics {
             puzzleButtons.sort();
             puzzleButtons.setVisible(true);
         } else if (b == bRestoreControls) {
-            controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> {
-                switch (((ControlsButton) b1).getLabel()) {
-                    case "pauseGame":
-                        keyPauseGame = KeyEvent.VK_ESCAPE;
-                        break;
-                    case "up":
-                        keyUp = KeyEvent.VK_UP;
-                        break;
-                    case "left":
-                        keyLeft = KeyEvent.VK_LEFT;
-                        break;
-                    case "down":
-                        keyDown = KeyEvent.VK_DOWN;
-                        break;
-                    case "right":
-                        keyRight = KeyEvent.VK_RIGHT;
-                        break;
-                    case "resolve1":
-                        keyResolve1 = KeyEvent.VK_SPACE;
-                        break;
-                    case "resolve2":
-                        keyResolve2 = KeyEvent.VK_ENTER;
-                        break;
-                    case "gamba":
-                        keyGamba = KeyEvent.VK_G;
-                        break;
-                }
-                updateButtons("controls");
-                writePrefs();
-            });
+            keyPauseGame = KeyEvent.VK_ESCAPE;
+            keyUp = KeyEvent.VK_UP;
+            keyLeft = KeyEvent.VK_LEFT;
+            keyDown = KeyEvent.VK_DOWN;
+            keyRight = KeyEvent.VK_RIGHT;
+            keyResolve1 = KeyEvent.VK_SPACE;
+            keyResolve2 = KeyEvent.VK_ENTER;
+	        keyGamba = KeyEvent.VK_G;
+            updateButtons("controls");
+            writePrefs();
         } else if (b == bSubmitScore) {
             if (userNameBox.getText().length() > 0) {
                 submitScore();
@@ -1498,46 +1478,57 @@ public class GameWindow extends common.Graphics {
         int buttonHeight = 50;
         controlsButtons = new ArrayList<>();
         controlsDescriptions = new ArrayList<>();
+        boolean newControls = false;
         //catch-all for if prefs is not properly initialized
         if (!(prefs.has("pauseGame") && prefs.has("up") && prefs.has("left") && prefs.has("down") && prefs.has("right") && prefs.has("resolve1") && prefs.has("resolve2") && prefs.has("gamba"))) {
             try {
+            	newControls = true;
+                System.out.println("Prefs not initialized! Restoring default controls: ");
                 doClickAction(bRestoreControls);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         //ESC pauses the game
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyPauseGame : Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
         controlsDescriptions.add("Pause game");
-        keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
+        if(!newControls)
+            keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
         //Up Arrow Key moves the cursor up 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("up"))), "up", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyUp : Integer.parseInt(prefs.get("up"))), "up", 20));
         controlsDescriptions.add("Move in-game cursor up");
-        keyUp = Integer.parseInt(prefs.get("up"));
+        if(!newControls)
+            keyUp = Integer.parseInt(prefs.get("up"));
         //Left Arrow Key moves the cursor left 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("left"))), "left", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyLeft : Integer.parseInt(prefs.get("left"))), "left", 20));
         controlsDescriptions.add("Move in-game cursor left");
-        keyLeft = Integer.parseInt(prefs.get("left"));
+        if(!newControls)
+            keyLeft = Integer.parseInt(prefs.get("left"));
         //Down Arrow Key moves the cursor down 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("down"))), "down", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyDown : Integer.parseInt(prefs.get("down"))), "down", 20));
         controlsDescriptions.add("Move in-game cursor down");
-        keyDown = Integer.parseInt(prefs.get("down"));
+        if(!newControls)
+            keyDown = Integer.parseInt(prefs.get("down"));
         //Right Arrow Key moves the cursor right 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("right"))), "right", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyRight : Integer.parseInt(prefs.get("right"))), "right", 20));
         controlsDescriptions.add("Move in-game cursor right");
-        keyRight = Integer.parseInt(prefs.get("right"));
+        if(!newControls)
+            keyRight = Integer.parseInt(prefs.get("right"));
         //Enter key marks a block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve1 : Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20));
         controlsDescriptions.add("Resolves the current tile");
-        keyResolve1 = Integer.parseInt(prefs.get("resolve1"));
+        if(!newControls)
+            keyResolve1 = Integer.parseInt(prefs.get("resolve1"));
         //Space also marks a block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve2 : Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
         controlsDescriptions.add("Secondary key to resolve the current tile");
-        keyResolve2 = Integer.parseInt(prefs.get("resolve2"));
+        if(!newControls)
+            keyResolve2 = Integer.parseInt(prefs.get("resolve2"));
         //Gamba is hotkey for gamba
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(Integer.parseInt(prefs.get("gamba"))), "gamba", 20));
+        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyGamba : Integer.parseInt(prefs.get("gamba"))), "gamba", 20));
         controlsDescriptions.add("Hotkey to do the gamba");
-        keyGamba = Integer.parseInt(prefs.get("gamba"));
+        if(!newControls)
+            keyGamba = Integer.parseInt(prefs.get("gamba"));
 
         controlsMenuButtons.addButtons(controlsButtons);
     }
