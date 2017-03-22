@@ -1,5 +1,9 @@
 # .gitignore
 
+# Picross Specific Stuff
+prefs.txt
+picross.iml
+
 # Java
 
 *.class
@@ -74,5 +78,5 @@ classes/
 deploy/
 javadoc/
 cwallet.sso.lck
-.idea/CSGameClient.iml
+.idea/picross.iml
 .idea/modules.xml
