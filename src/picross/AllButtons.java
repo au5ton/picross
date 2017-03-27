@@ -12,7 +12,7 @@ import java.util.List;
 @SuppressWarnings("WeakerAccess")
 public class AllButtons {
 	private List<ButtonList> buttonLists;
-	private String currWindow;
+	private PicrossWindow currWindow;
 
 	public AllButtons() {
 		buttonLists = new ArrayList<>();
@@ -23,7 +23,7 @@ public class AllButtons {
 		Collections.addAll(buttonLists, bLists);
 	}
 
-	public void setWindow(String windowName) {
+	public void setWindow(PicrossWindow windowName) {
 		currWindow = windowName;
 		for (ButtonList buttonList : buttonLists) {
 			buttonList.setVisible(buttonList.getName().equals(windowName));

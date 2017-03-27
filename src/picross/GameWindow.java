@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 import static java.awt.Color.*;
 import static picross.Main.*;
+import static picross.PicrossWindow.*;
 
 public class GameWindow extends common.Graphics {
 
@@ -51,9 +52,9 @@ public class GameWindow extends common.Graphics {
     private int fps = 0;
     private int scrollIndex = 0;
     private Scanner s;
-    private String currWindow;
-    private Stack<String> windows;
-    private String status;
+	private PicrossWindow currWindow;
+	private Stack<PicrossWindow> windows;
+	private String status;
     private String gameName = "Picross";
     //flags
     private boolean playable;
@@ -64,7 +65,8 @@ public class GameWindow extends common.Graphics {
     private boolean scoreSubmitted = false;
     private boolean competitiveMode = true;
     private boolean showingPausePrompt = false;
-    //graphics
+	private boolean showingLoginPrompt = false;
+	//graphics
     @SuppressWarnings("CanBeFinal")
     private Color bgColor = new Color(128, 128, 255);
     static int[] clueLen;
@@ -140,10 +142,11 @@ public class GameWindow extends common.Graphics {
         //important flags to determine what is displayed on screen
         playable = false;
         status = "menu";
-        currWindow = "menu";
-        windows = new Stack<>();
-        windows.push(currWindow);
-        //grab size from file
+	    currWindow = MENU;
+	    windows = new Stack<PicrossWindow>();
+	    windows.push(currWindow);
+	    showingLoginPrompt = true;
+	    //grab size from file
         if (prefs.get("size").equals("0,0") || prefs.get("size").equals("null")) {
             prefs.put("size", "10,10");
         }
@@ -232,8 +235,8 @@ public class GameWindow extends common.Graphics {
         updateSize();
         int i;
         switch (currWindow) {
-            case "game":
-                if (playable) {
+	        case GAME:
+		        if (playable) {
                     bGamba.setVisible(true);
                     bGamba.setPos(255, height - 35);
                 }
@@ -269,8 +272,8 @@ public class GameWindow extends common.Graphics {
                 }
                 if (temp) {
                     status = "solved";
-                    allButtons.setWindow("game end");
-                    playable = false;
+	                allButtons.setWindow(GAME_END);
+	                playable = false;
                     if (Main.timer != null) {
                         Main.timer.pause();
                     }
@@ -281,8 +284,8 @@ public class GameWindow extends common.Graphics {
                 //maximum mistakes
                 if (numMistakes == 5) {
                     status = "failed";
-                    allButtons.setWindow("game end");
-                    bSubmitScore.setVisible(false);
+	                allButtons.setWindow(GAME_END);
+	                bSubmitScore.setVisible(false);
                     playable = false;
                     Main.timer.pause();
                 }
@@ -313,16 +316,16 @@ public class GameWindow extends common.Graphics {
                     Main.promptTimer.reset();
                 }
                 break;
-            case "gamemode":
-                gameChoiceButtons.setVisible(true);
+	        case GAMEMODE:
+		        gameChoiceButtons.setVisible(true);
                 if (competitiveMode) {
                     bLoadPuzzle.setVisible(false);
                 }
                 bRandomPuzzle.setPos(width / 2 - 100, bRandomPuzzle.getY());
                 bLoadPuzzle.setPos(width / 2 - 100, bLoadPuzzle.getY());
                 break;
-            case "size picker":
-                frame.setMinimumSize(new Dimension(
+	        case SIZE_PICKER:
+		        frame.setMinimumSize(new Dimension(
                         getStrLen("SIZE PICKER", 50f) + bBack.getSize().width * 2 + 25,
                         100 + 50 + 10 + 50 + 60 + 250
                 ));
@@ -357,8 +360,8 @@ public class GameWindow extends common.Graphics {
                     sizeY = 5;
                 }
                 break;
-            case "menu":
-                mainMenuButtons.setVisible(true);
+	        case MENU:
+		        mainMenuButtons.setVisible(true);
                 if (f != null) {
                     frame.setMinimumSize(new Dimension(getStrLen("MAIN MENU", 50f) + 25, 550));
                 }
@@ -372,11 +375,11 @@ public class GameWindow extends common.Graphics {
                     competitiveMode = competitiveModeToggle.isChecked();
                 }
                 break;
-            case "options":
-                bBack.setVisible(true);
+	        case OPTIONS:
+		        bBack.setVisible(true);
                 break;
-            case "controls":
-                i = 0;
+	        case CONTROLS:
+		        i = 0;
                 for (Button b : controlsMenuButtons.toList()) {
                     if (b instanceof ControlsButton) {
                         b.setPos(100, 150 + (50 * i));
@@ -385,8 +388,8 @@ public class GameWindow extends common.Graphics {
                 }
                 bRestoreControls.setPos(width - 150 - 10, bRestoreControls.getY());
                 break;
-            case "load":
-                puzzleButtons.setVisible(false);
+	        case LOAD:
+		        puzzleButtons.setVisible(false);
                 for (i = scrollIndex; i < scrollIndex + (puzzleButtons.size() >= 5 ? 5 : puzzleButtons.size()); i++) {
                     Button b = puzzleButtons.get(i);
                     b.setX(50);
@@ -418,8 +421,8 @@ public class GameWindow extends common.Graphics {
     private void draw() {
         startDraw();
         switch (currWindow) {
-            case "menu":
-                frame.setTitle("Main Menu  | " + gameName);
+	        case MENU:
+		        frame.setTitle("Main Menu  | " + gameName);
                 graphics2D.setColor(bgColor);
                 //graphics2D.setColor(getRandomColor());
                 graphics2D.fillRect(0, 0, width, height);
@@ -432,22 +435,22 @@ public class GameWindow extends common.Graphics {
                 graphics2D.setColor(black);
                 DrawingTools.drawRightText(f, "Competitive Mode", width - 35, height - 15, graphics2D);
                 break;
-            case "options":
-                graphics2D.setColor(bgColor);
+	        case OPTIONS:
+		        graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
                 drawCenteredText(f, "OPTIONS", 100, graphics2D);
                 break;
-            case "gamemode":
-                graphics2D.setColor(bgColor);
+	        case GAMEMODE:
+		        graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
                 drawCenteredText(f, "CHOOSE GAMEMODE", 100, graphics2D);
                 break;
-            case "size picker":
-                frame.setTitle("Size Picker  | " + gameName);
+	        case SIZE_PICKER:
+		        frame.setTitle("Size Picker  | " + gameName);
                 //noinspection Duplicates
                 if (sizeX == 25 || (modifier && sizeX + 5 > 25)) {
                     bXUp.setVisible(false);
@@ -478,8 +481,8 @@ public class GameWindow extends common.Graphics {
                 drawCenteredText(f, Integer.toString(sizeY), bYUp.getX() + bYUp.getSize().width / 2, bYDown.getY() - 10, graphics2D);
                 graphics2D = setFont(20f, graphics2D);
                 break;
-            case "game":
-                frame.setTitle("" + Main.timer.toString(true) + "  | " + gameName);
+	        case GAME:
+		        frame.setTitle("" + Main.timer.toString(true) + "  | " + gameName);
                 graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 if (playable) {
@@ -641,8 +644,8 @@ public class GameWindow extends common.Graphics {
                     graphics2D.drawString("Press the pause button again to confirm disabling Competitive Mode", bPause.getX() + bPause.getSize().width + 15, bPause.getY() + bPause.getSize().height / 2 + 10);
                 }
                 break;
-            case "controls":
-                graphics2D.setColor(bgColor);
+	        case CONTROLS:
+		        graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(black);
                 graphics2D = setFont(50f, graphics2D);
@@ -654,8 +657,8 @@ public class GameWindow extends common.Graphics {
                     graphics2D.drawString(controlsDescriptions.get(i), 210, 150 + 50 * (i + 1) - 15);
                 }
                 break;
-            case "load":
-                graphics2D.setColor(bgColor);
+	        case LOAD:
+		        graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
@@ -746,8 +749,8 @@ public class GameWindow extends common.Graphics {
             frame.setHasClicked(false);
         }
         switch (currWindow) {
-            case "game":
-                if (controlMode == CONTROL_MOUSE) {
+	        case GAME:
+		        if (controlMode == CONTROL_MOUSE) {
                     //bound checking to prevent instant toggling of a flag
                     if (currBox != null && (mouseX - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (mouseY - clueLen[1]) / bSize < gameGrid.sizeY && mouseX > clueLen[0] + cWidth && mouseY > clueLen[1] && currBox != gameGrid.getBox((mouseX - clueLen[0] - cWidth) / bSize, (mouseY - clueLen[1]) / bSize)) {
                         currBox.setCanModify(true);
@@ -800,11 +803,11 @@ public class GameWindow extends common.Graphics {
                     userNameBox.setHasFocus(userNameBox.isInBounds(mouseX, mouseY));
                 }
                 break;
-            case "menu":
-                //no special actions for menu
+	        case MENU:
+		        //no special actions for menu
                 break;
-            case "size picker":
-                if (frame.scrollAmt != 0) {
+	        case SIZE_PICKER:
+		        if (frame.scrollAmt != 0) {
                     if (isInBounds(bXUp.getX(), bXUp.getY() + bXUp.getSize().height, bXUp.getX() + bXUp.getSize().width, bXUp.getY() + bXUp.getSize().height + 60)) {
                         int min = competitiveMode ? 4 : 0;
                         if (modifier) {
@@ -823,8 +826,8 @@ public class GameWindow extends common.Graphics {
                     frame.scrollAmt = 0;
                 }
                 break;
-            case "load":
-                if (frame.scrollAmt != 0) {
+	        case LOAD:
+		        if (frame.scrollAmt != 0) {
                     scrollIndex += (scrollIndex + frame.scrollAmt >= 0 && scrollIndex + frame.scrollAmt <= puzzleButtons.size() - 5 ? frame.scrollAmt : 0);
 
                     frame.scrollAmt = 0;
@@ -898,8 +901,8 @@ public class GameWindow extends common.Graphics {
         frame.setTitle("LOADING...");
         displayStatus("Loading custom puzzle...");
         windows.push(currWindow);
-        currWindow = "game";
-        allButtons.setWindow(currWindow);
+	    currWindow = GAME;
+	    allButtons.setWindow(currWindow);
         status = "get ready";
         bBegin.setVisible(true);
         bPause.setVisible(false);
@@ -1045,8 +1048,8 @@ public class GameWindow extends common.Graphics {
         }
         if (b == bNewPuzzle) {
             windows.push(currWindow);
-            currWindow = "gamemode";
-            allButtons.setWindow(currWindow);
+	        currWindow = GAMEMODE;
+	        allButtons.setWindow(currWindow);
             //get size from settings file
 
         } else if (b == bLeaderboard) {
@@ -1058,8 +1061,8 @@ public class GameWindow extends common.Graphics {
             }
         } else if (b == bRandomPuzzle) {
             windows.push(currWindow);
-            currWindow = "size picker";
-            allButtons.setWindow(currWindow);
+	        currWindow = SIZE_PICKER;
+	        allButtons.setWindow(currWindow);
             String size = prefs.get("size");
             sizeX = Integer.parseInt(size.substring(0, size.indexOf(',')));
             sizeY = Integer.parseInt(size.substring(size.indexOf(',') + 1));
@@ -1071,8 +1074,8 @@ public class GameWindow extends common.Graphics {
             }
         } else if (b == bResume) {
             status = "";
-            allButtons.setWindow("game");
-            bResume.setVisible(false);
+	        allButtons.setWindow(GAME);
+	        bResume.setVisible(false);
             bMainMenu2.setVisible(false);
             bPause.setVisible(true);
             bGamba.setVisible(false);
@@ -1081,8 +1084,8 @@ public class GameWindow extends common.Graphics {
             faded = false;
         } else if (b == bPause) {
             if (status.equals("") && !competitiveMode) {
-                allButtons.setWindow("pause");
-                status = "paused";
+	            allButtons.setWindow(PAUSE);
+	            status = "paused";
                 bPause.setVisible(false);
                 bGamba.setVisible(false);
                 bResume.setVisible(true);
@@ -1175,8 +1178,8 @@ public class GameWindow extends common.Graphics {
             displayStatus("Generating random puzzle...");
             b.setVisible(false);
             windows.push(currWindow);
-            currWindow = "game";
-            allButtons.setWindow(currWindow);
+	        currWindow = GAME;
+	        allButtons.setWindow(currWindow);
             status = "get ready";
             bBegin.setVisible(true);
             bPause.setVisible(false);
@@ -1192,10 +1195,10 @@ public class GameWindow extends common.Graphics {
             userNameBox.setVisible(false);
             scoreSubmitted = false;
         } else if (b == bMainMenu || b == bMainMenu2) {
-            windows = new Stack<>();
-            frame.setTitle("Main Menu  | " + gameName);
-            currWindow = "menu";
-            windows.push(currWindow);
+	        windows = new Stack<PicrossWindow>();
+	        frame.setTitle("Main Menu  | " + gameName);
+	        currWindow = MENU;
+	        windows.push(currWindow);
             allButtons.setWindow(currWindow);
             status = "menu";
             numMistakes = 0;
@@ -1218,14 +1221,14 @@ public class GameWindow extends common.Graphics {
             faded = false;
         } else if (b == bControlsMenu) {
             windows.push(currWindow);
-            currWindow = "controls";
-            allButtons.setWindow(currWindow);
+	        currWindow = CONTROLS;
+	        allButtons.setWindow(currWindow);
         } else if (b == bCreator) {
             runCreator();
         } else if (b == bLoadPuzzle) {
             windows.push(currWindow);
-            currWindow = "load";
-            allButtons.setWindow(currWindow);
+	        currWindow = LOAD;
+	        allButtons.setWindow(currWindow);
             loadMenuButtons.setVisible(true);
             //get all puzzles
             List<String> puzzleNames = getPuzzleNames();
@@ -1235,8 +1238,8 @@ public class GameWindow extends common.Graphics {
                 pButtons[i] = new Button();
                 pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
             }
-            puzzleButtons = new ButtonList("puzzles");
-            puzzleButtons.addButtons(pButtons);
+	        puzzleButtons = new ButtonList(LOAD);
+	        puzzleButtons.addButtons(pButtons);
             puzzleButtons.sort();
             puzzleButtons.setVisible(true);
         } else if (b == bRestoreControls) {
@@ -1413,8 +1416,8 @@ public class GameWindow extends common.Graphics {
     private void initButtons() {
         allButtons = new AllButtons();
 
-        mainMenuButtons = new ButtonList("menu");
-        bNewPuzzle = new Button(width / 2 - 100, 150, 200, 65, "Start Game", GREEN, 20);
+	    mainMenuButtons = new ButtonList(MENU);
+	    bNewPuzzle = new Button(width / 2 - 100, 150, 200, 65, "Start Game", GREEN, 20);
         bNewPuzzle.setVisible(true);
         bLeaderboard = new Button(width / 2 - 100, 225, 200, 65, "Leaderboard", YELLOW, 20);
         bLeaderboard.setVisible(true);
@@ -1426,51 +1429,51 @@ public class GameWindow extends common.Graphics {
         bQuitGame.setVisible(true);
         mainMenuButtons.addButtons(new Button[]{bNewPuzzle, bLeaderboard, bCreator, bControlsMenu, bQuitGame});
 
-        gameChoiceButtons = new ButtonList("gamemode");
-        bBack = new Button(10, 55, 50, 50, "<", RED, 30);
+	    gameChoiceButtons = new ButtonList(GAMEMODE);
+	    bBack = new Button(10, 55, 50, 50, "<", RED, 30);
         bRandomPuzzle = new Button(width / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20);
         bLoadPuzzle = new Button(width / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20);
         gameChoiceButtons.addButtons(new Button[]{bRandomPuzzle, bLoadPuzzle, bBack});
 
-        loadMenuButtons = new ButtonList("load");
-        loadMenuButtons.addButtons(new Button[]{bBack});
+	    loadMenuButtons = new ButtonList(LOAD);
+	    loadMenuButtons.addButtons(new Button[]{bBack});
 
-        puzzleButtons = new ButtonList("puzzles");
+	    puzzleButtons = new ButtonList(LOAD);
 
-        sizePickerButtons = new ButtonList("size picker");
-        bXUp = new Button(300, 400, 100, 50, "Λ", 30);
+	    sizePickerButtons = new ButtonList(SIZE_PICKER);
+	    bXUp = new Button(300, 400, 100, 50, "Λ", 30);
         bXDown = new Button(300, 510, 100, 50, "V", 30);
         bYUp = new Button(600, 400, 100, 50, "Λ", 30);
         bYDown = new Button(600, 510, 100, 50, "V", 30);
         bStart = new Button(width / 2 - 50, height - 100, 100, 75, "GENERATE", GREEN, 30);
         sizePickerButtons.addButtons(new Button[]{bXUp, bXDown, bYUp, bYDown, bBack, bStart});
 
-        optionsMenuButtons = new ButtonList("options");
-        optionsMenuButtons.addButtons(new Button[]{bBack});
+	    optionsMenuButtons = new ButtonList(OPTIONS);
+	    optionsMenuButtons.addButtons(new Button[]{bBack});
 
-        gameButtons = new ButtonList("game");
-        bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
+	    gameButtons = new ButtonList(GAME);
+	    bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
         bGamba = new Button(255, height - 35, 60, 25, "GAMBA", ORANGE, 17);
         gameButtons.addButtons(new Button[]{bPause, bGamba});
 
-        pauseMenuButtons = new ButtonList("pause");
-        bResume = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Resume", GREEN, 17);
+	    pauseMenuButtons = new ButtonList(PAUSE);
+	    bResume = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Resume", GREEN, 17);
         bMainMenu = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
         bMainMenu2 = new Button(width / 2, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
         bRegenPuzzle = new Button(width / 2, height / 2 + 7, 100, 43, "New Puzzle", GREEN, 17);
         bBegin = new Button(width / 2 - 100, height / 2 - 50, 200, 100, "BEGIN", GREEN, 20);
         pauseMenuButtons.addButtons(new Button[]{bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
 
-        gameEndButtons = new ButtonList("game end");
-        bSubmitScore = new Button(width / 2 - 100, height / 2 + 120, 200, 30, "Submit", GREEN, 17);
+	    gameEndButtons = new ButtonList(GAME_END);
+	    bSubmitScore = new Button(width / 2 - 100, height / 2 + 120, 200, 30, "Submit", GREEN, 17);
         gameEndButtons.addButtons(new Button[]{bMainMenu, bRegenPuzzle, bSubmitScore});
 
-        controlsMenuButtons = new ButtonList("controls");
-        bRestoreControls = new Button(width - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
+	    controlsMenuButtons = new ButtonList(CONTROLS);
+	    bRestoreControls = new Button(width - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
         controlsMenuButtons.addButtons(new Button[]{bBack, bRestoreControls});
 
         allButtons.addButtonLists(new ButtonList[]{mainMenuButtons, gameChoiceButtons, loadMenuButtons, sizePickerButtons, optionsMenuButtons, gameButtons, gameEndButtons, pauseMenuButtons, controlsMenuButtons});
-        allButtons.setWindow("menu");
+	    allButtons.setWindow(MENU);
     }
 
     private void initControls() {

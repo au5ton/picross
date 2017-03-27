@@ -11,19 +11,19 @@ import java.util.List;
 class ButtonList {
 	@SuppressWarnings("CanBeFinal")
 	private List<Button> buttons;
-	private String name;
+	private PicrossWindow name;
 
-	public ButtonList(String name) {
+	public ButtonList(PicrossWindow name) {
 		this.name = name;
 		buttons = new ArrayList<>();
 	}
 
-	public ButtonList(String name, Button b) {
+	public ButtonList(PicrossWindow name, Button b) {
 		this.name = name;
 		buttons = new ArrayList<>(Collections.singletonList(b));
 	}
 
-	public ButtonList(String name, List<Button> b) {
+	public ButtonList(PicrossWindow name, List<Button> b) {
 		this.name = name;
 		buttons = b;
 	}
@@ -64,7 +64,7 @@ class ButtonList {
 		}
 	}
 
-	public String getName() {
+	public PicrossWindow getName() {
 		return name;
 	}
 
