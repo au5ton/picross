@@ -8,6 +8,7 @@ package picross;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -43,6 +45,7 @@ public class LoginBox extends JFrame implements ActionListener {
     private JTextField user, pass;
     public String username, password;
     private JButton loginButton = new JButton("Login");
+    private JButton registerButton = new JButton("Register");
 
     public LoginBox() {
         setSize(300, 150);
@@ -83,12 +86,21 @@ public class LoginBox extends JFrame implements ActionListener {
         buttonPanel.setBackground(Color.WHITE);
         buttonPanel.setLayout(new FlowLayout());
         loginButton.addActionListener(this);
+        registerButton.addActionListener(this);
         buttonPanel.add(loginButton).setFont(new Font("Helvetica", Font.PLAIN, 16));
+        buttonPanel.add(registerButton).setFont(new Font("Helvetica", Font.PLAIN, 16));
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
     }
 
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
+        if (actionCommand.equals("Register")) {
+            try {
+                Desktop.getDesktop().browse(new URL("https://westonreed.com/picross/register.php").toURI());
+            } catch (URISyntaxException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
         if (actionCommand.equals("Login")) {
             URL url = null;
             try {
