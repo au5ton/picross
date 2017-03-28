@@ -120,7 +120,6 @@ public class GameWindow extends common.Graphics {
     private Button bLoadPuzzle;
     private Button bRestoreControls;
     public Button bGamba;
-    private Button bSubmitScore;
     //check boxes
     private CheckBox competitiveModeToggle;
 
@@ -220,7 +219,6 @@ public class GameWindow extends common.Graphics {
 
         }
         scoreSubmitted = true;
-        bSubmitScore.setVisible(false);
     }
 
     @Override
@@ -245,7 +243,6 @@ public class GameWindow extends common.Graphics {
                     bMainMenu2.setPos(width / 2, height / 2 + 7);
                     bRegenPuzzle.setPos(width / 2, height / 2 + 7);
                     bCreator.setPos(width / 2 - 100, bCreator.getY());
-                    bSubmitScore.setPos(width / 2 - 100, height / 2 + 120);
                 }
                 //get size of each box for optimal display size, takes into account clueLen and mistakes box
                 bSize = getBoxSize();
@@ -272,12 +269,14 @@ public class GameWindow extends common.Graphics {
                     if (Main.timer != null) {
                         Main.timer.pause();
                     }
+	                if (! scoreSubmitted) {
+		                submitScore();
+	                }
                 }
                 //maximum mistakes
                 if (numMistakes == 5) {
                     status = "failed";
                     allButtons.setWindow(GAME_END);
-                    bSubmitScore.setVisible(false);
                     playable = false;
                     Main.timer.pause();
                 }
@@ -580,14 +579,6 @@ public class GameWindow extends common.Graphics {
                     graphics2D = setFont(30f, graphics2D);
                     switch (status) {
                         case "solved":
-                            if (!scoreSubmitted && competitiveMode) {
-                                graphics2D.setColor(white);
-                                graphics2D.fillRect(width / 2 - 350 / 2, height / 2 + 55, 350, 100);
-                                graphics2D.setColor(black);
-                                graphics2D.drawRect(width / 2 - 350 / 2, height / 2 + 55, 350, 100);
-                            } else {
-                                bSubmitScore.setVisible(false);
-                            }
                             graphics2D.setColor(Color.black);
                             graphics2D = setFont(20f, graphics2D);
                             graphics2D.setColor(GREEN);
@@ -1174,8 +1165,8 @@ public class GameWindow extends common.Graphics {
             Main.timer.reset();
             scoreSubmitted = false;
         } else if (b == bMainMenu || b == bMainMenu2) {
-            windows = new Stack<PicrossWindow>();
-            frame.setTitle("Main Menu  | " + gameName);
+	        windows = new Stack<>();
+	        frame.setTitle("Main Menu  | " + gameName);
             currWindow = MENU;
             windows.push(currWindow);
             allButtons.setWindow(currWindow);
@@ -1231,8 +1222,6 @@ public class GameWindow extends common.Graphics {
             keyGamba = KeyEvent.VK_G;
             updateButtons("controls");
             writePrefs();
-        } else if (b == bSubmitScore) {
-            submitScore();
         } else if (b instanceof ControlsButton) {
             HashMap<String, Button> controlsButtons = new HashMap<>();
             controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> controlsButtons.put(((ControlsButton) b1).getLabel(), b1));
@@ -1441,8 +1430,7 @@ public class GameWindow extends common.Graphics {
         pauseMenuButtons.addButtons(new Button[]{bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
 
         gameEndButtons = new ButtonList(GAME_END);
-        bSubmitScore = new Button(width / 2 - 100, height / 2 + 120, 200, 30, "Submit", GREEN, 17);
-        gameEndButtons.addButtons(new Button[]{bMainMenu, bRegenPuzzle, bSubmitScore});
+	    gameEndButtons.addButtons(new Button[] {bMainMenu, bRegenPuzzle});
 
         controlsMenuButtons = new ButtonList(CONTROLS);
         bRestoreControls = new Button(width - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
