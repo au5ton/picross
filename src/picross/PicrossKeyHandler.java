@@ -95,13 +95,10 @@ public class PicrossKeyHandler implements KeyInterface {
 			keyAssigning = null;
 			mainWindow.updateButtons("controls");
 		}
-		if (keyChar == 'd' && !mainWindow.userNameBox.hasFocus()) {
+		if (keyChar == 'd') {
 			mainWindow.debugging = true;
 		}
-		if (mainWindow.userNameBox.hasFocus()) {
-			mainWindow.userNameBox.handleKey(e);
-		}
-		if (keyCode == KeyEvent.VK_ENTER && mainWindow.userNameBox.getText().length() > 0 && mainWindow.userNameBox.hasFocus()) {
+		if (keyCode == KeyEvent.VK_ENTER) {
 			mainWindow.submitScore();
 		}
 	}
