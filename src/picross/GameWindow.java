@@ -65,7 +65,6 @@ public class GameWindow extends common.Graphics {
     private boolean scoreSubmitted = false;
     private boolean competitiveMode = true;
     private boolean showingPausePrompt = false;
-    private boolean showingLoginPrompt = false;
     //graphics
     @SuppressWarnings("CanBeFinal")
     private Color bgColor = new Color(128, 128, 255);
@@ -83,8 +82,6 @@ public class GameWindow extends common.Graphics {
     public int keyResolve1;
     public int keyResolve2;
     public int keyGamba;
-    public int keyCancelAssignment = KeyEvent.VK_BACK_SPACE;
-    public String keyAssigning = null;
     //all buttons
     private AllButtons allButtons;
     //button categories
@@ -128,11 +125,11 @@ public class GameWindow extends common.Graphics {
         if (Math.random() < 0.01) {
             gameName = "Pillsbury";
         }
-        PicrossKeyHandler keyHandler = new PicrossKeyHandler();
         FPSCounter.begin();
         //initialize frame & basic flags
         frame.setSize(800, 600);
-        frame.setKeyHandler(keyHandler);
+	    PicrossKeyHandler keyHandler = new PicrossKeyHandler();
+	    frame.setKeyHandler(keyHandler);
         //basic window flags
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/icon.png"));
         setVisible(true);
@@ -140,9 +137,8 @@ public class GameWindow extends common.Graphics {
         playable = false;
         status = "menu";
         currWindow = MENU;
-        windows = new Stack<PicrossWindow>();
-        windows.push(currWindow);
-        showingLoginPrompt = true;
+	    windows = new Stack<>();
+	    windows.push(currWindow);
         //grab size from file
         if (prefs.get("size").equals("0,0") || prefs.get("size").equals("null")) {
             prefs.put("size", "10,10");
@@ -1223,15 +1219,20 @@ public class GameWindow extends common.Graphics {
             updateButtons("controls");
             writePrefs();
         } else if (b instanceof ControlsButton) {
-            HashMap<String, Button> controlsButtons = new HashMap<>();
-            controlsMenuButtons.toList().stream().filter(b1 -> b1 instanceof ControlsButton).forEach(b1 -> controlsButtons.put(((ControlsButton) b1).getLabel(), b1));
-            if (keyAssigning != null) {
+	        PicrossKeyHandler pkh = (PicrossKeyHandler) frame.getKeyHandler();
+	        HashMap<String, Button> controlsButtons = new HashMap<>();
+	        for (Button b1 : controlsMenuButtons.toList()) {
+		        if (b1 instanceof ControlsButton) {
+			        controlsButtons.put(((ControlsButton) b1).getLabel(), b1);
+		        }
+	        }
+	        if (pkh.getKeyAssigning() != null) {
                 //return previously assigning button's key to normal
                 updateButtons("controls");
             }
-            keyAssigning = ((ControlsButton) b).getLabel();
-            b.setText("Press a key");
-            System.out.println("Assigning a key to label " + keyAssigning);
+	        pkh.setKeyAssigning(((ControlsButton) b).getLabel());
+	        b.setText("Press a key");
+	        System.out.println("Assigning a key to label " + pkh.getKeyAssigning());
         } else {
             for (int i = 0; i < puzzleButtons.size(); i++) {
                 if (b == puzzleButtons.get(i)) {

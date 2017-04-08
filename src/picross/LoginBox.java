@@ -46,12 +46,13 @@ public class LoginBox extends JFrame implements ActionListener {
     public String username, password;
     private JButton loginButton = new JButton("Login");
     private JButton registerButton = new JButton("Register");
+	private JButton closeButton = new JButton("Skip");
 
     public LoginBox() {
         setSize(300, 150);
         setTitle("Leaderboard Login");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//removes the window but does not kill the game
+	    setResizable(false);
         getRootPane().setDefaultButton(loginButton);
         setLocationRelativeTo(null);
         getRootPane().setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Color.WHITE));

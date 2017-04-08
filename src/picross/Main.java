@@ -21,7 +21,7 @@ class Main {
 	public static Timer gambaTimer;
 	public static GameWindow mainWindow;
 	public static SettingsDocument prefs;
-        public static LoginBox lb = new LoginBox();
+	public static LoginBox lb = new LoginBox();
 	/**
 	 * This is used to accommodate other file systems by changing to a forward slash if that is the preferred character.
 	 */
@@ -63,8 +63,7 @@ class Main {
 		gambaTimer = new Timer(false, 10);
 		gambaTimer.setDelay(10);
 		new Thread(gambaTimer).start();
-                
-                lb.setVisible(true);
+		lb.setVisible(true);
 	}
 
 	public static void runSolver(String fileName) {

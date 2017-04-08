@@ -11,6 +11,7 @@ import static picross.Main.mainWindow;
  */
 public class PicrossKeyHandler implements KeyInterface {
 	private String keyAssigning;
+	private final int keyCancelAssignment = KeyEvent.VK_BACK_SPACE;
 
 	public PicrossKeyHandler() {
 
@@ -62,7 +63,7 @@ public class PicrossKeyHandler implements KeyInterface {
 					e1.printStackTrace();
 				}
 			}
-		} else if (keyCode != mainWindow.keyCancelAssignment) {
+		} else if (keyCode != keyCancelAssignment) {
 			switch (keyAssigning) {
 				case "pauseGame":
 					mainWindow.keyPauseGame = keyCode;
@@ -113,5 +114,13 @@ public class PicrossKeyHandler implements KeyInterface {
 		} else if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) {
 			mainWindow.pushingSolveKey = false;
 		}
+	}
+
+	public void setKeyAssigning(String keyAssigning) {
+		this.keyAssigning = keyAssigning;
+	}
+
+	public String getKeyAssigning() {
+		return keyAssigning;
 	}
 }

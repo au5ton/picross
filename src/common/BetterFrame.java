@@ -108,6 +108,10 @@ public class BetterFrame extends Frame implements MouseListener, MouseMotionList
 		return mouseButton;
 	}
 
+	public KeyInterface getKeyHandler() {
+		return keyHandler;
+	}
+
 	public void setKeyHandler(KeyInterface kh) {
 		keyHandler = kh;
 	}
