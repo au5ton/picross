@@ -420,8 +420,8 @@ public class GameWindow extends common.Graphics {
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "MAIN MENU", 100, graphics2D);
-                graphics2D = setFont(20f, graphics2D);
+	            DrawingTools.drawCenteredText(f, "MAIN MENU", width / 2, 100, graphics2D);
+	            graphics2D = setFont(20f, graphics2D);
                 graphics2D.drawString("v" + VERSION, 15, height - 15);
                 competitiveModeToggle.draw(mouseX, mouseY, graphics2D);
                 graphics2D.setColor(black);
@@ -432,15 +432,15 @@ public class GameWindow extends common.Graphics {
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "OPTIONS", 100, graphics2D);
-                break;
+	            DrawingTools.drawCenteredText(f, "OPTIONS", width / 2, 100, graphics2D);
+	            break;
             case GAMEMODE:
                 graphics2D.setColor(bgColor);
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "CHOOSE GAMEMODE", 100, graphics2D);
-                break;
+	            DrawingTools.drawCenteredText(f, "CHOOSE GAMEMODE", width / 2, 100, graphics2D);
+	            break;
             case SIZE_PICKER:
                 frame.setTitle("Size Picker  | " + gameName);
                 //noinspection Duplicates
@@ -466,12 +466,12 @@ public class GameWindow extends common.Graphics {
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "SIZE PICKER", 100, graphics2D);
-                drawCenteredText(f, "X", bXUp.getX() + bXUp.getSize().width / 2, bXUp.getY() - 10, graphics2D);
-                drawCenteredText(f, "Y", bYUp.getX() + bYUp.getSize().width / 2, bYUp.getY() - 10, graphics2D);
-                drawCenteredText(f, Integer.toString(sizeX), bXUp.getX() + bXUp.getSize().width / 2, bXDown.getY() - 10, graphics2D);
-                drawCenteredText(f, Integer.toString(sizeY), bYUp.getX() + bYUp.getSize().width / 2, bYDown.getY() - 10, graphics2D);
-                graphics2D = setFont(20f, graphics2D);
+	            DrawingTools.drawCenteredText(f, "SIZE PICKER", width / 2, 100, graphics2D);
+	            DrawingTools.drawCenteredText(f, "X", bXUp.getX() + bXUp.getSize().width / 2, bXUp.getY() - 10, graphics2D);
+	            DrawingTools.drawCenteredText(f, "Y", bYUp.getX() + bYUp.getSize().width / 2, bYUp.getY() - 10, graphics2D);
+	            DrawingTools.drawCenteredText(f, Integer.toString(sizeX), bXUp.getX() + bXUp.getSize().width / 2, bXDown.getY() - 10, graphics2D);
+	            DrawingTools.drawCenteredText(f, Integer.toString(sizeY), bYUp.getX() + bYUp.getSize().width / 2, bYDown.getY() - 10, graphics2D);
+	            graphics2D = setFont(20f, graphics2D);
                 break;
             case GAME:
                 frame.setTitle("" + Main.timer.toString(true) + "  | " + gameName);
@@ -597,7 +597,7 @@ public class GameWindow extends common.Graphics {
                             break;
                         case "paused":
                             if (Main.animator.getMS() % 1000 <= 500) {
-                                drawCenteredText(f, "PAUSED", height / 2 - 10, graphics2D);
+	                            DrawingTools.drawCenteredText(f, "PAUSED", width / 2, height / 2 - 10, graphics2D);
                             }
                             bResume.draw(graphics2D);
                             bMainMenu.draw(graphics2D);
@@ -607,16 +607,16 @@ public class GameWindow extends common.Graphics {
                         bBegin.draw(graphics2D);
                     }
                     graphics2D = setFont(30f, graphics2D);
-                    drawCenteredText(f, showText, height / 2 - 10, graphics2D);
-                    graphics2D.setColor(BLACK);
+	                DrawingTools.drawCenteredText(f, showText, width / 2, height / 2 - 10, graphics2D);
+	                graphics2D.setColor(BLACK);
                     //if(!status.equals("get ready") && !status.equals("paused"))
                     //graphics2D.drawString("TIME:" + Main.timer.toString(), width / 2 - 45, height / 2 - 12);
                 }
                 //render mistakes/timer
                 graphics2D = setFont(20f, graphics2D);
                 graphics2D.setColor(BLACK);
-                drawRightText(f, "TIME: " + Main.timer.toString(false), height - 15, graphics2D);
-                if (showingPausePrompt) {
+	            DrawingTools.drawRightText(f, "TIME: " + Main.timer.toString(false), width / 2, height - 15, graphics2D);
+	            if (showingPausePrompt) {
                     graphics2D = setFont(20f, graphics2D);
                     graphics2D.drawString("Press the pause button again to confirm disabling Competitive Mode", bPause.getX() + bPause.getSize().width + 15, bPause.getY() + bPause.getSize().height / 2 + 10);
                 }
@@ -626,8 +626,8 @@ public class GameWindow extends common.Graphics {
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(black);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "CONTROLS", 100, graphics2D);
-                graphics2D.drawRect(100, 150, width - 200, height - 250);
+	            DrawingTools.drawCenteredText(f, "CONTROLS", width / 2, 100, graphics2D);
+	            graphics2D.drawRect(100, 150, width - 200, height - 250);
                 frame.setMinimumSize(new Dimension(100 + 100 + 10 + getMaxStrLen(controlsDescriptions, 25f) + 100, 150 + (50 * (controlsMenuButtons.size() - 2)) + 100));
                 graphics2D = setFont(25f, graphics2D);
                 for (int i = 0; i < controlsDescriptions.size(); i++) {
@@ -639,8 +639,8 @@ public class GameWindow extends common.Graphics {
                 graphics2D.fillRect(0, 0, width, height);
                 graphics2D.setColor(BLACK);
                 graphics2D = setFont(50f, graphics2D);
-                drawCenteredText(f, "LOAD A PUZZLE", 100, graphics2D);
-                loadMenuButtons.drawAll(graphics2D);
+	            DrawingTools.drawCenteredText(f, "LOAD A PUZZLE", width / 2, 100, graphics2D);
+	            loadMenuButtons.drawAll(graphics2D);
                 puzzleButtons.drawAll(graphics2D);
                 break;
         }
@@ -951,64 +951,6 @@ public class GameWindow extends common.Graphics {
         if (clueLen[1] < 130) {
             clueLen[1] = 130;
         }
-    }
-
-    /**
-     * Prints a string in the center of the frame.
-     *
-     * @param f font, analyzed to center text exactly
-     * @param s string to print
-     * @param y number of pixels from top of canvas where the *bottom* of the
-     * string should go
-     * @param art canvas to paint final string
-     */
-    private void drawCenteredText(Font f, String s, int y, Graphics2D art) {
-        int len = art.getFontMetrics(f).stringWidth(s);
-        art.drawString(s, width / 2 - len / 2, y);
-    }
-
-    /**
-     * Prints a string centered at (mouseX, mouseY).
-     *
-     * @param f font, analyzed to center text exactly
-     * @param s string to print
-     * @param x mouseX-value of the center in pixels
-     * @param y number of pixels from top of canvas where the *bottom* of the
-     * string should go
-     * @param art canvas to paint final string
-     */
-    void drawCenteredText(Font f, String s, int x, int y, Graphics2D art) {
-        int len = art.getFontMetrics(f).stringWidth(s);
-        art.drawString(s, x - len / 2, y);
-    }
-
-    /**
-     * Prints a string aligned to the right of the frame.
-     *
-     * @param f font, analyzed to find leftmost pixel of printed text
-     * @param s string to print
-     * @param y number of pixels from top of canvas where the *bottom* of the
-     * string should go
-     * @param art canvas to paint final string
-     */
-    private void drawRightText(Font f, String s, int y, Graphics2D art) {
-        int len = art.getFontMetrics(f).stringWidth(s);
-        art.drawString(s, width - len - 10, y);
-    }
-
-    /**
-     * Prints a string right-aligned to the point (mouseX, mouseY).
-     *
-     * @param f font, analyzed to find leftmost pixel of printed text
-     * @param s string to print
-     * @param x mouseX-value of the string end in pixels
-     * @param y number of pixels from top of canvas where the *bottom* of the
-     * string should go
-     * @param art canvas to paint final string
-     */
-    void drawRightText(Font f, String s, int x, int y, Graphics2D art) {
-        int len = art.getFontMetrics(f).stringWidth(s);
-        art.drawString(s, x - len - 10, y);
     }
 
     /**
@@ -1543,8 +1485,8 @@ public class GameWindow extends common.Graphics {
         art.fillRect(0, 0, width, height);
         art.setColor(black);
         art = setFont(50f, art);
-        drawCenteredText(f, message, height / 2 + 25, art);
-        art = (Graphics2D) frame.getGraphics();
+	    DrawingTools.drawCenteredText(f, message, width / 2, height / 2 + 25, art);
+	    art = (Graphics2D) frame.getGraphics();
         if (art != null) {
             art.drawImage(imgBuffer, 0, 0, width, height, 0, 0, width, height, null);
             art.dispose();
@@ -1558,8 +1500,8 @@ public class GameWindow extends common.Graphics {
         f = art.getFont();
         art.setColor(black);
         art = setFont(50f, art);
-        drawCenteredText(f, message, height / 2 + 25, art);
-        art = (Graphics2D) frame.getGraphics();
+	    DrawingTools.drawCenteredText(f, message, width / 2, height / 2 + 25, art);
+	    art = (Graphics2D) frame.getGraphics();
         if (art != null) {
             art.drawImage(imgBuffer, 0, 0, width, height, 0, 0, width, height, null);
             art.dispose();

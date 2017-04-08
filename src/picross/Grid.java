@@ -1,12 +1,13 @@
 package picross;
 
+import common.DrawingTools;
+
 import java.awt.*;
 import java.util.List;
 
 import static java.awt.Color.*;
 import static picross.GameWindow.bSize;
 import static picross.GameWindow.clueLen;
-import static picross.Main.mainWindow;
 
 @SuppressWarnings("WeakerAccess")
 class Grid {
@@ -85,14 +86,14 @@ class Grid {
 		art.setFont(art.getFont().deriveFont(12f));
 		if (type == 0) {
 			String s = cluesX[x].toString();
-			mainWindow.drawRightText(art.getFont(), s, clueLen[0] + cWidth, clueLen[1] + x * bSize + bSize / 2 + 6, art);
+			DrawingTools.drawRightText(art.getFont(), s, clueLen[0] + cWidth, clueLen[1] + x * bSize + bSize / 2 + 6, art);
 			//graphics2D.drawString(s, 20, GameWindow.clueLen[1] + x * GameWindow.bSize + GameWindow.bSize / 2);
 		} else {
 			List<Integer> values = cluesY[x].getValues();
 			int begin = (clueLen[1] - values.size() * 12);
 			for (int i = 0; i < values.size(); i++) {
 				String s = Integer.toString(values.get(i));
-				mainWindow.drawCenteredText(art.getFont(), s, clueLen[0] + x * bSize + bSize / 2 + cWidth, begin + (12 * i), art);
+				DrawingTools.drawCenteredText(art.getFont(), s, clueLen[0] + x * bSize + bSize / 2 + cWidth, begin + (12 * i), art);
 				//graphics2D.drawString(s, GameWindow.clueLen[0] + x * GameWindow.bSize + GameWindow.bSize/ 2, 50 + (12 * i));
 			}
 		}

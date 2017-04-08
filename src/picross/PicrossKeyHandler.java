@@ -32,12 +32,12 @@ public class PicrossKeyHandler implements KeyInterface {
 				}
 			} else if (keyCode == mainWindow.keyUp || keyCode == mainWindow.keyDown || keyCode == mainWindow.keyLeft || keyCode == mainWindow.keyRight) {
 				//enter keyboard mode
-				if (mainWindow.controlMode == mainWindow.CONTROL_MOUSE) {
+				if (mainWindow.controlMode == ControlMode.MOUSE) {
 					mainWindow.savedMouseX = mainWindow.mouseX;
 					mainWindow.savedMouseY = mainWindow.mouseY;
 					mainWindow.kbX = mainWindow.currBox == null ? 0 : mainWindow.currBox.getPos()[0];
 					mainWindow.kbY = mainWindow.currBox == null ? 0 : mainWindow.currBox.getPos()[1];
-					mainWindow.controlMode = mainWindow.CONTROL_KEYBOARD;
+					mainWindow.controlMode = ControlMode.KEYBOARD;
 					System.out.println("Entering keyboard control mode");
 				} else {
 					if (keyCode == mainWindow.keyUp && mainWindow.kbY > 0) {
@@ -54,7 +54,7 @@ public class PicrossKeyHandler implements KeyInterface {
 					}
 //				System.out.println("Keyboard X pos: " + kbX + ", Y pos: " + kbY);
 				}
-			} else if (mainWindow.controlMode == mainWindow.CONTROL_KEYBOARD && (keyCode == mainWindow.keyResolve1 || keyCode == mainWindow.keyResolve2)) {
+			} else if (mainWindow.controlMode == ControlMode.KEYBOARD && (keyCode == mainWindow.keyResolve1 || keyCode == mainWindow.keyResolve2)) {
 				mainWindow.pushingSolveKey = true;
 			} else if (keyCode == mainWindow.keyGamba) {
 				try {
