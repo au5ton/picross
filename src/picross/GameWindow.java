@@ -2,9 +2,7 @@ package picross;
 
 import common.Background;
 import common.DrawingTools;
-import common.TextEntryBox;
 
-import java.awt.Color;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
