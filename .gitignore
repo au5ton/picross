@@ -80,3 +80,8 @@ javadoc/
 cwallet.sso.lck
 .idea/picross.iml
 .idea/modules.xml
+/.idea/
+/.idea/.workspace.xml.swp
+/.idea/modules.xml
+/.idea/uiDesigner.xml
+/.idea/workspace.xml
