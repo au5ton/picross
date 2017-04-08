@@ -61,6 +61,7 @@ public class GameWindow extends common.Graphics {
     private boolean scoreSubmitted = false;
     private boolean competitiveMode = true;
     private boolean showingPausePrompt = false;
+	private boolean loginSuccessful = false;
 	//endregion
 	//graphics
 	private Color bgColor = new Color(128, 128, 255);
@@ -152,8 +153,8 @@ public class GameWindow extends common.Graphics {
         displayStatus("Creating buttons...");
         initButtons();
         initControls();
-        competitiveModeToggle = new CheckBox(width - 35, height - 35, 25, true);
-        displayStatus("Setting up graphics...");
+	    competitiveModeToggle = new CheckBox(width - 35, height - 35, 25, false);
+	    displayStatus("Setting up graphics...");
     }
 
 	//region unused
@@ -394,6 +395,15 @@ public class GameWindow extends common.Graphics {
                 }
                 break;
         }
+	    if (! loginSuccessful) {
+		    if (Main.lb.username != null) {
+			    loginSuccessful = true;
+			    competitiveModeToggle.setChecked(true);
+		    }
+		    if (competitiveModeToggle.isChecked()) {
+			    competitiveModeToggle.setChecked(false);
+		    }
+	    }
         mouseX = frame.mouseX;
         mouseY = frame.mouseY;
         mouseActions();

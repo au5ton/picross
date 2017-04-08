@@ -37,14 +37,14 @@ class CheckBox {
 		checked = isChecked;
 	}
 
-	public void draw(int mouseX, int mouseY, Graphics2D art) {
+	public void draw(int mouseX, int mouseY, Graphics2D graphics2D) {
 		BetterFrame frame = Main.mainWindow.getFrame();
-		art.setColor(white);
-		art.fillRect(posX, posY, size, size);
-		art.setColor(black);
-		art.drawRect(posX, posY, size, size);
-		art.setColor(coverColor);
-		art.fillRect(posX, posY, size, size);
+		graphics2D.setColor(white);
+		graphics2D.fillRect(posX, posY, size, size);
+		graphics2D.setColor(black);
+		graphics2D.drawRect(posX, posY, size, size);
+		graphics2D.setColor(coverColor);
+		graphics2D.fillRect(posX, posY, size, size);
 		if (mouseX > posX && mouseX < posX + size && mouseY > posY && mouseY < posY + size) {
 			hover();
 		} else
@@ -64,11 +64,11 @@ class CheckBox {
 				e.printStackTrace();
 			}
 			if (checkMark != null)
-				art.drawImage(checkMark, posX, posY, size, size, (img, infoflags, x, y, width, height) -> false);
+				graphics2D.drawImage(checkMark, posX, posY, size, size, (img, infoflags, x, y, width, height) -> false);
 			else {
 				int border = size / 6;
-				art.setColor(BLACK);
-				art.fillRect(posX + border, posY + border, size - 2 * border + 1, size - 2 * border + 1);
+				graphics2D.setColor(BLACK);
+				graphics2D.fillRect(posX + border, posY + border, size - 2 * border + 1, size - 2 * border + 1);
 			}
 		}
 	}
