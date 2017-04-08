@@ -36,9 +36,9 @@ class ButtonList {
 		buttons.add(b);
 	}
 
-	public void drawAll(Graphics2D art) {
+	public void drawAll(Graphics2D graphics2D) {
 		for (Button b : buttons) {
-			b.draw(art);
+			b.draw(graphics2D);
 		}
 	}
 

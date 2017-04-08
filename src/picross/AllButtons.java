@@ -30,10 +30,10 @@ public class AllButtons {
 		}
 	}
 
-	public void drawButtons(Graphics2D art) {
+	public void drawButtons(Graphics2D graphics2D) {
 		for (ButtonList buttonList : buttonLists) {
 			if (buttonList.getName().equals(currWindow)) {
-				buttonList.drawAll(art);
+				buttonList.drawAll(graphics2D);
 			}
 		}
 	}

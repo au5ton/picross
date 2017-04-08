@@ -1149,8 +1149,8 @@ public class GameWindow extends common.Graphics {
             scrollIndex = 0;
             Button[] pButtons = new Button[getNumPuzzles()];
             for (int i = 0; i < getNumPuzzles(); i++) {
-                pButtons[i] = new Button();
-                pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
+	            pButtons[i] = new Button(this);
+	            pButtons[i].setText(puzzleNames.get(i).substring(0, puzzleNames.get(i).length() - 4));
             }
             puzzleButtons = new ButtonList(LOAD);
             puzzleButtons.addButtons(pButtons);
@@ -1333,23 +1333,23 @@ public class GameWindow extends common.Graphics {
         allButtons = new AllButtons();
 
         mainMenuButtons = new ButtonList(MENU);
-        bNewPuzzle = new Button(width / 2 - 100, 150, 200, 65, "Start Game", GREEN, 20);
-        bNewPuzzle.setVisible(true);
-        bLeaderboard = new Button(width / 2 - 100, 225, 200, 65, "Leaderboard", YELLOW, 20);
-        bLeaderboard.setVisible(true);
-        bCreator = new Button(width / 2 - 100, 300, 200, 65, "Creator", new Color(255, 140, 0), 20);
-        bCreator.setVisible(true);
-        bControlsMenu = new Button(width / 2 - 100, 375, 200, 65, "Controls", new Color(0, 50, 255), 20);
-        bControlsMenu.setVisible(true);
-        bQuitGame = new Button(width / 2 - 100, 450, 200, 65, "Quit Game", RED, 20);
-        bQuitGame.setVisible(true);
+	    bNewPuzzle = new Button(width / 2 - 100, 150, 200, 65, "Start Game", GREEN, 20, this);
+	    bNewPuzzle.setVisible(true);
+	    bLeaderboard = new Button(width / 2 - 100, 225, 200, 65, "Leaderboard", YELLOW, 20, this);
+	    bLeaderboard.setVisible(true);
+	    bCreator = new Button(width / 2 - 100, 300, 200, 65, "Creator", new Color(255, 140, 0), 20, this);
+	    bCreator.setVisible(true);
+	    bControlsMenu = new Button(width / 2 - 100, 375, 200, 65, "Controls", new Color(0, 50, 255), 20, this);
+	    bControlsMenu.setVisible(true);
+	    bQuitGame = new Button(width / 2 - 100, 450, 200, 65, "Quit Game", RED, 20, this);
+	    bQuitGame.setVisible(true);
         mainMenuButtons.addButtons(new Button[]{bNewPuzzle, bLeaderboard, bCreator, bControlsMenu, bQuitGame});
 
         gameChoiceButtons = new ButtonList(GAMEMODE);
-        bBack = new Button(10, 55, 50, 50, "<", RED, 30);
-        bRandomPuzzle = new Button(width / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20);
-        bLoadPuzzle = new Button(width / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20);
-        gameChoiceButtons.addButtons(new Button[]{bRandomPuzzle, bLoadPuzzle, bBack});
+	    bBack = new Button(10, 55, 50, 50, "<", RED, 30, this);
+	    bRandomPuzzle = new Button(width / 2 - 100, 150, 200, 100, "Random Puzzle", GREEN, 20, this);
+	    bLoadPuzzle = new Button(width / 2 - 100, 275, 200, 100, "Load Puzzle", YELLOW, 20, this);
+	    gameChoiceButtons.addButtons(new Button[]{bRandomPuzzle, bLoadPuzzle, bBack});
 
         loadMenuButtons = new ButtonList(LOAD);
         loadMenuButtons.addButtons(new Button[]{bBack});
@@ -1357,35 +1357,35 @@ public class GameWindow extends common.Graphics {
         puzzleButtons = new ButtonList(LOAD);
 
         sizePickerButtons = new ButtonList(SIZE_PICKER);
-        bXUp = new Button(300, 400, 100, 50, "Λ", 30);
-        bXDown = new Button(300, 510, 100, 50, "V", 30);
-        bYUp = new Button(600, 400, 100, 50, "Λ", 30);
-        bYDown = new Button(600, 510, 100, 50, "V", 30);
-        bStart = new Button(width / 2 - 50, height - 100, 100, 75, "GENERATE", GREEN, 30);
-        sizePickerButtons.addButtons(new Button[]{bXUp, bXDown, bYUp, bYDown, bBack, bStart});
+	    bXUp = new Button(300, 400, 100, 50, "Λ", 30, this);
+	    bXDown = new Button(300, 510, 100, 50, "V", 30, this);
+	    bYUp = new Button(600, 400, 100, 50, "Λ", 30, this);
+	    bYDown = new Button(600, 510, 100, 50, "V", 30, this);
+	    bStart = new Button(width / 2 - 50, height - 100, 100, 75, "GENERATE", GREEN, 30, this);
+	    sizePickerButtons.addButtons(new Button[]{bXUp, bXDown, bYUp, bYDown, bBack, bStart});
 
         optionsMenuButtons = new ButtonList(OPTIONS);
         optionsMenuButtons.addButtons(new Button[]{bBack});
 
         gameButtons = new ButtonList(GAME);
-        bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17);
-        bGamba = new Button(255, height - 35, 60, 25, "GAMBA", ORANGE, 17);
-        gameButtons.addButtons(new Button[]{bPause, bGamba});
+	    bPause = new Button(20, 50, 60, 60, "Pause", YELLOW, 17, this);
+	    bGamba = new Button(255, height - 35, 60, 25, "GAMBA", ORANGE, 17, this);
+	    gameButtons.addButtons(new Button[]{bPause, bGamba});
 
         pauseMenuButtons = new ButtonList(PAUSE);
-        bResume = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Resume", GREEN, 17);
-        bMainMenu = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
-        bMainMenu2 = new Button(width / 2, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17);
-        bRegenPuzzle = new Button(width / 2, height / 2 + 7, 100, 43, "New Puzzle", GREEN, 17);
-        bBegin = new Button(width / 2 - 100, height / 2 - 50, 200, 100, "BEGIN", GREEN, 20);
-        pauseMenuButtons.addButtons(new Button[]{bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
+	    bResume = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Resume", GREEN, 17, this);
+	    bMainMenu = new Button(width / 2 - 100, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17, this);
+	    bMainMenu2 = new Button(width / 2, height / 2 + 7, 100, 43, "Main Menu", bgColor, 17, this);
+	    bRegenPuzzle = new Button(width / 2, height / 2 + 7, 100, 43, "New Puzzle", GREEN, 17, this);
+	    bBegin = new Button(width / 2 - 100, height / 2 - 50, 200, 100, "BEGIN", GREEN, 20, this);
+	    pauseMenuButtons.addButtons(new Button[]{bResume/*, bMainMenu*/, bMainMenu2/*, bRegenPuzzle*//*, bBegin*/});
 
         gameEndButtons = new ButtonList(GAME_END);
 	    gameEndButtons.addButtons(new Button[] {bMainMenu, bRegenPuzzle});
 
         controlsMenuButtons = new ButtonList(CONTROLS);
-        bRestoreControls = new Button(width - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20);
-        controlsMenuButtons.addButtons(new Button[]{bBack, bRestoreControls});
+	    bRestoreControls = new Button(width - 150 - 10, 55, 150, 50, "Restore Defaults", YELLOW, 20, this);
+	    controlsMenuButtons.addButtons(new Button[]{bBack, bRestoreControls});
 
         allButtons.addButtonLists(new ButtonList[]{mainMenuButtons, gameChoiceButtons, loadMenuButtons, sizePickerButtons, optionsMenuButtons, gameButtons, gameEndButtons, pauseMenuButtons, controlsMenuButtons});
         allButtons.setWindow(MENU);
@@ -1408,50 +1408,50 @@ public class GameWindow extends common.Graphics {
             }
         }
         //ESC pauses the game
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyPauseGame : Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20));
-        controlsDescriptions.add("Pause game");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyPauseGame : Integer.parseInt(prefs.get("pauseGame"))), "pauseGame", 20, this));
+	    controlsDescriptions.add("Pause game");
         if (!newControls) {
             keyPauseGame = Integer.parseInt(prefs.get("pauseGame"));
         }
         //Up Arrow Key moves the cursor up 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyUp : Integer.parseInt(prefs.get("up"))), "up", 20));
-        controlsDescriptions.add("Move in-game cursor up");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyUp : Integer.parseInt(prefs.get("up"))), "up", 20, this));
+	    controlsDescriptions.add("Move in-game cursor up");
         if (!newControls) {
             keyUp = Integer.parseInt(prefs.get("up"));
         }
         //Left Arrow Key moves the cursor left 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyLeft : Integer.parseInt(prefs.get("left"))), "left", 20));
-        controlsDescriptions.add("Move in-game cursor left");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyLeft : Integer.parseInt(prefs.get("left"))), "left", 20, this));
+	    controlsDescriptions.add("Move in-game cursor left");
         if (!newControls) {
             keyLeft = Integer.parseInt(prefs.get("left"));
         }
         //Down Arrow Key moves the cursor down 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyDown : Integer.parseInt(prefs.get("down"))), "down", 20));
-        controlsDescriptions.add("Move in-game cursor down");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyDown : Integer.parseInt(prefs.get("down"))), "down", 20, this));
+	    controlsDescriptions.add("Move in-game cursor down");
         if (!newControls) {
             keyDown = Integer.parseInt(prefs.get("down"));
         }
         //Right Arrow Key moves the cursor right 1 block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyRight : Integer.parseInt(prefs.get("right"))), "right", 20));
-        controlsDescriptions.add("Move in-game cursor right");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyRight : Integer.parseInt(prefs.get("right"))), "right", 20, this));
+	    controlsDescriptions.add("Move in-game cursor right");
         if (!newControls) {
             keyRight = Integer.parseInt(prefs.get("right"));
         }
         //Enter key marks a block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve1 : Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20));
-        controlsDescriptions.add("Resolves the current tile");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve1 : Integer.parseInt(prefs.get("resolve1"))), "resolve1", 20, this));
+	    controlsDescriptions.add("Resolves the current tile");
         if (!newControls) {
             keyResolve1 = Integer.parseInt(prefs.get("resolve1"));
         }
         //Space also marks a block
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve2 : Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20));
-        controlsDescriptions.add("Secondary key to resolve the current tile");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyResolve2 : Integer.parseInt(prefs.get("resolve2"))), "resolve2", 20, this));
+	    controlsDescriptions.add("Secondary key to resolve the current tile");
         if (!newControls) {
             keyResolve2 = Integer.parseInt(prefs.get("resolve2"));
         }
         //Gamba is hotkey for gamba
-        controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyGamba : Integer.parseInt(prefs.get("gamba"))), "gamba", 20));
-        controlsDescriptions.add("Hotkey to do the gamba");
+	    controlsButtons.add(new ControlsButton(0, 0, buttonWidth, buttonHeight, KeyEvent.getKeyText(newControls ? keyGamba : Integer.parseInt(prefs.get("gamba"))), "gamba", 20, this));
+	    controlsDescriptions.add("Hotkey to do the gamba");
         if (!newControls) {
             keyGamba = Integer.parseInt(prefs.get("gamba"));
         }

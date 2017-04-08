@@ -1,5 +1,6 @@
 package picross;
 
+import common.Graphics;
 import java.awt.*;
 
 /**
@@ -9,22 +10,22 @@ import java.awt.*;
 public class ControlsButton extends Button {
 	private String label;
 
-	public ControlsButton() {
-		super();
+	public ControlsButton(Graphics g) {
+		super(g);
 	}
 
-	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label) {
-		super(x, y, sizeX, sizeY, text);
+	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label, Graphics g) {
+		super(x, y, sizeX, sizeY, text, g);
 		this.label = label;
 	}
 
-	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label, int maxFontSize) {
-		super(x, y, sizeX, sizeY, text, maxFontSize);
+	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label, int maxFontSize, Graphics g) {
+		super(x, y, sizeX, sizeY, text, maxFontSize, g);
 		this.label = label;
 	}
 
-	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label, Color bgColor) {
-		super(x, y, sizeX, sizeY, text, bgColor);
+	public ControlsButton(int x, int y, int sizeX, int sizeY, String text, String label, Color bgColor, Graphics g) {
+		super(x, y, sizeX, sizeY, text, bgColor, g);
 		this.label = label;
 	}
 

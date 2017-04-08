@@ -1,5 +1,7 @@
 package picross;
 
+import common.Graphics;
+
 import java.awt.*;
 
 import static picross.Main.mainWindow;
@@ -19,17 +21,19 @@ class Button {
 	private String text;
 	private Font font;
 	private FontMetrics fontInfo;
+	private Graphics parentGraphics;
 
-	public Button() {
+	public Button(Graphics g) {
 		clicking = false;
 		baseColor = Color.WHITE;
 		coverColor = new Color(0, 0, 0, 0);
 		isVisible = false;
 		canClick = true;
 		maxFontSize = 50;
+		parentGraphics = g;
 	}
 
-	public Button(int x, int y, int size_x, int size_y, String text) {
+	public Button(int x, int y, int size_x, int size_y, String text, Graphics g) {
 		x1 = x;
 		y1 = y;
 		sizeX = size_x;
@@ -40,10 +44,11 @@ class Button {
 		coverColor = new Color(0, 0, 0, 0);
 		isVisible = false;
 		canClick = true;
+		parentGraphics = g;
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	public Button(int x, int y, int size_x, int size_y, String text, int maxFontSize) {
+	public Button(int x, int y, int size_x, int size_y, String text, int maxFontSize, Graphics g) {
 		x1 = x;
 		y1 = y;
 		sizeX = size_x;
@@ -55,9 +60,10 @@ class Button {
 		isVisible = false;
 		canClick = true;
 		this.maxFontSize = maxFontSize;
+		parentGraphics = g;
 	}
 
-	public Button(int x, int y, int size_x, int size_y, String text, Color bColor) {
+	public Button(int x, int y, int size_x, int size_y, String text, Color bColor, Graphics g) {
 		x1 = x;
 		y1 = y;
 		sizeX = size_x;
@@ -68,6 +74,7 @@ class Button {
 		coverColor = new Color(0, 0, 0, 0);
 		isVisible = false;
 		canClick = true;
+		parentGraphics = g;
 	}
 
 	/**
@@ -81,7 +88,7 @@ class Button {
 	 * @param bColor      Color of the button (optional, default is white)
 	 * @param maxFontSize Maximum size of text (optional but can improve readability of the button)
 	 */
-	public Button(int x, int y, int size_x, int size_y, String text, Color bColor, int maxFontSize) {
+	public Button(int x, int y, int size_x, int size_y, String text, Color bColor, int maxFontSize, Graphics g) {
 		x1 = x;
 		y1 = y;
 		sizeX = size_x;
@@ -93,6 +100,7 @@ class Button {
 		isVisible = false;
 		canClick = true;
 		this.maxFontSize = maxFontSize;
+		parentGraphics = g;
 	}
 
 	private void hover() {
@@ -129,11 +137,11 @@ class Button {
 	/**
 	 * Renders the button onto graphics.
 	 *
-	 * @param art GameWindow to draw on
+	 * @param graphics2D GameWindow to draw on
 	 */
-	public void draw(Graphics2D art) {
-		int x = mainWindow.getFrame().mouseX;
-		int y = mainWindow.getFrame().mouseY;
+	public void draw(Graphics2D graphics2D) {
+		int x = parentGraphics.getFrame().mouseX;
+		int y = parentGraphics.getFrame().mouseY;
 		if (clicking && !mainWindow.getFrame().clicking()) {
 			if (isInBounds(x, y)) {
 				try {
@@ -159,22 +167,22 @@ class Button {
 		} else {
 			canClick = true;
 		}
-		font = art.getFont().deriveFont(sizeY);
-		fontInfo = art.getFontMetrics(font);
-		float textSize = getTextSize(art);
-		font = art.getFont().deriveFont(textSize);
-		fontInfo = art.getFontMetrics(font);
+		font = graphics2D.getFont().deriveFont(sizeY);
+		fontInfo = graphics2D.getFontMetrics(font);
+		float textSize = getTextSize(graphics2D);
+		font = graphics2D.getFont().deriveFont(textSize);
+		fontInfo = graphics2D.getFontMetrics(font);
 		if (isVisible) {
-			art.setFont(font);
-			art.setColor(baseColor);
-			art.fillRect(x1, y1, sizeX, sizeY);
-			art.setColor(coverColor);
-			art.fillRect(x1, y1, sizeX, sizeY);
-			art.setColor(borderColor);
-			art.drawRect(x1, y1, sizeX, sizeY);
-			art.setColor(Color.black);
-			art.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text) / 2), y1 + (sizeY / 2 + textSize / 3));
-			art.setFont(art.getFont().deriveFont(12f));
+			graphics2D.setFont(font);
+			graphics2D.setColor(baseColor);
+			graphics2D.fillRect(x1, y1, sizeX, sizeY);
+			graphics2D.setColor(coverColor);
+			graphics2D.fillRect(x1, y1, sizeX, sizeY);
+			graphics2D.setColor(borderColor);
+			graphics2D.drawRect(x1, y1, sizeX, sizeY);
+			graphics2D.setColor(Color.black);
+			graphics2D.drawString(text, x1 + (sizeX / 2 - fontInfo.stringWidth(text) / 2), y1 + (sizeY / 2 + textSize / 3));
+			graphics2D.setFont(graphics2D.getFont().deriveFont(12f));
 		}
 	}
 
