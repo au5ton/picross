@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="bgusolver">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/jar/bgusolver.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
