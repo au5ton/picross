@@ -24,12 +24,10 @@ import static picross.PicrossWindow.*;
 
 public class GameWindow extends common.Graphics {
 
-    private static final String VERSION = "1.5";
-    static int bSize;
+	private static final String VERSION = "1.5.1";
+	static int bSize;
     private static int numFrames = 0;
     private final int MIN_BSIZE = 14;
-    public final int CONTROL_MOUSE = 0;
-    public final int CONTROL_KEYBOARD = 1;
     //base components
     private Grid gameGrid;
     private Grid solutionGrid;
@@ -40,8 +38,8 @@ public class GameWindow extends common.Graphics {
     public int savedMouseY;
     public int kbX;
     public int kbY;
-    public int controlMode;
-    private int numMistakes;
+	public ControlMode controlMode;
+	private int numMistakes;
     private int numFadeFrames = 0;//counts frames for fading effect
     private int fadeAlpha;
     private int cWidth;
@@ -54,8 +52,8 @@ public class GameWindow extends common.Graphics {
     private Stack<PicrossWindow> windows;
     private String status;
     private String gameName = "Picross";
-    //flags
-    private boolean playable;
+	//region flags
+	private boolean playable;
     private boolean faded = false;
     public boolean modifier = false;
     public boolean debugging = false;
@@ -63,16 +61,17 @@ public class GameWindow extends common.Graphics {
     private boolean scoreSubmitted = false;
     private boolean competitiveMode = true;
     private boolean showingPausePrompt = false;
-    //graphics
-    @SuppressWarnings("CanBeFinal")
-    private Color bgColor = new Color(128, 128, 255);
+	//endregion
+	//graphics
+	private Color bgColor = new Color(128, 128, 255);
     static int[] clueLen;
     private Font f;
-    //controls menu elements
-    private List<Button> controlsButtons;
+	//region controls menu elements
+	private List<Button> controlsButtons;
     private List<String> controlsDescriptions;
-    //key assignments
-    public int keyPauseGame;
+	//endregion
+	//region key binds
+	public int keyPauseGame;
     public int keyUp;
     public int keyLeft;
     public int keyDown;
@@ -80,10 +79,10 @@ public class GameWindow extends common.Graphics {
     public int keyResolve1;
     public int keyResolve2;
     public int keyGamba;
-    //all buttons
-    private AllButtons allButtons;
-    //button categories
-    private ButtonList mainMenuButtons;
+	//endregion
+	private AllButtons allButtons;
+	//region button categories
+	private ButtonList mainMenuButtons;
     private ButtonList gameChoiceButtons;
     private ButtonList loadMenuButtons;
     private ButtonList sizePickerButtons;
@@ -93,8 +92,9 @@ public class GameWindow extends common.Graphics {
     private ButtonList controlsMenuButtons;
     private ButtonList gameEndButtons;
     private ButtonList puzzleButtons;//load screen entries (puzzles to choose from)
-    //buttons
-    public Button bPause;
+	//endregion
+	//region buttons
+	public Button bPause;
     private Button bResume;
     private Button bNewPuzzle;
     private Button bLeaderboard;
@@ -115,13 +115,15 @@ public class GameWindow extends common.Graphics {
     private Button bLoadPuzzle;
     private Button bRestoreControls;
     public Button bGamba;
-    //check boxes
-    private CheckBox competitiveModeToggle;
+	//endregion
+	//region check boxes
+	private CheckBox competitiveModeToggle;
+	//endregion
 
     public GameWindow() {
         super("Loading...");
-        if (Math.random() < 0.01) {
-            gameName = "Pillsbury";
+	    if (Math.random() < 0.05) {
+		    gameName = "Pillsbury";
         }
         FPSCounter.begin();
         //initialize frame & basic flags
@@ -154,10 +156,12 @@ public class GameWindow extends common.Graphics {
         displayStatus("Setting up graphics...");
     }
 
-    @Override
-    public void windowActivated(WindowEvent arg0) {
+	//region unused
+	@Override
+	public void windowActivated(WindowEvent arg0) {
 
-    }
+	}
+	//endregion
 
     @Override
     public void windowClosing(WindowEvent arg0) {
@@ -179,17 +183,22 @@ public class GameWindow extends common.Graphics {
         }
     }
 
-    @Override
-    public void windowDeiconified(WindowEvent arg0) {
-    }
+	//region unused
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+
+	}
 
     @Override
     public void windowIconified(WindowEvent arg0) {
+
     }
 
     @Override
     public void windowOpened(WindowEvent arg0) {
+
     }
+	//endregion
 
     public void submitScore() {
         String username = Main.lb.username;
@@ -285,12 +294,12 @@ public class GameWindow extends common.Graphics {
                 } else if (!status.equals("paused") && Main.animator.isRunning()) {
                     Main.animator.reset();
                 }
-                if (controlMode == CONTROL_KEYBOARD) {
-                    int mouseDiffX = Math.abs(mouseX - savedMouseX);
+	            if (controlMode == ControlMode.KEYBOARD) {
+		            int mouseDiffX = Math.abs(mouseX - savedMouseX);
                     int mouseDiffY = Math.abs(mouseY - savedMouseY);
                     if (mouseDiffX > 10 || mouseDiffY > 10) {
-                        controlMode = CONTROL_MOUSE;
-                        System.out.println("Entering mouse control mode");
+	                    controlMode = ControlMode.MOUSE;
+	                    System.out.println("Entering mouse control mode");
                     }
                 }
                 int promptDelay = 5;
@@ -488,7 +497,7 @@ public class GameWindow extends common.Graphics {
                             graphics2D.setColor(new Color(0, 0, 0, 64));
                             graphics2D.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
                             //} else if(playable && ((i == (mouseX - clueLen[0] - cWidth) / bSize && mouseX > clueLen[0] + cWidth) || (j == (mouseY - clueLen[1]) / bSize && mouseY > clueLen[1]))) {
-                        } else if (controlMode == CONTROL_KEYBOARD) {
+                        } else if (controlMode == ControlMode.KEYBOARD) {
                             if (playable && currBox != null && (i == currBox.getPos()[0] || j == currBox.getPos()[1])) {
                                 graphics2D.setColor(new Color(0, 0, 0, 32));
                                 graphics2D.fillRect(clueLen[0] + i * bSize + cWidth, clueLen[1] + j * bSize, bSize, bSize);
@@ -718,8 +727,8 @@ public class GameWindow extends common.Graphics {
         }
         switch (currWindow) {
             case GAME:
-                if (controlMode == CONTROL_MOUSE) {
-                    //bound checking to prevent instant toggling of a flag
+	            if (controlMode == ControlMode.MOUSE) {
+		            //bound checking to prevent instant toggling of a flag
                     if (currBox != null && (mouseX - clueLen[0] - cWidth) / bSize < gameGrid.sizeX && (mouseY - clueLen[1]) / bSize < gameGrid.sizeY && mouseX > clueLen[0] + cWidth && mouseY > clueLen[1] && currBox != gameGrid.getBox((mouseX - clueLen[0] - cWidth) / bSize, (mouseY - clueLen[1]) / bSize)) {
                         currBox.setCanModify(true);
                     }
@@ -755,8 +764,8 @@ public class GameWindow extends common.Graphics {
                             currBox.setCanModify(true);
                         }
                     }
-                } else if (controlMode == CONTROL_KEYBOARD) {
-                    currBox = gameGrid.getBox(kbX, kbY);
+	            } else if (controlMode == ControlMode.KEYBOARD) {
+		            currBox = gameGrid.getBox(kbX, kbY);
                     if (pushingSolveKey && currBox.canModify()) {
                         if (!modifier && !currBox.green(solutionGrid)) {
                             numMistakes++;
@@ -1293,9 +1302,11 @@ public class GameWindow extends common.Graphics {
         }
     }
 
-    void doSlideAction(@SuppressWarnings("unused") Slider s) {
+	//region unused
+	void doSlideAction(@SuppressWarnings("unused") Slider s) {
 
-    }
+	}
+	//endregion
 
     /**
      * Returns a color that slowly darkens to amt.
@@ -1351,7 +1362,6 @@ public class GameWindow extends common.Graphics {
      * @return Returns whether the mouse's current positions falls within the
      * defined bounds.
      */
-    //@Contract (pure = true)
     private boolean isInBounds(int x1, int y1, int x2, int y2) {
         return (mouseX > x1) && (mouseX < x2) && (mouseY > y1) && (mouseY < y2);
     }
