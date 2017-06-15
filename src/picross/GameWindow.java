@@ -273,7 +273,7 @@ public class GameWindow extends common.Graphics {
                     if (Main.timer != null) {
                         Main.timer.pause();
                     }
-	                if (! scoreSubmitted) {
+	                if (! scoreSubmitted && competitiveMode) {
 		                submitScore();
 	                }
                 }
