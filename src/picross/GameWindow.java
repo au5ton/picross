@@ -38,7 +38,7 @@ public class GameWindow extends common.Graphics {
     public int savedMouseY;
     public int kbX;
     public int kbY;
-	public ControlMode controlMode;
+	public ControlMode controlMode = ControlMode.MOUSE;
 	private int numMistakes;
     private int numFadeFrames = 0;//counts frames for fading effect
     private int fadeAlpha;
@@ -625,7 +625,7 @@ public class GameWindow extends common.Graphics {
                 //render mistakes/timer
                 graphics2D = setFont(20f, graphics2D);
                 graphics2D.setColor(BLACK);
-	            DrawingTools.drawRightText(f, "TIME: " + Main.timer.toString(false), width / 2, height - 15, graphics2D);
+	            DrawingTools.drawRightText(f, "TIME: " + Main.timer.toString(false), width, height - 15, graphics2D);
 	            if (showingPausePrompt) {
                     graphics2D = setFont(20f, graphics2D);
                     graphics2D.drawString("Press the pause button again to confirm disabling Competitive Mode", bPause.getX() + bPause.getSize().width + 15, bPause.getY() + bPause.getSize().height / 2 + 10);
