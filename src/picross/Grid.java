@@ -68,7 +68,7 @@ class Grid {
 				break;
 			case 3:
 				graphics2D.setColor(RED);
-				graphics2D.fillRect(clueLen[0] + x * bSize + cWidth, //draw red background
+				graphics2D.fillRect(clueLen[0] + x * bSize + cWidth, //draw red background, but how can the background be red if our eyes aren't red?
 						clueLen[1] + y * bSize,
 						bSize,
 						bSize);
