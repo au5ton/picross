@@ -9,6 +9,8 @@ import static java.awt.Color.*;
 import static picross.GameWindow.bSize;
 import static picross.GameWindow.clueLen;
 
+// This is spaghetti code
+
 @SuppressWarnings("WeakerAccess")
 class Grid {
 	public final int sizeX;
